@@ -60,10 +60,10 @@ The skills live in `.claude/skills/`. Claude Code and GitHub Copilot (VS Code ag
 
 The team fills this in once the stack is chosen. Keep it short and exact.
 
-- Product: TODO
-- Track: TODO (code / mockup / concept)
-- Stack: TODO
-- Install: `TODO`
-- Run: `TODO`
-- Test: `TODO`
-- Folder structure: TODO
+- Product: HourRadar
+- Track: Working code
+- Stack: Laravel 13, Inertia.js (React), SQLite, Pest PHP, Dedoc Scramble, Laravel AI SDK / SSE
+- Install: `composer install && npm install && cp .env.example .env && php artisan key:generate && php artisan migrate:fresh --seed`
+- Run: `php artisan serve` and `npm run dev` (or via Laravel Herd: `http://hourradar.test`)
+- Test: `php artisan test`
+- Folder structure: Standard Laravel with `app/Domain/`, `app/Http/Controllers/`, `app/Models/`, `resources/js/` (Inertia React)
