@@ -1,69 +1,99 @@
-<!-- ===== TEMPLATE NOTE: delete this block once your team has started ===== -->
-> **Article26 Hackathon 2026 · Team template**
->
-> This repository is your starting point. It contains **no code and no required technology**, only guidance:
->
-> 1. **Start here:** read the [Build Guide](docs/guide.md) and the [challenge](docs/challenge.md).
-> 2. Fill in [docs/product-vision.md](docs/product-vision.md) together.
-> 3. Keep this README up to date as you build. The technical jury starts your product **from this README alone** ([how they check](docs/scoring.md#run-check-for-the-juror)).
->
-> Using an AI coding agent (GitHub Copilot, Claude Code, Cursor …)? It reads [AGENTS.md](AGENTS.md) and the skills in `.claude/skills/` automatically. In GitHub Copilot Chat (agent mode) or Claude Code, type `/kickoff` to begin, or `/hackathon-review` at any time.
->
-> Looking for an example? The `blueprint` branch contains a small Next.js + PostgreSQL app from an earlier edition. It is one possible approach, not a requirement.
-<!-- ===== END OF TEMPLATE NOTE ===== -->
+# HourRadar
 
-# TODO Product name
+> **Every hour you buy, in view.**
+> Real-time time booking, predictive budget runway forecasting, and automated German ArbZG legal compliance for external project delivery.
 
-TODO – one sentence: what the product does and for whom. Link to [product vision](docs/product-vision.md).
+Read our complete [Product Vision](docs/product-vision.md) and [Architecture Decision Record (ADR 0001)](docs/adr/0001-laravel-inertia-react-stack.md).
+
+---
 
 ## Prerequisites
 
-Exact tools and versions the jury must have installed. Example:
+| Tool | Required Version | Verification Command |
+| --- | --- | --- |
+| **PHP** | 8.3+ | `php -v` |
+| **Composer** | 2.x+ | `composer -v` |
+| **Node.js** | 20.x+ | `node -v` |
+| **npm** | 10.x+ | `npm -v` |
 
-| Tool | Version | Check |
-|---|---|---|
-| TODO (e.g. Node.js) | TODO (e.g. 22.x) | `TODO (e.g. node --version)` |
+*(If using [Laravel Herd](https://herd.laravel.com), PHP, Composer, and local domains are pre-configured out-of-the-box).*
+
+---
 
 ## Setup
 
-Exact commands, in order, from a fresh clone. Example:
+Run these commands in order from a fresh repository clone:
 
 ```bash
-TODO   # e.g. cp .env.example .env
-TODO   # e.g. npm ci
+# 1. Install dependencies
+composer install
+npm install
+
+# 2. Configure environment
+cp .env.example .env
+php artisan key:generate
+
+# 3. Migrate and seed demo database (SQLite - zero config required)
+php artisan migrate:fresh --seed
 ```
+
+---
 
 ## Run
 
+Start the application servers:
+
 ```bash
-TODO   # the command that starts the application
+# Option A: Standard local servers
+php artisan serve
+npm run dev
+
+# Option B: With Laravel Herd (instant local URL)
+# Visit: http://hourradar.test (after running: npm run dev)
 ```
 
-Open TODO (e.g. http://localhost:3000).
+Open your browser at **[http://localhost:8000](http://localhost:8000)** (or `http://hourradar.test`).
+
+---
 
 ## Test
 
+Run all automated unit and feature tests:
+
 ```bash
-TODO   # one command that runs all tests
+php artisan test
 ```
 
-## Demo users
+---
 
-| Role | Sign in with | What to try |
-|---|---|---|
-| TODO | TODO | TODO |
+## Demo Users
 
-## Evidence map
+The database seed provides one ready-to-test demo user for each key role:
 
-Where the technical jury finds the evidence for each [technical criterion](docs/scoring.md).
+| Role | Sign In Email | Password | What to Try |
+| --- | --- | --- | --- |
+| **External Consultant** | `consultant@example.com` | `password` | Book hours against assigned order `4500012345`. Test ArbZG § 3 validation by booking $>10$ hours (see rejection). Add a planned vacation block. Chat with the streaming AI assistant. |
+| **Client Project Lead** | `projectlead@example.com` | `password` | Review active Purchase Orders with the Runway traffic light. Approve or reject pending bookings in 1 click and observe the remaining budget and forecast dates recalculate in real-time. |
+| **Purchasing / Finance** | `purchasing@example.com` | `password` | Inspect portfolio orders and observe the 4-week procurement lead time re-order alert banner. |
 
-| Criterion | Evidence |
+---
+
+## Evidence Map
+
+Where the technical jury can inspect the evidence for each [technical scoring criterion](docs/scoring.md):
+
+| Criterion | Implementation Evidence |
+| --- | --- |
+| **1 · Persistence and data model** | [database/migrations/2026_10_30_000001_create_hourradar_core_tables.php](database/migrations/2026_10_30_000001_create_hourradar_core_tables.php), [app/Models/](app/Models/), [docs/domain.md](docs/domain.md) |
+| **2 · Business rules and unit tests** | [app/Domain/TimeTracking/Rules/ArbzgDailyLimitRule.php](app/Domain/TimeTracking/Rules/ArbzgDailyLimitRule.php), [app/Domain/TimeTracking/Rules/ConsultantAssignedToOrderRule.php](app/Domain/TimeTracking/Rules/ConsultantAssignedToOrderRule.php), [app/Domain/Budget/Services/RunwayForecastService.php](app/Domain/Budget/Services/RunwayForecastService.php), [tests/Unit/Domain/](tests/Unit/Domain/) |
+| **3 · Roles, permissions and privacy** | [docs/roles-and-privacy.md](docs/roles-and-privacy.md), server-side checks in [app/Http/Controllers/TimeBookingController.php](app/Http/Controllers/TimeBookingController.php), multi-role UI routing in [app/Http/Controllers/DashboardController.php](app/Http/Controllers/DashboardController.php) |
+| **4 · Architecture and engineering** | • Clean Domain separation (`app/Domain/`)<br>• Required ADRs in [docs/adr/](docs/adr/): [0001 (Stack)](docs/adr/0001-laravel-inertia-react-stack.md), [0002 (Identity)](docs/adr/0002-identity-and-access-management.md), [0003 (Operation)](docs/adr/0003-operation-and-deployment-strategy.md)<br>• Clean Git commit history<br>• Streaming RAG chatbot with mock switch ([app/Http/Controllers/ChatbotController.php](app/Http/Controllers/ChatbotController.php)) |
+| **5 · Runs from README** | Complete step-by-step instructions above; SQLite zero-config persistence. |
+
+---
+
+## Team — Sprint Force
+
+| Name | GitHub Handle |
 |---|---|
-| 1 · Persistence and data model | TODO – schema / migrations, [ER diagram](docs/domain.md) |
-| 2 · Business rules and unit tests | TODO – domain rule files, test folder |
-| 3 · Roles, permissions and privacy | [Permission concept](docs/roles-and-privacy.md), TODO – mockup views / enforcement code |
-| 4 · Architecture and engineering | TODO – A structure · B [ADRs](docs/adr/) · C Git history · D API docs · E compose file · F [mockup](docs/mockup/) |
-
-## Team
-
-TODO – names and GitHub handles.
+| [Your Name] | [@github-handle](https://github.com/your-handle) |
