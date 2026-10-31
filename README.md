@@ -98,3 +98,4 @@ Where the technical jury can inspect the evidence for each [technical scoring cr
 | --- | --- |
 | [RADEEYA WUNTIA] | [@RADEEYA-WUNTIA](https://github.com/RADEEYA-WUNTIA) |
 | [SUMAILA MOHAMMED SUADIK] | [@msumaila775-rgb](https://github.com/msumaila775-rgb) |
+| [Fosuhene Samuel] | [@da-real-alpha](https://github.com/da-real-alpha) |
