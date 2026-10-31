@@ -96,4 +96,4 @@ Where the technical jury can inspect the evidence for each [technical scoring cr
 
 | Name | GitHub Handle |
 |---|---|
-| [Your Name] | [@github-handle](https://github.com/your-handle) |
+| [RADEEYA WUNTIA] | [@RADEEYA-WUNTIA](https://github.com/RADEEYA-WUNTIA) |
