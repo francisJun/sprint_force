@@ -6,9 +6,10 @@
 
 ## Context
 
-A large enterprise deploying **HourRadar** must navigate stringent data protection policies (German BDSG, EU GDPR, works council agreements) regarding employee time tracking and procurement financial data. 
+A large enterprise deploying **HourRadar** must navigate stringent data protection policies (German BDSG, EU GDPR, works council agreements) regarding employee time tracking and procurement financial data.
 
 The deployment model must support:
+
 - **Instant local evaluation** by the hackathon jury without Docker or external servers.
 - **On-premise / Private Cloud deployment** inside the client company's VPC (e.g. AWS Europe, OpenShift, Kubernetes) to keep timesheet data on-premise.
 - **Horizontal scalability** during month-end invoice processing and bulk timesheet submissions across thousands of external contractors.
@@ -42,10 +43,11 @@ We design a **two-tier operational strategy**:
 ## Consequences
 
 ### Positive
+
 - **Zero-Friction Evaluation**: Jurors run the entire product on their laptops without Docker or cloud accounts.
 - **Client Sovereignty**: Allows clients to run HourRadar within their own private cloud or corporate datacenter.
 - **Elastic Performance**: Decoupled architecture allows web traffic and heavy background calculations (runway simulations, ArbZG checks) to scale independently.
 
 ### Negative / Trade-offs
-- Migrating from SQLite to PostgreSQL in production requires maintaining database migration compatibility (avoiding SQLite-specific SQL dialects).
 
+- Migrating from SQLite to PostgreSQL in production requires maintaining database migration compatibility (avoiding SQLite-specific SQL dialects).

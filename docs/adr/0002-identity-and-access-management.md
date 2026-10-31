@@ -6,9 +6,10 @@
 
 ## Context
 
-**HourRadar** handles sensitive corporate financial data (purchase orders, consultant rates, budget burn rates) as well as personal consultant time logs. 
+**HourRadar** handles sensitive corporate financial data (purchase orders, consultant rates, budget burn rates) as well as personal consultant time logs.
 
 Our application serves two distinct groups of users across corporate boundaries:
+
 1. **Internal Client Staff** (Client Project Leads, Purchasing / Finance Managers): Corporate employees who require Single Sign-On (SSO) integrated with the company's central Identity Provider (IdP) such as Microsoft Entra ID (Azure AD), Okta, or Google Workspace.
 2. **External Service Providers** (Consultants, Suppliers): External contractors who often do not possess internal corporate directory accounts and need lightweight, secure, and modern authentication without burdensome VPN prerequisites.
 
@@ -40,10 +41,11 @@ We adopt a **hybrid multi-tenant authentication architecture**:
 ## Consequences
 
 ### Positive
+
 - **Juror Friendly**: Zero friction for evaluation — works offline with SQLite session storage.
 - **Enterprise-Ready Path**: Clear architectural bridge to enterprise SAML 2.0 / Azure AD without rewriting authorization logic.
 - **Data Privacy Compliance**: Server-side policy checks prevent cross-supplier data leakage.
 
 ### Negative / Trade-offs
-- Supporting both internal SSO and external contractor logins requires maintaining two login flows in production.
 
+- Supporting both internal SSO and external contractor logins requires maintaining two login flows in production.

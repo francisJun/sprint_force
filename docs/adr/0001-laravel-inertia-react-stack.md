@@ -2,11 +2,12 @@
 
 - Status: accepted
 - Date: 2026-10-30
-- Deciders: Team HourRadar
+- Deciders: Team Sprint Force (HourRadar)
 
 ## Context
 
 For the Article26 Hackathon 2026, the team needs a productive, robust, and maintainable technology stack to build **HourRadar**, an integrated time booking and budget intelligence platform with:
+
 - Multi-role support (Client Project Lead, External Consultant, Purchasing / Finance).
 - Real-time order budget calculations and predictive runway forecasting.
 - German Working Time Act (ArbZG) validation rules enforced on the server.
@@ -38,12 +39,13 @@ We choose the following modern full-stack ecosystem:
 ## Consequences
 
 ### Positive
+
 - **Fast Local Setup**: Works seamlessly with Laravel Herd on both macOS and Windows.
 - **Evaluation Simplicity**: The technical jury can run the application with standard `composer install`, `npm install`, and `php artisan serve` with SQLite.
 - **Rich Interactive UI**: React + Tailwind provides a responsive, modern interface for both time booking and interactive budget runways.
 - **Compliance & Offline AI**: Server-enforced domain rules tested with Pest; AI assistant runs reliably in mock mode or live with an API key.
 
 ### Negative / Trade-offs
+
 - The team must ensure SQLite foreign key constraints and date calculations match production-grade behavior.
 - Real-time streaming over Inertia requires dedicated streaming endpoints (SSE / `fetch`) rather than standard Inertia page visits.
-
