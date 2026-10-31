@@ -6,7 +6,7 @@
 ## Roles
 
 | Role | Side | Description |
-|---|---|---|
+| --- | --- | --- |
 | **External Consultant** | Supplier | Delivers project work, books working hours against assigned purchase orders, and records planned vacations. |
 | **Project Lead** | Client | Manages the project, monitors order burn rates, inspects runway projections, and approves/rejects submitted timesheets. |
 | **Purchasing / Finance** | Client | Manages purchase order budgets, monitors framework agreements, tracks procurement lead times (re-order warnings), and reviews aggregated invoicing data. |
@@ -16,7 +16,7 @@
 `✔` = allowed, `–` = not allowed, `Σ` = only aggregated values
 
 | Action or data | External Consultant | Client Project Lead | Purchasing / Finance |
-|---|:---:|:---:|:---:|
+| --- | :---: | :---: | :---: |
 | Book own working time | ✔ | – | – |
 | Record own vacation blocks | ✔ | – | – |
 | View own time bookings | ✔ | – | – |
@@ -29,7 +29,7 @@
 ## Personal data
 
 | Data | Why we store it | Who needs it | How long we keep it |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | **Daily hours per person** | Proof of performance for invoice verification and ArbZG compliance | Consultant (own), Project Lead (verification) | Statutory retention period (10 years for tax/financial records) |
 | **Booking descriptions** | Verification that hours relate to the purchase order scope | Project Lead | Kept with the booking record |
 | **Planned vacation dates** | Accurate forward-looking runway forecasting | Project Lead (aggregated availability), Algorithm | Deleted 6 months after project conclusion |
