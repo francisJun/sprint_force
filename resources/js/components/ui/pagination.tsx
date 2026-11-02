@@ -1,5 +1,10 @@
-import React from 'react';
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
+import React from "react";
+import {
+    ChevronLeft,
+    ChevronRight,
+    ChevronsLeft,
+    ChevronsRight,
+} from "lucide-react";
 
 export interface PaginationProps {
     currentPage: number;
@@ -19,8 +24,8 @@ export function Pagination({
     onPageChange,
     onPageSizeChange,
     pageSizeOptions = [10, 25, 50],
-    itemLabel = 'entries',
-    className = '',
+    itemLabel = "entries",
+    className = "",
 }: PaginationProps) {
     const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
     const startItem = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1;
@@ -33,14 +38,30 @@ export function Pagination({
         }
 
         if (currentPage <= 4) {
-            return [1, 2, 3, 4, 5, '...', totalPages];
+            return [1, 2, 3, 4, 5, "...", totalPages];
         }
 
         if (currentPage >= totalPages - 3) {
-            return [1, '...', totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+            return [
+                1,
+                "...",
+                totalPages - 4,
+                totalPages - 3,
+                totalPages - 2,
+                totalPages - 1,
+                totalPages,
+            ];
         }
 
-        return [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages];
+        return [
+            1,
+            "...",
+            currentPage - 1,
+            currentPage,
+            currentPage + 1,
+            "...",
+            totalPages,
+        ];
     };
 
     const pages = getPageNumbers();
@@ -53,14 +74,26 @@ export function Pagination({
             {/* Left: Range and Item Count */}
             <div className="flex items-center gap-3 text-gov-muted">
                 <p>
-                    Showing <span className="font-mono font-semibold text-gov-text tabular-nums">{startItem}</span> to{' '}
-                    <span className="font-mono font-semibold text-gov-text tabular-nums">{endItem}</span> of{' '}
-                    <span className="font-mono font-semibold text-gov-text tabular-nums">{totalItems}</span> {itemLabel}
+                    Showing{" "}
+                    <span className="font-mono font-semibold text-gov-text tabular-nums">
+                        {startItem}
+                    </span>{" "}
+                    to{" "}
+                    <span className="font-mono font-semibold text-gov-text tabular-nums">
+                        {endItem}
+                    </span>{" "}
+                    of{" "}
+                    <span className="font-mono font-semibold text-gov-text tabular-nums">
+                        {totalItems}
+                    </span>{" "}
+                    {itemLabel}
                 </p>
 
                 {onPageSizeChange && (
                     <div className="hidden sm:flex items-center gap-1.5 pl-3 border-l border-gov-border">
-                        <span className="text-[11px] text-gov-muted">Per page:</span>
+                        <span className="text-[11px] text-gov-muted">
+                            Per page:
+                        </span>
                         <div className="inline-flex rounded-md border border-gov-border bg-gov-canvas p-0.5">
                             {pageSizeOptions.map((opt) => (
                                 <button
@@ -69,8 +102,8 @@ export function Pagination({
                                     onClick={() => onPageSizeChange(opt)}
                                     className={`px-2 py-0.5 rounded-sm font-mono text-[11px] tabular-nums transition-colors cursor-pointer ${
                                         pageSize === opt
-                                            ? 'bg-gov-surface font-semibold text-gov-text shadow-xs border border-gov-border'
-                                            : 'text-gov-muted hover:text-gov-text'
+                                            ? "bg-gov-surface font-semibold text-gov-text shadow-xs border border-gov-border"
+                                            : "text-gov-muted hover:text-gov-text"
                                     }`}
                                 >
                                     {opt}
@@ -109,7 +142,7 @@ export function Pagination({
                 {/* Page Number Buttons */}
                 <div className="flex items-center gap-1">
                     {pages.map((p, idx) =>
-                        p === '...' ? (
+                        p === "..." ? (
                             <span
                                 key={`ellipsis-${idx}`}
                                 className="inline-flex h-8 w-8 items-center justify-center text-gov-muted font-mono"
@@ -122,16 +155,18 @@ export function Pagination({
                                 type="button"
                                 onClick={() => onPageChange(p as number)}
                                 aria-label={`Page ${p}`}
-                                aria-current={currentPage === p ? 'page' : undefined}
-                                className={`inline-flex h-8 min-w-[32px] px-2 items-center justify-center rounded-md font-mono text-xs tabular-nums transition-colors cursor-pointer ${
+                                aria-current={
+                                    currentPage === p ? "page" : undefined
+                                }
+                                className={`inline-flex h-8 min-w-8 px-2 items-center justify-center rounded-md font-mono text-xs tabular-nums transition-colors cursor-pointer ${
                                     currentPage === p
-                                        ? 'border border-gov-interactive bg-gov-interactive font-semibold text-white shadow-xs'
-                                        : 'border border-gov-border bg-gov-surface text-gov-text hover:bg-gov-surface-hover'
+                                        ? "border border-gov-interactive bg-gov-interactive font-semibold text-white shadow-xs"
+                                        : "border border-gov-border bg-gov-surface text-gov-text hover:bg-gov-surface-hover"
                                 }`}
                             >
                                 {p}
                             </button>
-                        )
+                        ),
                     )}
                 </div>
 
@@ -200,4 +235,3 @@ export function usePagination<T>(items: T[], initialPageSize = 10) {
         paginatedItems,
     };
 }
-
