@@ -17,8 +17,6 @@ class RunwayForecastServiceTest extends TestCase
     use RefreshDatabase;
 
     protected RunwayForecastService $service;
-    protected PurchaseOrder $order;
-    protected User $consultant;
 
     protected function setUp(): void
     {

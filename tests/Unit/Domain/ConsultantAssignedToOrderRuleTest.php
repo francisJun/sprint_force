@@ -14,7 +14,6 @@ class ConsultantAssignedToOrderRuleTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected User $consultant;
     protected PurchaseOrder $assignedOrder;
     protected PurchaseOrder $unassignedOrder;
     protected PurchaseOrder $closedOrder;
