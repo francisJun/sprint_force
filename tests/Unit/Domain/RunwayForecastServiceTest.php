@@ -93,5 +93,24 @@ class RunwayForecastServiceTest extends TestCase
         $this->assertTrue($result['needs_reorder_alert']);
         $this->assertEquals('red', $result['status_traffic_light']);
     }
+
+    public function test_generates_burndown_series_with_ideal_actual_and_projected_trajectories(): void
+    {
+        $asOfDate = Carbon::parse('2026-11-02');
+
+        $result = $this->service->calculate($this->order, $asOfDate);
+
+        $this->assertArrayHasKey('burndown_series', $result);
+        $this->assertNotEmpty($result['burndown_series']);
+
+        $firstPoint = $result['burndown_series'][0];
+        $this->assertArrayHasKey('date', $firstPoint);
+        $this->assertArrayHasKey('label', $firstPoint);
+        $this->assertArrayHasKey('ideal_pd', $firstPoint);
+        $this->assertArrayHasKey('actual_pd', $firstPoint);
+        $this->assertArrayHasKey('projected_pd', $firstPoint);
+        $this->assertArrayHasKey('is_today', $firstPoint);
+        $this->assertArrayHasKey('is_reorder_window', $firstPoint);
+    }
 }
 

@@ -20,7 +20,7 @@ class DashboardController extends Controller
     {
         $user = $request->user();
 
-        // 1. Consultant Experience
+        // 1. Consultant Experience (Unified single-page workstation)
         if ($user->isConsultant()) {
             $assignedOrders = $user->assignedPurchaseOrders()
                 ->where('purchase_orders.status', 'active')
@@ -38,7 +38,6 @@ class DashboardController extends Controller
             $bookings = TimeBooking::where('user_id', $user->id)
                 ->with('purchaseOrder')
                 ->orderByDesc('date')
-                ->take(30)
                 ->get()
                 ->map(fn ($b) => [
                     'id' => $b->id,
@@ -73,8 +72,77 @@ class DashboardController extends Controller
             ]);
         }
 
-        // 2. Client Project Lead & Purchasing Experience
-        $orders = PurchaseOrder::with(['supplier', 'assignedConsultants'])
+        // 2. Client Project Lead & Purchasing Overview Cockpits
+        return Inertia::render('dashboard', [
+            'user' => [
+                'name' => $user->name,
+                'role' => $user->role,
+            ],
+            'orders' => $this->getOrdersWithRunway(),
+            'pendingBookings' => $this->getPendingBookings(),
+        ]);
+    }
+
+    /**
+     * Dedicated Orders & Runway Burndown View
+     */
+    public function orders(Request $request): Response
+    {
+        return Inertia::render('orders/index', [
+            'user' => [
+                'name' => $request->user()->name,
+                'role' => $request->user()->role,
+            ],
+            'orders' => $this->getOrdersWithRunway(),
+        ]);
+    }
+
+    /**
+     * Dedicated Proof of Work Sign-off & Timesheet Approvals View
+     */
+    public function approvals(Request $request): Response
+    {
+        return Inertia::render('approvals/index', [
+            'user' => [
+                'name' => $request->user()->name,
+                'role' => $request->user()->role,
+            ],
+            'pendingBookings' => $this->getPendingBookings(),
+            'orders' => $this->getOrdersWithRunway(),
+        ]);
+    }
+
+    /**
+     * Dedicated Purchasing Framework Orders View
+     */
+    public function purchasingOrders(Request $request): Response
+    {
+        return Inertia::render('purchasing/orders', [
+            'user' => [
+                'name' => $request->user()->name,
+                'role' => $request->user()->role,
+            ],
+            'orders' => $this->getOrdersWithRunway(),
+        ]);
+    }
+
+    /**
+     * Dedicated Vendor Invoice Reconciliation View
+     */
+    public function purchasingInvoices(Request $request): Response
+    {
+        return Inertia::render('purchasing/invoices', [
+            'user' => [
+                'name' => $request->user()->name,
+                'role' => $request->user()->role,
+            ],
+            'orders' => $this->getOrdersWithRunway(),
+        ]);
+    }
+
+    private function getOrdersWithRunway()
+    {
+        return PurchaseOrder::with(['supplier', 'assignedConsultants', 'timeBookings'])
             ->orderBy('order_number')
             ->get()
             ->map(function ($order) {
@@ -94,13 +162,18 @@ class DashboardController extends Controller
                     'status_traffic_light' => $runway['status_traffic_light'],
                     'needs_reorder_alert' => $runway['needs_reorder_alert'],
                     'days_until_reorder_deadline' => $runway['days_until_reorder_deadline'],
+                    'reorder_deadline_date' => $runway['reorder_deadline_date'],
                     'vacation_days_affecting_runway' => $runway['vacation_days_affecting_runway'],
                     'consultants_count' => $order->assignedConsultants->count(),
+                    'start_date' => $order->start_date ? $order->start_date->toDateString() : null,
+                    'burndown_series' => $runway['burndown_series'],
                 ];
             });
+    }
 
-        // Pending approval queue for Project Lead
-        $pendingBookings = TimeBooking::where('status', 'submitted')
+    private function getPendingBookings()
+    {
+        return TimeBooking::where('status', 'submitted')
             ->with(['user', 'purchaseOrder'])
             ->orderBy('date')
             ->get()
@@ -113,14 +186,5 @@ class DashboardController extends Controller
                 'hours' => (float) $b->hours,
                 'description' => $b->description,
             ]);
-
-        return Inertia::render('dashboard', [
-            'user' => [
-                'name' => $user->name,
-                'role' => $user->role,
-            ],
-            'orders' => $orders,
-            'pendingBookings' => $pendingBookings,
-        ]);
     }
 }

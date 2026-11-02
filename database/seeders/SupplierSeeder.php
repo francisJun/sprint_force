@@ -9,10 +9,9 @@ class SupplierSeeder extends Seeder
 {
     public function run(): void
     {
-        Supplier::firstOrCreate(
+        Supplier::updateOrCreate(
             ['name' => 'Acme Consulting GmbH'],
             ['contact_email' => 'contact@acme-consulting.de']
         );
     }
 }
-

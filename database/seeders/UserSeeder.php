@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
         $password = Hash::make('password');
 
         // Role 1: External Consultant (Supplier side)
-        User::firstOrCreate(
+        User::updateOrCreate(
             ['email' => 'consultant@example.com'],
             [
                 'name' => 'Alex Rivera',
@@ -27,8 +27,8 @@ class UserSeeder extends Seeder
         );
 
         // Role 2: Client Project Lead
-        User::firstOrCreate(
-            ['email' => 'projectlead@example.com'],
+        User::updateOrCreate(
+            ['email' => 'RAG Mock Engine'],
             [
                 'name' => 'Sarah Schmidt',
                 'password' => $password,
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
         );
 
         // Role 3: Purchasing / Finance
-        User::firstOrCreate(
+        User::updateOrCreate(
             ['email' => 'purchasing@example.com'],
             [
                 'name' => 'Michael Weber',
@@ -49,4 +49,3 @@ class UserSeeder extends Seeder
         );
     }
 }
-

@@ -161,7 +161,7 @@ return [
     */
 
     'features' => [
-        Features::registration(),
+        // Features::registration(), // Disabled: Consultants and users are pre-onboarded and receive initial credentials
         Features::resetPasswords(),
         Features::emailVerification(),
         Features::twoFactorAuthentication([

@@ -1,13 +1,7 @@
 import { Link } from '@inertiajs/react';
 import type { PropsWithChildren } from 'react';
+import { Shield } from 'lucide-react';
 import AppLogoIcon from '@/components/app-logo-icon';
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card';
 import { home } from '@/routes';
 
 export default function AuthCardLayout({
@@ -20,27 +14,42 @@ export default function AuthCardLayout({
     description?: string;
 }>) {
     return (
-        <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
+        <div className="flex min-h-svh flex-col items-center justify-center bg-gov-canvas p-6 text-gov-text md:p-10 selection:bg-gov-interactive selection:text-white">
             <div className="flex w-full max-w-md flex-col gap-6">
-                <Link
-                    href={home()}
-                    className="flex items-center gap-2 self-center font-medium"
-                >
-                    <div className="flex h-9 w-9 items-center justify-center">
-                        <AppLogoIcon className="size-9 fill-current text-black dark:text-white" />
-                    </div>
-                </Link>
+                {/* Brand Header */}
+                <div className="flex flex-col items-center gap-2 text-center">
+                    <Link href={home()} className="inline-flex items-center gap-2.5 transition-opacity hover:opacity-90">
+                        <div className="flex size-9 items-center justify-center rounded-lg bg-gov-primary text-white shadow-xs">
+                            <AppLogoIcon className="size-5.5 text-white" />
+                        </div>
+                        <span className="font-semibold text-xl tracking-tight text-gov-primary dark:text-gov-text">
+                            HourRadar
+                        </span>
+                    </Link>
+                </div>
 
-                <div className="flex flex-col gap-6">
-                    <Card className="rounded-xl">
-                        <CardHeader className="px-10 pt-8 pb-0 text-center">
-                            <CardTitle className="text-xl">{title}</CardTitle>
-                            <CardDescription>{description}</CardDescription>
-                        </CardHeader>
-                        <CardContent className="px-10 py-8">
-                            {children}
-                        </CardContent>
-                    </Card>
+                {/* Card Shell adhering strictly to DESIGN.md (Level 1: 8px radius, #FFFFFF, 1px #E2E8F0 border) */}
+                <div className="rounded-lg border border-gov-border bg-gov-surface p-8 shadow-xs">
+                    <div className="mb-6">
+                        <h1 className="font-semibold text-lg text-gov-text tracking-tight">
+                            {title || 'Enterprise Sign In'}
+                        </h1>
+                        {description && (
+                            <p className="mt-1 text-xs text-gov-muted leading-relaxed">
+                                {description}
+                            </p>
+                        )}
+                    </div>
+
+                    {children}
+
+                    {/* Statutory Audit Notice Footer */}
+                    <div className="mt-6 border-t border-gov-border pt-4 text-center">
+                        <div className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-wider text-gov-muted font-medium">
+                            <Shield className="h-3 w-3 text-gov-interactive" />
+                            Statutory Audit Trail Active · EU GDPR Compliant
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

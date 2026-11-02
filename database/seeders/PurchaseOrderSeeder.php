@@ -20,7 +20,7 @@ class PurchaseOrderSeeder extends Seeder
         }
 
         // Matching the challenge example: 140 Person-days
-        $order = PurchaseOrder::firstOrCreate(
+        $order = PurchaseOrder::updateOrCreate(
             ['order_number' => '4500012345'],
             [
                 'title' => 'Customer Portal Migration',
@@ -32,9 +32,8 @@ class PurchaseOrderSeeder extends Seeder
             ]
         );
 
-        if ($consultant && ! $order->assignedConsultants()->where('users.id', $consultant->id)->exists()) {
-            $order->assignedConsultants()->attach($consultant->id);
+        if ($consultant) {
+            $order->assignedConsultants()->syncWithoutDetaching([$consultant->id]);
         }
     }
 }
-
