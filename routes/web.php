@@ -2,14 +2,24 @@
 
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\TimeBookingController;
 use App\Http\Controllers\VacationController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'welcome')->name('home');
+Route::post('/locale', [LocaleController::class, 'update'])->name('locale.update');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Dedicated Project Lead Views
+    Route::get('/orders', [DashboardController::class, 'orders'])->name('orders.index');
+    Route::get('/approvals', [DashboardController::class, 'approvals'])->name('approvals.index');
+
+    // Dedicated Purchasing Views
+    Route::get('/purchasing/orders', [DashboardController::class, 'purchasingOrders'])->name('purchasing.orders');
+    Route::get('/purchasing/invoices', [DashboardController::class, 'purchasingInvoices'])->name('purchasing.invoices');
 
     // Time Booking Actions
     Route::post('/bookings', [TimeBookingController::class, 'store'])->name('bookings.store');
