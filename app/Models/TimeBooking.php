@@ -14,10 +14,15 @@ class TimeBooking extends Model
         'purchase_order_id',
         'user_id',
         'date',
+        'start_time',
+        'end_time',
         'hours',
         'description',
         'status',
         'rejection_reason',
+        'requires_compensatory_rest',
+        'special_authorization',
+        'statutory_notes',
     ];
 
     protected function casts(): array
@@ -25,6 +30,8 @@ class TimeBooking extends Model
         return [
             'hours' => 'decimal:2',
             'date' => 'date',
+            'requires_compensatory_rest' => 'boolean',
+            'special_authorization' => 'boolean',
         ];
     }
 

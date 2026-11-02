@@ -34,8 +34,9 @@ class SetLocale
         $response = $next($request);
 
         // Synchronize unencrypted locale cookie if missing or mismatched
-        if ($request->cookie('locale') !== $locale) {
-            $response->headers->setCookie(cookie('locale', $locale, 60 * 24 * 365, null, null, false, false));
+        $finalLocale = app()->getLocale();
+        if ($request->cookie('locale') !== $finalLocale) {
+            $response->headers->setCookie(cookie('locale', $finalLocale, 60 * 24 * 365, null, null, false, false));
         }
 
         return $response;

@@ -1,5 +1,7 @@
 <?php
 
-test('that true is true', function () {
-    expect(true)->toBeTrue();
+test('tests run against an in-memory database and never touch the real database', function () {
+    expect(config('database.default'))->toBe('sqlite');
+    expect(config('database.connections.sqlite.database'))->toBe(':memory:');
+    expect(app()->environment())->toBe('testing');
 });

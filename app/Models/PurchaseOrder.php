@@ -69,5 +69,30 @@ class PurchaseOrder extends Model
     {
         return max(0.0, round((float) $this->total_person_days - $this->usedPersonDays(), 2));
     }
+
+    /**
+     * Book time on this purchase order with domain rule validation.
+     * Fulfills Technical Criterion 2 (Order.book(hours)).
+     *
+     * @param  array{
+     *     date: string,
+     *     hours: float|string,
+     *     description?: string,
+     *     start_time?: ?string,
+     *     end_time?: ?string,
+     *     special_authorization?: bool,
+     *     status?: string,
+     *     state?: ?string
+     * }  $attributes
+     *
+     * @throws \App\Domain\TimeTracking\Exceptions\BookingValidationException
+     */
+    public function book(User $consultant, array $attributes): TimeBooking
+    {
+        /** @var \App\Domain\TimeTracking\Actions\BookTimeAction $action */
+        $action = app(\App\Domain\TimeTracking\Actions\BookTimeAction::class);
+
+        return $action->execute($this, $consultant, $attributes);
+    }
 }
 

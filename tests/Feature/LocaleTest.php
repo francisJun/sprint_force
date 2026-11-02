@@ -15,7 +15,7 @@ it('allows switching locale to german via post route', function () {
     ]);
 
     $response->assertSessionHas('locale', 'de');
-    $response->assertCookie('locale', 'de');
+    $response->assertPlainCookie('locale', 'de');
 });
 
 it('rejects unsupported locales with validation error', function () {

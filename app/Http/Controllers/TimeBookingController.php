@@ -29,21 +29,29 @@ class TimeBookingController extends Controller
                 'numeric',
                 'min:0.25',
                 'max:10.0',
-                new ArbzgDailyLimitRule($user->id, $request->input('date')),
             ],
+            'start_time' => ['nullable', 'date_format:H:i'],
+            'end_time' => ['nullable', 'date_format:H:i'],
             'description' => ['required', 'string', 'min:5', 'max:1000'],
+            'special_authorization' => ['nullable', 'boolean'],
         ]);
 
-        TimeBooking::create([
-            'purchase_order_id' => $validated['purchase_order_id'],
-            'user_id' => $user->id,
-            'date' => $validated['date'],
-            'hours' => $validated['hours'],
-            'description' => $validated['description'],
-            'status' => 'submitted',
-        ]);
+        $order = \App\Models\PurchaseOrder::findOrFail($validated['purchase_order_id']);
 
-        return back()->with('success', 'Time booking submitted successfully.');
+        try {
+            $booking = $order->book($user, $validated);
+
+            $message = 'Time booking submitted successfully.';
+            if ($booking->requires_compensatory_rest) {
+                $message .= ' (ArbZG § 3 Notice: Compensatory rest required within 6 months).';
+            }
+
+            return back()->with('success', $message);
+        } catch (\App\Domain\TimeTracking\Exceptions\BookingValidationException $e) {
+            return back()
+                ->withErrors([$e->getField() ?? 'hours' => $e->getMessage()])
+                ->withInput();
+        }
     }
 
     /**
