@@ -71,9 +71,6 @@ export function AppSidebarHeader({
 
             <div className="flex items-center gap-3">
                 <LanguageSwitcher variant="segmented" />
-                <div className="hidden md:block font-mono text-[11px] text-gov-muted tabular-nums">
-                    Telemetry: 2026-11-02
-                </div>
             </div>
         </header>
     );

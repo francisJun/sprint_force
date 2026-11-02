@@ -84,12 +84,6 @@ export default function PurchasingDashboard({ user, orders }: Props) {
                             · {t("purchasing.oversight")}
                         </p>
                     </div>
-
-                    <div className="flex items-center gap-3">
-                        <span className="rounded-sm border border-gov-border bg-gov-surface px-3 py-1 font-mono text-xs text-gov-muted tabular-nums">
-                            {t("common.telemetry")}: {new Date().toISOString().split("T")[0]}
-                        </span>
-                    </div>
                 </div>
             </div>
 
