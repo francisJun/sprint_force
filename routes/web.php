@@ -10,6 +10,19 @@ use Illuminate\Support\Facades\Route;
 Route::inertia('/', 'welcome')->name('home');
 Route::post('/locale', [LocaleController::class, 'update'])->name('locale.update');
 
+// Error Page Preview Route
+Route::get('/error/{code}', function (int $code) {
+    abort_if(! in_array($code, [403, 404, 419, 500, 503]), 404);
+
+    if (request()->header('X-Inertia')) {
+        return \Inertia\Inertia::render('error', [
+            'status' => $code,
+        ]);
+    }
+
+    return response()->view("errors.{$code}", [], $code);
+})->name('error.preview');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

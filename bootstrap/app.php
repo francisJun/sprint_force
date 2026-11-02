@@ -29,4 +29,19 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
+
+        $exceptions->respond(function (\Symfony\Component\HttpFoundation\Response $response, \Throwable $e, Request $request) {
+            $statusCode = $response->getStatusCode();
+
+            if (in_array($statusCode, [403, 404, 500, 503]) && $request->header('X-Inertia')) {
+                return \Inertia\Inertia::render('error', [
+                    'status' => $statusCode,
+                    'message' => $e->getMessage() ?: null,
+                ])
+                    ->toResponse($request)
+                    ->setStatusCode($statusCode);
+            }
+
+            return $response;
+        });
     })->create();
