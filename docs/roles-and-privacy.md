@@ -7,6 +7,7 @@
 
 | Role | Side | Description |
 | --- | --- | --- |
+| **Super Admin** | Platform | General platform overseer. Manages user provisioning, role assignments, system-wide permission governance, and oversees cross-organization telemetry. |
 | **External Consultant** | Supplier | Delivers project work, books working hours against assigned purchase orders, and records planned vacations. |
 | **Project Lead** | Client | Manages the project, monitors order burn rates, inspects runway projections, and approves/rejects submitted timesheets. |
 | **Purchasing / Finance** | Client | Manages purchase order budgets, monitors framework agreements, tracks procurement lead times (re-order warnings), and reviews aggregated invoicing data. |
@@ -15,16 +16,18 @@
 
 `✔` = allowed, `–` = not allowed, `Σ` = only aggregated values
 
-| Action or data | External Consultant | Client Project Lead | Purchasing / Finance |
-| --- | :---: | :---: | :---: |
-| Book own working time | ✔ | – | – |
-| Record own vacation blocks | ✔ | – | – |
-| View own time bookings | ✔ | – | – |
-| View single bookings with person names | – (only own) | ✔ (assigned orders) | – (anonymized/aggregated) |
-| See remaining budget & runway date | – (only assigned PO total) | ✔ | ✔ |
-| Approve / reject time bookings | – | ✔ | – |
-| Trigger follow-up order alert | – | ✔ | ✔ |
-| Access AI streaming RAG assistant | ✔ (booking & help) | ✔ (budget & help) | ✔ (order & help) |
+| Action or data | Super Admin | External Consultant | Client Project Lead | Purchasing / Finance |
+| --- | :---: | :---: | :---: | :---: |
+| Manage users, roles & system permissions | ✔ | – | – | – |
+| Oversee platform-wide governance metrics | ✔ | – | – | – |
+| Book own working time | – | ✔ | – | – |
+| Record own vacation blocks | – | ✔ | – | – |
+| View own time bookings | ✔ | ✔ | – | – |
+| View single bookings with person names | ✔ | – (only own) | ✔ (assigned orders) | – (anonymized/aggregated) |
+| See remaining budget & runway date | ✔ | – (only assigned PO total) | ✔ | ✔ |
+| Approve / reject time bookings | ✔ | – | ✔ | – |
+| Trigger follow-up order alert | ✔ | – | ✔ | ✔ |
+| Access AI streaming RAG assistant | ✔ (all platform) | ✔ (booking & help) | ✔ (budget & help) | ✔ (order & help) |
 
 ## Personal data
 
@@ -46,6 +49,7 @@
 
 ## How it is enforced
 
-- **Server-Side Enforcement**: All permissions are checked in Laravel Policies (`TimeBookingPolicy`, `PurchaseOrderPolicy`) and Form Request classes before any controller action executes.
+- **Server-Side Enforcement**: All permissions are checked in dedicated Laravel Middleware (`EnsureSuperAdmin`), Policies (`TimeBookingPolicy`, `PurchaseOrderPolicy`), and Form Request classes before any controller action executes.
+- **Lockout Safeguards**: The Super Admin role is protected against platform lockouts (cannot delete self, cannot demote/delete the last remaining Super Admin).
 - **UI Reflection**: Inertia props pass only the authorized actions to React components (hiding buttons is treated purely as UX, never as security).
 - **Scope Isolation**: Eloquent global scopes and query builder filters automatically constrain consultant queries to their own tenant/user ID.

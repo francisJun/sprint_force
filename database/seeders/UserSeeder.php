@@ -14,6 +14,17 @@ class UserSeeder extends Seeder
         $supplier = Supplier::where('name', 'Acme Consulting GmbH')->first();
         $password = Hash::make('password');
 
+        // Role 0: Super Admin (General Platform Overseer)
+        User::updateOrCreate(
+            ['email' => 'admin@example.com'],
+            [
+                'name' => 'System Administrator',
+                'password' => $password,
+                'role' => 'super_admin',
+                'email_verified_at' => now(),
+            ]
+        );
+
         // Role 1: External Consultant (Supplier side)
         User::updateOrCreate(
             ['email' => 'consultant@example.com'],

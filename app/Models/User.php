@@ -44,6 +44,11 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
         ];
     }
 
+    public function isSuperAdmin(): bool
+    {
+        return $this->role === 'super_admin';
+    }
+
     public function isConsultant(): bool
     {
         return $this->role === 'consultant';

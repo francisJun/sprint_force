@@ -20,7 +20,43 @@ class DashboardController extends Controller
     {
         $user = $request->user();
 
-        // 1. Consultant Experience (Unified single-page workstation)
+        // 1. Super Admin Platform Overseer Experience
+        if ($user->isSuperAdmin()) {
+            $stats = [
+                'total_users' => \App\Models\User::count(),
+                'role_counts' => [
+                    'super_admin' => \App\Models\User::where('role', 'super_admin')->count(),
+                    'project_lead' => \App\Models\User::where('role', 'project_lead')->count(),
+                    'purchasing' => \App\Models\User::where('role', 'purchasing')->count(),
+                    'consultant' => \App\Models\User::where('role', 'consultant')->count(),
+                ],
+                'total_orders' => PurchaseOrder::count(),
+                'active_orders' => PurchaseOrder::where('status', 'active')->count(),
+                'total_booked_hours' => round((float) TimeBooking::where('status', 'approved')->sum('hours'), 1),
+                'arbzg_notices_count' => TimeBooking::where('requires_compensatory_rest', true)->count(),
+                'suppliers_count' => \App\Models\Supplier::count(),
+            ];
+
+            return Inertia::render('dashboard', [
+                'user' => [
+                    'name' => $user->name,
+                    'role' => $user->role,
+                ],
+                'stats' => $stats,
+                'orders' => $this->getOrdersWithRunway(),
+                'pendingBookings' => $this->getPendingBookings(),
+                'recentUsers' => \App\Models\User::with('supplier')->latest()->take(5)->get()->map(fn ($u) => [
+                    'id' => $u->id,
+                    'name' => $u->name,
+                    'email' => $u->email,
+                    'role' => $u->role,
+                    'supplier_name' => $u->supplier?->name,
+                    'created_at' => $u->created_at?->format('Y-m-d'),
+                ]),
+            ]);
+        }
+
+        // 2. Consultant Experience (Unified single-page workstation)
         if ($user->isConsultant()) {
             $assignedOrders = $user->assignedPurchaseOrders()
                 ->where('purchase_orders.status', 'active')

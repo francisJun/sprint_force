@@ -35,14 +35,18 @@ export function AppSidebar() {
     const userRole = (auth?.user as any)?.role || 'consultant';
 
     const roleTitle =
-        userRole === 'project_lead'
+        userRole === 'super_admin'
+            ? (isGerman ? 'Super-Administrator (Plattform)' : 'Super Admin (Platform Overseer)')
+            : userRole === 'project_lead'
             ? (isGerman ? 'Projektleiter (Auftraggeber)' : 'Client Project Lead')
             : userRole === 'purchasing'
             ? (isGerman ? 'Einkauf & Finanzen' : 'Procurement & Finance')
             : (isGerman ? 'Externer Berater' : 'External Consultant');
 
     const primaryViewTitle =
-        userRole === 'consultant'
+        userRole === 'super_admin'
+            ? (isGerman ? 'Plattform-Übersicht' : 'Platform Overseer Cockpit')
+            : userRole === 'consultant'
             ? (isGerman ? 'Berater-Arbeitsplatz' : 'Time Booking Portal')
             : userRole === 'purchasing'
             ? (isGerman ? 'Einkaufs-Cockpit' : 'Purchasing Cockpit')
@@ -93,6 +97,80 @@ export function AppSidebar() {
                                 </Link>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
+
+                        {/* Super Admin: Platform Overseer Governance Links */}
+                        {userRole === 'super_admin' && (
+                            <>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton
+                                        asChild
+                                        isActive={isCurrentUrl('/admin/users', undefined, true)}
+                                        tooltip={{ children: isGerman ? 'Benutzer- & Rollenverwaltung' : 'User & Role Governance' }}
+                                        className={`h-10 rounded-md px-3 text-xs transition-colors cursor-pointer ${
+                                            isCurrentUrl('/admin/users', undefined, true)
+                                                ? 'bg-sidebar-accent text-white font-medium border-l-2 border-gov-interactive'
+                                                : 'text-white/70 hover:bg-sidebar-accent hover:text-white'
+                                        }`}
+                                    >
+                                        <Link href="/admin/users">
+                                            <Shield className="h-4 w-4 shrink-0 text-amber-400" />
+                                            <span className="group-data-[collapsible=icon]:hidden">{isGerman ? 'Benutzer & Rollen' : 'User Governance'}</span>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton
+                                        asChild
+                                        isActive={isCurrentUrl('/orders', undefined, true)}
+                                        tooltip={{ children: isGerman ? 'Auftrags-Reichweite' : 'Order Runway Burndown' }}
+                                        className={`h-10 rounded-md px-3 text-xs transition-colors cursor-pointer ${
+                                            isCurrentUrl('/orders', undefined, true)
+                                                ? 'bg-sidebar-accent text-white font-medium border-l-2 border-gov-interactive'
+                                                : 'text-white/70 hover:bg-sidebar-accent hover:text-white'
+                                        }`}
+                                    >
+                                        <Link href="/orders">
+                                            <Activity className="h-4 w-4 shrink-0" />
+                                            <span className="group-data-[collapsible=icon]:hidden">{isGerman ? 'Auftrags-Reichweite' : 'Order Runway'}</span>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton
+                                        asChild
+                                        isActive={isCurrentUrl('/approvals', undefined, true)}
+                                        tooltip={{ children: isGerman ? 'Leistungsnachweise' : 'Proof of Work Approvals' }}
+                                        className={`h-10 rounded-md px-3 text-xs transition-colors cursor-pointer ${
+                                            isCurrentUrl('/approvals', undefined, true)
+                                                ? 'bg-sidebar-accent text-white font-medium border-l-2 border-gov-interactive'
+                                                : 'text-white/70 hover:bg-sidebar-accent hover:text-white'
+                                        }`}
+                                    >
+                                        <Link href="/approvals">
+                                            <Scale className="h-4 w-4 shrink-0" />
+                                            <span className="group-data-[collapsible=icon]:hidden">{isGerman ? 'Leistungsnachweise' : 'Approvals'}</span>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton
+                                        asChild
+                                        isActive={isCurrentUrl('/purchasing/orders', undefined, true)}
+                                        tooltip={{ children: isGerman ? 'Rahmen-Bestellungen' : 'Framework Orders' }}
+                                        className={`h-10 rounded-md px-3 text-xs transition-colors cursor-pointer ${
+                                            isCurrentUrl('/purchasing/orders', undefined, true)
+                                                ? 'bg-sidebar-accent text-white font-medium border-l-2 border-gov-interactive'
+                                                : 'text-white/70 hover:bg-sidebar-accent hover:text-white'
+                                        }`}
+                                    >
+                                        <Link href="/purchasing/orders">
+                                            <Layers className="h-4 w-4 shrink-0" />
+                                            <span className="group-data-[collapsible=icon]:hidden">{isGerman ? 'Rahmen-Bestellungen' : 'Framework Orders'}</span>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            </>
+                        )}
 
                         {/* Consultant: Unified Single-Page Workstation Anchors */}
                         {userRole === 'consultant' && (
