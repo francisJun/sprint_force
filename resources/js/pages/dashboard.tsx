@@ -1,19 +1,26 @@
-import { Head } from "@inertiajs/react";
-import ConsultantDashboard from "./dashboard/consultant";
-import ProjectLeadDashboard from "./dashboard/project-lead";
+import { Head } from '@inertiajs/react';
+import ConsultantDashboard from './dashboard/consultant';
+import ProjectLeadDashboard from './dashboard/project-lead';
+import PurchasingDashboard from './dashboard/purchasing';
 
 export default function Dashboard(props: any) {
-    const isConsultant = props.user?.role === "consultant";
+    const role = props.user?.role;
 
     return (
-        <div className="flex h-full flex-1 flex-col gap-4 p-4 md:p-6">
+        <div className="flex h-full flex-1 flex-col p-4 md:p-6 bg-gov-canvas text-gov-text">
             <Head
                 title={
-                    isConsultant ? "Consultant Portal" : "Project Lead Cockpit"
+                    role === 'consultant'
+                        ? 'Consultant Workstation - HourRadar'
+                        : role === 'purchasing'
+                        ? 'Procurement & Finance Radar - HourRadar'
+                        : 'Project Lead Cockpit - HourRadar'
                 }
             />
-            {isConsultant ? (
+            {role === 'consultant' ? (
                 <ConsultantDashboard {...props} />
+            ) : role === 'purchasing' ? (
+                <PurchasingDashboard {...props} />
             ) : (
                 <ProjectLeadDashboard {...props} />
             )}

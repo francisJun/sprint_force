@@ -1,6 +1,19 @@
-import React, { useState } from 'react';
-import { useForm } from '@inertiajs/react';
-import { ChatbotDrawer } from '@/components/hourradar/ChatbotDrawer';
+import React from "react";
+import { useForm } from "@inertiajs/react";
+import { ChatbotDrawer } from "@/components/hourradar/ChatbotDrawer";
+import { Pagination, usePagination } from "@/components/ui/pagination";
+import { useTranslation } from "@/lib/i18n";
+import {
+    AlertTriangle,
+    Calendar,
+    CheckCircle2,
+    Clock,
+    FileText,
+    Layers,
+    Plus,
+    Scale,
+    Shield,
+} from "lucide-react";
 
 interface AssignedOrder {
     id: number;
@@ -16,7 +29,7 @@ interface TimeBookingItem {
     date: string;
     hours: number;
     description: string;
-    status: 'submitted' | 'approved' | 'rejected';
+    status: "submitted" | "approved" | "rejected";
     rejection_reason?: string;
     order_number: string;
     order_title: string;
@@ -36,36 +49,46 @@ interface Props {
     vacations: VacationItem[];
 }
 
-export default function ConsultantDashboard({ user, assignedOrders, bookings, vacations }: Props) {
-    const today = new Date().toISOString().split('T')[0];
+export default function ConsultantDashboard({
+    user,
+    assignedOrders,
+    bookings,
+    vacations,
+}: Props) {
+    const { t } = useTranslation();
+    const today = new Date().toISOString().split("T")[0];
 
-    // Booking form
+    // Pagination for bookings and absences
+    const bookingPagination = usePagination(bookings, 10);
+    const vacationPagination = usePagination(vacations, 5);
+
+    // Time Booking form
     const bookingForm = useForm({
-        purchase_order_id: assignedOrders[0]?.id || '',
+        purchase_order_id: assignedOrders[0]?.id || "",
         date: today,
-        hours: '7.5',
-        description: '',
+        hours: "7.50",
+        description: "",
     });
 
-    // Vacation form
+    // Absence / Vacation form
     const vacationForm = useForm({
-        start_date: '',
-        end_date: '',
+        start_date: "",
+        end_date: "",
     });
 
     const submitBooking = (e: React.FormEvent) => {
         e.preventDefault();
-        bookingForm.post('/bookings', {
+        bookingForm.post("/bookings", {
             preserveScroll: true,
             onSuccess: () => {
-                bookingForm.reset('description');
+                bookingForm.reset("description");
             },
         });
     };
 
     const submitVacation = (e: React.FormEvent) => {
         e.preventDefault();
-        vacationForm.post('/vacations', {
+        vacationForm.post("/vacations", {
             preserveScroll: true,
             onSuccess: () => {
                 vacationForm.reset();
@@ -73,221 +96,414 @@ export default function ConsultantDashboard({ user, assignedOrders, bookings, va
         });
     };
 
+    const totalHoursLogged = bookings
+        .filter((b) => b.status === "approved")
+        .reduce((acc, curr) => acc + curr.hours, 0);
+
     return (
-        <div className="w-full">
-            {/* Header */}
-            <div className="flex items-center justify-between border-b border-sidebar-border pb-4">
-                <div>
-                    <div className="flex items-center gap-3">
-                        <h1 className="font-bold text-2xl tracking-tight">Time Booking Portal</h1>
-                        <span className="rounded-full bg-blue-100 px-2.5 py-0.5 font-medium text-blue-700 text-xs dark:bg-blue-900/40 dark:text-blue-300">
-                            External Consultant
-                        </span>
+        <div className="w-full space-y-8 bg-gov-canvas pb-16 font-sans">
+            {/* Top Workspace Bar */}
+            <div className="border-b border-gov-border pb-5">
+                <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+                    <div>
+                        <div className="flex items-center gap-2.5">
+                            <h1 className="font-semibold text-2xl tracking-tight text-gov-text">
+                                {t("consultant.title")}
+                            </h1>
+                        </div>
+                        <p className="mt-1 text-xs text-gov-muted">
+                            {t("common.consultant")}:{" "}
+                            <span className="font-medium text-gov-text">
+                                {user.name}
+                            </span>{" "}
+                            · {t("common.supplier")}:{" "}
+                            <span className="font-medium text-gov-text">
+                                {assignedOrders[0]?.supplier_name ||
+                                    "Acme Consulting GmbH"}
+                            </span>
+                        </p>
                     </div>
-                    <p className="mt-1 text-neutral-500 text-sm">
-                        Welcome, <span className="font-semibold">{user.name}</span>. Fast daily time booking with real-time ArbZG legal validation.
-                    </p>
+
+                    <div className="flex items-center gap-3">
+                        <div className="rounded-lg border border-gov-border bg-gov-surface px-3 py-2 text-right">
+                            <span className="text-[10px] font-semibold uppercase tracking-wider text-gov-muted">
+                                {t("consultant.approvedWorkingTime")}
+                            </span>
+                            <div className="font-mono text-sm font-semibold text-gov-text tabular-nums">
+                                {totalHoursLogged.toFixed(2)} {t("common.hrs")} (
+                                {(totalHoursLogged / 8).toFixed(2)} {t("common.pd")})
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
-                {/* Left Column: Time Booking Form */}
-                <div className="space-y-6 lg:col-span-1">
-                    <div className="rounded-2xl border border-sidebar-border bg-card p-5 shadow-sm">
-                        <h2 className="font-semibold text-base">Book Working Time</h2>
-                        <p className="mt-1 text-neutral-500 text-xs">
-                            Books hours directly to your assigned client Purchase Order.
+            {/* Main Operational Grid */}
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+                {/* Left Column: Recording Inputs & Absence Management */}
+                <div className="space-y-8 lg:col-span-1">
+                    {/* Time Recording Form */}
+                    <div
+                        id="booking-form"
+                        className="rounded-lg border border-gov-border bg-gov-surface p-6 shadow-xs"
+                    >
+                        <div className="flex items-center gap-2 border-b border-gov-border pb-3">
+                            <Clock className="h-4 w-4 text-gov-interactive" />
+                            <h2 className="font-semibold text-sm text-gov-text uppercase tracking-wider">
+                                {t("consultant.quickLog")}
+                            </h2>
+                        </div>
+                        <p className="mt-2 text-xs text-gov-muted leading-relaxed">
+                            {t("consultant.logDescription")}
                         </p>
 
-                        <form onSubmit={submitBooking} className="mt-4 space-y-4">
-                            <div>
-                                <label className="block font-medium text-xs text-neutral-700 dark:text-neutral-300">
-                                    Purchase Order
+                        <form
+                            onSubmit={submitBooking}
+                            className="mt-5 space-y-4 text-xs"
+                        >
+                            <div className="space-y-1.5">
+                                <label className="block font-medium text-xs text-gov-text">
+                                    {t("consultant.targetPO")}
                                 </label>
                                 <select
                                     value={bookingForm.data.purchase_order_id}
-                                    onChange={(e) => bookingForm.setData('purchase_order_id', Number(e.target.value))}
-                                    className="mt-1 w-full rounded-xl border border-sidebar-border bg-background p-2.5 text-sm"
+                                    onChange={(e) =>
+                                        bookingForm.setData(
+                                            "purchase_order_id",
+                                            Number(e.target.value),
+                                        )
+                                    }
+                                    className="h-9 w-full rounded-lg border border-gov-border bg-gov-surface px-3 text-xs text-gov-text focus:border-gov-interactive focus:outline-none"
                                 >
                                     {assignedOrders.map((o) => (
                                         <option key={o.id} value={o.id}>
-                                            {o.order_number} - {o.title}
+                                            {o.order_number} · {o.title} (
+                                            {o.remaining_person_days} {t("common.pd")} {t("common.free")})
                                         </option>
                                     ))}
                                 </select>
                                 {bookingForm.errors.purchase_order_id && (
-                                    <p className="mt-1 text-red-500 text-xs">{bookingForm.errors.purchase_order_id}</p>
+                                    <p className="text-[11px] text-gov-critical-text font-medium">
+                                        {bookingForm.errors.purchase_order_id}
+                                    </p>
                                 )}
                             </div>
 
                             <div className="grid grid-cols-2 gap-3">
-                                <div>
-                                    <label className="block font-medium text-xs text-neutral-700 dark:text-neutral-300">
-                                        Date
+                                <div className="space-y-1.5">
+                                    <label className="block font-medium text-xs text-gov-text">
+                                        {t("consultant.bookingDate")}
                                     </label>
                                     <input
                                         type="date"
                                         value={bookingForm.data.date}
-                                        onChange={(e) => bookingForm.setData('date', e.target.value)}
-                                        className="mt-1 w-full rounded-xl border border-sidebar-border bg-background p-2.5 text-sm"
+                                        onChange={(e) =>
+                                            bookingForm.setData(
+                                                "date",
+                                                e.target.value,
+                                            )
+                                        }
+                                        className="h-9 w-full rounded-lg border border-gov-border bg-gov-surface px-3 font-mono text-xs text-gov-text focus:border-gov-interactive focus:outline-none tabular-nums"
                                     />
                                     {bookingForm.errors.date && (
-                                        <p className="mt-1 text-red-500 text-xs">{bookingForm.errors.date}</p>
+                                        <p className="text-[11px] text-gov-critical-text font-medium">
+                                            {bookingForm.errors.date}
+                                        </p>
                                     )}
                                 </div>
 
-                                <div>
-                                    <label className="block font-medium text-xs text-neutral-700 dark:text-neutral-300">
-                                        Hours (max 10h)
-                                    </label>
+                                <div className="space-y-1.5">
+                                    <div className="flex items-center justify-between">
+                                        <label className="block font-medium text-xs text-gov-text">
+                                            {t("consultant.hoursWorked")}
+                                        </label>
+                                        <span className="font-mono text-[10px] text-gov-muted tabular-nums">
+                                            {(
+                                                Number(
+                                                    bookingForm.data.hours || 0,
+                                                ) / 8
+                                            ).toFixed(2)}{" "}
+                                            {t("common.pd")}
+                                        </span>
+                                    </div>
                                     <input
                                         type="number"
                                         step="0.25"
                                         min="0.25"
                                         max="10.0"
                                         value={bookingForm.data.hours}
-                                        onChange={(e) => bookingForm.setData('hours', e.target.value)}
-                                        className="mt-1 w-full rounded-xl border border-sidebar-border bg-background p-2.5 text-sm"
+                                        onChange={(e) =>
+                                            bookingForm.setData(
+                                                "hours",
+                                                e.target.value,
+                                            )
+                                        }
+                                        className="h-9 w-full rounded-lg border border-gov-border bg-gov-surface px-3 font-mono text-xs text-gov-text focus:border-gov-interactive focus:outline-none tabular-nums"
                                     />
                                 </div>
                             </div>
+
+                            {/* Statutory Error Callout */}
                             {bookingForm.errors.hours && (
-                                <div className="rounded-xl border border-red-200 bg-red-50 p-2.5 text-red-700 text-xs dark:border-red-900/50 dark:bg-red-950/40 dark:text-red-300">
-                                    ⚠️ {bookingForm.errors.hours}
+                                <div className="rounded-lg border border-gov-critical-border bg-gov-critical-bg p-3 text-xs text-gov-critical-text">
+                                    <div className="flex items-start gap-2">
+                                        <AlertTriangle className="h-4 w-4 shrink-0 mt-0.5" />
+                                        <p className="leading-relaxed font-medium">
+                                            {bookingForm.errors.hours}
+                                        </p>
+                                    </div>
                                 </div>
                             )}
 
-                            <div>
-                                <label className="block font-medium text-xs text-neutral-700 dark:text-neutral-300">
-                                    Description / Proof of Work
+                            <div className="space-y-1.5">
+                                <label className="block font-medium text-xs text-gov-text">
+                                    {t("consultant.proofDescription")}
                                 </label>
                                 <textarea
                                     rows={3}
                                     value={bookingForm.data.description}
-                                    onChange={(e) => bookingForm.setData('description', e.target.value)}
-                                    placeholder="What did you work on? (e.g. Migration pipeline API integration)"
-                                    className="mt-1 w-full rounded-xl border border-sidebar-border bg-background p-2.5 text-sm"
+                                    onChange={(e) =>
+                                        bookingForm.setData(
+                                            "description",
+                                            e.target.value,
+                                        )
+                                    }
+                                    placeholder={t("consultant.descriptionPlaceholder")}
+                                    className="w-full rounded-lg border border-gov-border bg-gov-surface p-3 text-xs text-gov-text placeholder:text-gov-muted focus:border-gov-interactive focus:outline-none"
                                 />
                                 {bookingForm.errors.description && (
-                                    <p className="mt-1 text-red-500 text-xs">{bookingForm.errors.description}</p>
+                                    <p className="text-[11px] text-gov-critical-text font-medium">
+                                        {bookingForm.errors.description}
+                                    </p>
                                 )}
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={bookingForm.processing}
-                                className="w-full rounded-xl bg-blue-600 py-2.5 font-medium text-sm text-white hover:bg-blue-700 disabled:opacity-50"
+                                className="inline-flex h-10 w-full items-center justify-center rounded-lg bg-gov-interactive font-medium text-xs text-white transition-colors hover:bg-gov-interactive-hover disabled:opacity-50 cursor-pointer"
                             >
-                                {bookingForm.processing ? 'Submitting...' : 'Submit Booking'}
+                                {bookingForm.processing
+                                    ? t("consultant.submitting")
+                                    : t("consultant.submitProof")}
                             </button>
                         </form>
                     </div>
 
-                    {/* Planned Vacation Blocks */}
-                    <div className="rounded-2xl border border-sidebar-border bg-card p-5 shadow-sm">
-                        <h2 className="font-semibold text-base">Planned Vacations / Absences</h2>
-                        <p className="mt-1 text-neutral-500 text-xs">
-                            Informs the client's runway algorithm to pause burn projections during your absence.
+                    {/* Absence & Planned Leave Management */}
+                    <div
+                        id="vacation-manager"
+                        className="rounded-lg border border-gov-border bg-gov-surface p-6 shadow-xs"
+                    >
+                        <div className="flex items-center gap-2 border-b border-gov-border pb-3">
+                            <Calendar className="h-4 w-4 text-gov-interactive" />
+                            <h2 className="font-semibold text-sm text-gov-text uppercase tracking-wider">
+                                {t("consultant.vacationPlanner")}
+                            </h2>
+                        </div>
+                        <p className="mt-2 text-xs text-gov-muted leading-relaxed">
+                            {t("consultant.absenceDescription")}
                         </p>
 
-                        <form onSubmit={submitVacation} className="mt-4 space-y-3">
+                        <form
+                            onSubmit={submitVacation}
+                            className="mt-4 space-y-3 text-xs"
+                        >
                             <div className="grid grid-cols-2 gap-2">
-                                <div>
-                                    <label className="text-xs">Start Date</label>
+                                <div className="space-y-1">
+                                    <label className="text-[11px] text-gov-muted">
+                                        {t("consultant.startDate")}
+                                    </label>
                                     <input
                                         type="date"
+                                        required
                                         value={vacationForm.data.start_date}
-                                        onChange={(e) => vacationForm.setData('start_date', e.target.value)}
-                                        className="mt-1 w-full rounded-xl border border-sidebar-border bg-background p-2 text-xs"
+                                        onChange={(e) =>
+                                            vacationForm.setData(
+                                                "start_date",
+                                                e.target.value,
+                                            )
+                                        }
+                                        className="h-8 w-full rounded-lg border border-gov-border bg-gov-surface px-2.5 font-mono text-xs tabular-nums"
                                     />
                                 </div>
-                                <div>
-                                    <label className="text-xs">End Date</label>
+                                <div className="space-y-1">
+                                    <label className="text-[11px] text-gov-muted">
+                                        {t("consultant.endDate")}
+                                    </label>
                                     <input
                                         type="date"
+                                        required
                                         value={vacationForm.data.end_date}
-                                        onChange={(e) => vacationForm.setData('end_date', e.target.value)}
-                                        className="mt-1 w-full rounded-xl border border-sidebar-border bg-background p-2 text-xs"
+                                        onChange={(e) =>
+                                            vacationForm.setData(
+                                                "end_date",
+                                                e.target.value,
+                                            )
+                                        }
+                                        className="h-8 w-full rounded-lg border border-gov-border bg-gov-surface px-2.5 font-mono text-xs tabular-nums"
                                     />
                                 </div>
                             </div>
                             <button
                                 type="submit"
                                 disabled={vacationForm.processing}
-                                className="w-full rounded-xl border border-sidebar-border py-2 font-medium text-xs hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                                className="inline-flex h-8 w-full items-center justify-center rounded-lg border border-gov-border bg-gov-surface font-medium text-xs text-gov-text hover:bg-gov-surface-hover transition-colors cursor-pointer"
                             >
-                                Add Vacation Block
+                                <Plus className="mr-1 h-3.5 w-3.5" />
+                                {t("consultant.blockPeriod")}
                             </button>
                         </form>
 
                         <div className="mt-4 space-y-2">
-                            {vacations.map((v) => (
-                                <div key={v.id} className="flex items-center justify-between rounded-xl bg-muted px-3 py-2 text-xs">
-                                    <span>🏖️ {v.start_date} → {v.end_date}</span>
-                                    <span className="text-neutral-400">Planned</span>
+                            {vacationPagination.paginatedItems.map((v) => (
+                                <div
+                                    key={v.id}
+                                    className="flex items-center justify-between rounded-lg border border-gov-border bg-gov-canvas px-3 py-2 text-xs"
+                                >
+                                    <span className="font-mono text-gov-text tabular-nums">
+                                        {v.start_date} → {v.end_date}
+                                    </span>
+                                    <span className="rounded-sm border border-gov-border bg-gov-surface px-1.5 py-0.5 text-[10px] font-semibold uppercase text-gov-muted">
+                                        {t("consultant.runwayPaused")}
+                                    </span>
                                 </div>
                             ))}
                         </div>
+
+                        {vacations.length > 5 && (
+                            <Pagination
+                                currentPage={vacationPagination.currentPage}
+                                totalItems={vacationPagination.totalItems}
+                                pageSize={vacationPagination.pageSize}
+                                onPageChange={vacationPagination.setCurrentPage}
+                                itemLabel="absences"
+                                className="mt-3 border-none bg-transparent p-0"
+                            />
+                        )}
                     </div>
                 </div>
 
-                {/* Right Column: Time Booking History */}
-                <div className="space-y-6 lg:col-span-2">
-                    <div className="rounded-2xl border border-sidebar-border bg-card p-5 shadow-sm">
-                        <div className="flex items-center justify-between">
-                            <h2 className="font-semibold text-base">Your Booking History</h2>
-                            <span className="text-neutral-500 text-xs">{bookings.length} entries shown</span>
+                {/* Right Column: Historical Booking Ledger */}
+                <div id="ledger" className="space-y-6 lg:col-span-2">
+                    <div className="rounded-lg border border-gov-border bg-gov-surface p-6 shadow-xs">
+                        <div className="flex items-center justify-between border-b border-gov-border pb-4">
+                            <div>
+                                <h2 className="font-semibold text-base text-gov-text">
+                                    {t("consultant.ledgerTitle")}
+                                </h2>
+                                <p className="text-xs text-gov-muted">
+                                    {t("consultant.ledgerDescription")}
+                                </p>
+                            </div>
+                            <span className="font-mono text-xs text-gov-muted">
+                                {bookings.length} {t("common.lineItems")}
+                            </span>
                         </div>
 
-                        <div className="mt-4 overflow-hidden rounded-xl border border-sidebar-border">
-                            <table className="w-full text-left text-sm">
-                                <thead className="bg-muted text-neutral-500 text-xs">
-                                    <tr>
-                                        <th className="px-4 py-2.5">Date</th>
-                                        <th className="px-4 py-2.5">Order</th>
-                                        <th className="px-4 py-2.5">Hours</th>
-                                        <th className="px-4 py-2.5">Description</th>
-                                        <th className="px-4 py-2.5">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-sidebar-border text-xs">
-                                    {bookings.map((b) => (
-                                        <tr key={b.id} className="hover:bg-muted/50">
-                                            <td className="whitespace-nowrap px-4 py-3 font-medium">{b.date}</td>
-                                            <td className="px-4 py-3">
-                                                <span className="font-semibold">{b.order_number}</span>
-                                                <span className="block text-neutral-400 text-[10px] truncate max-w-[140px]">{b.order_title}</span>
-                                            </td>
-                                            <td className="px-4 py-3 font-semibold">{b.hours}h</td>
-                                            <td className="px-4 py-3 max-w-xs truncate text-neutral-600 dark:text-neutral-300">
-                                                {b.description}
-                                                {b.rejection_reason && (
-                                                    <span className="block text-red-500">Reason: {b.rejection_reason}</span>
-                                                )}
-                                            </td>
-                                            <td className="px-4 py-3">
-                                                <span
-                                                    className={`inline-block rounded-full px-2 py-0.5 font-medium text-[10px] ${
-                                                        b.status === 'approved'
-                                                            ? 'bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-300'
-                                                            : b.status === 'rejected'
-                                                            ? 'bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300'
-                                                            : 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300'
-                                                    }`}
-                                                >
-                                                    {b.status.toUpperCase()}
-                                                </span>
-                                            </td>
+                        <div className="mt-4 overflow-hidden rounded-lg border border-gov-border">
+                            <div className="overflow-x-auto">
+                                <table className="w-full text-left text-xs">
+                                    <thead className="border-b border-gov-border bg-gov-surface-hover text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
+                                        <tr>
+                                            <th className="h-9 px-4">{t("consultant.thDate")}</th>
+                                            <th className="h-9 px-4">
+                                                {t("consultant.thOrder")}
+                                            </th>
+                                            <th className="h-9 px-4 text-right">
+                                                {t("consultant.thHours")}
+                                            </th>
+                                            <th className="h-9 px-4 text-right">
+                                                {t("consultant.thPd")}
+                                            </th>
+                                            <th className="h-9 px-4">
+                                                {t("consultant.thProof")}
+                                            </th>
+                                            <th className="h-9 px-4 text-right">
+                                                {t("consultant.thStatus")}
+                                            </th>
                                         </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody className="divide-y divide-gov-border">
+                                        {bookingPagination.paginatedItems.map(
+                                            (b) => (
+                                                <tr
+                                                    key={b.id}
+                                                    className="transition-colors hover:bg-gov-surface-hover"
+                                                >
+                                                    <td className="h-11 px-4 font-mono font-medium text-gov-text tabular-nums whitespace-nowrap">
+                                                        {b.date}
+                                                    </td>
+                                                    <td className="h-11 px-4 font-medium text-gov-text">
+                                                        <div>
+                                                            {b.order_number}
+                                                        </div>
+                                                        <div className="text-[10px] text-gov-muted truncate max-w-32.5">
+                                                            {b.order_title}
+                                                        </div>
+                                                    </td>
+                                                    <td className="h-11 px-4 text-right font-mono font-semibold text-gov-text tabular-nums">
+                                                        {b.hours.toFixed(2)}h
+                                                    </td>
+                                                    <td className="h-11 px-4 text-right font-mono text-gov-muted tabular-nums">
+                                                        {(b.hours / 8).toFixed(
+                                                            2,
+                                                        )}{" "}
+                                                        {t("common.pd")}
+                                                    </td>
+                                                    <td className="h-11 px-4 max-w-xs text-gov-muted truncate">
+                                                        {b.description}
+                                                        {b.rejection_reason && (
+                                                            <span className="block font-medium text-gov-critical-text">
+                                                                {t("common.reason")}:{" "}
+                                                                {
+                                                                    b.rejection_reason
+                                                                }
+                                                            </span>
+                                                        )}
+                                                    </td>
+                                                    <td className="h-11 px-4 text-right whitespace-nowrap">
+                                                        <span
+                                                            className={`rounded-sm px-2 py-0.5 text-[10px] font-semibold uppercase border ${
+                                                                b.status ===
+                                                                "approved"
+                                                                    ? "border-gov-success-border bg-gov-success-bg text-gov-success-text"
+                                                                    : b.status ===
+                                                                        "rejected"
+                                                                      ? "border-gov-critical-border bg-gov-critical-bg text-gov-critical-text"
+                                                                      : "border-gov-warning-border bg-gov-warning-bg text-gov-warning-text"
+                                                            }`}
+                                                        >
+                                                            {b.status === "approved"
+                                                                ? t("common.approved")
+                                                                : b.status === "rejected"
+                                                                  ? t("common.rejected")
+                                                                  : t("common.pending")}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            ),
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {/* Reusable Pagination Component */}
+                            <Pagination
+                                currentPage={bookingPagination.currentPage}
+                                totalItems={bookingPagination.totalItems}
+                                pageSize={bookingPagination.pageSize}
+                                onPageChange={bookingPagination.setCurrentPage}
+                                onPageSizeChange={bookingPagination.setPageSize}
+                                pageSizeOptions={[10, 25, 50]}
+                                itemLabel="timesheet logs"
+                            />
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Embedded AI Chatbot */}
+            {/* In-App Regulatory Advisor Drawer */}
             <ChatbotDrawer />
         </div>
     );
