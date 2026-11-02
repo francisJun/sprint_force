@@ -13,6 +13,15 @@ abstract class TestCase extends BaseTestCase
     public PurchaseOrder $order;
     public mixed $rule = null;
 
+    public function createApplication()
+    {
+        putenv('APP_ENV=testing');
+        $_ENV['APP_ENV'] = 'testing';
+        $_SERVER['APP_ENV'] = 'testing';
+
+        return parent::createApplication();
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -22,6 +31,8 @@ abstract class TestCase extends BaseTestCase
             'database.default' => 'sqlite',
             'database.connections.sqlite.database' => ':memory:',
         ]);
+
+        $this->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class);
     }
 
     protected function skipUnlessFortifyHas(string $feature, ?string $message = null): void

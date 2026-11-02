@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
 
         // Role 2: Client Project Lead
         User::updateOrCreate(
-            ['email' => 'RAG Mock Engine'],
+            ['email' => 'projectlead@example.com'],
             [
                 'name' => 'Sarah Schmidt',
                 'password' => $password,
