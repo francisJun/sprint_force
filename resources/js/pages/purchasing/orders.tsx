@@ -192,27 +192,20 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                     <table className="w-full text-left text-xs">
                         <thead className="border-b border-gov-border bg-gov-surface-hover text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
                             <tr>
-                                <th className="h-9 px-4">Order Code</th>
-                                <th className="h-9 px-4">Project Line</th>
-                                <th className="h-9 px-4">Vendor Partner</th>
-                                <th className="h-9 px-4 text-right">
-                                    Committed (PD)
+                                <th className="h-9 px-4 whitespace-nowrap">Order Code</th>
+                                <th className="h-9 px-4">Project & Vendor</th>
+                                <th className="h-9 px-4 text-right whitespace-nowrap">
+                                    Budget (PD)
                                 </th>
-                                <th className="h-9 px-4 text-right">
-                                    Settled (PD)
-                                </th>
-                                <th className="h-9 px-4 text-right">
-                                    Available (PD)
-                                </th>
-                                <th className="h-9 px-4 text-right">
+                                <th className="h-9 px-4 text-right whitespace-nowrap">
                                     Burn Rate
                                 </th>
-                                <th className="h-9 px-4">Exhaustion Horizon</th>
-                                <th className="h-9 px-4 text-right">
-                                    Procurement Status
+                                <th className="h-9 px-4 whitespace-nowrap">Forecast End</th>
+                                <th className="h-9 px-4 text-center whitespace-nowrap">
+                                    Status
                                 </th>
-                                <th className="h-9 px-4 text-center">
-                                    Actions
+                                <th className="h-9 px-4 text-center whitespace-nowrap">
+                                    Action
                                 </th>
                             </tr>
                         </thead>
@@ -220,7 +213,7 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                             {orderPagination.paginatedItems.length === 0 ? (
                                 <tr>
                                     <td
-                                        colSpan={10}
+                                        colSpan={7}
                                         className="h-24 text-center text-gov-muted text-xs"
                                     >
                                         No purchase orders match the search or
@@ -234,34 +227,32 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                                         className="transition-colors hover:bg-gov-surface-hover cursor-pointer"
                                         onClick={() => setSelectedOrder(o)}
                                     >
-                                        <td className="h-11 px-4 font-mono font-medium text-gov-text tabular-nums">
+                                        <td className="h-12 px-4 font-mono font-medium text-gov-text tabular-nums whitespace-nowrap">
                                             {o.order_number}
                                         </td>
-                                        <td className="h-11 px-4 font-medium text-gov-text">
-                                            {o.title}
+                                        <td className="h-12 px-4">
+                                            <div className="font-medium text-gov-text">
+                                                {o.title}
+                                            </div>
+                                            <div className="text-[11px] text-gov-muted">
+                                                {o.supplier_name}
+                                            </div>
                                         </td>
-                                        <td className="h-11 px-4 text-gov-muted">
-                                            {o.supplier_name}
+                                        <td className="h-12 px-4 text-right tabular-nums whitespace-nowrap">
+                                            <div className="font-mono font-medium text-gov-text">
+                                                {o.used_person_days.toFixed(1)} / {o.total_person_days.toFixed(1)} PD
+                                            </div>
+                                            <div className="text-[11px] text-gov-muted font-mono">
+                                                {o.remaining_person_days.toFixed(1)} PD available
+                                            </div>
                                         </td>
-                                        <td className="h-11 px-4 text-right font-mono font-medium text-gov-text tabular-nums">
-                                            {o.total_person_days.toFixed(2)}
+                                        <td className="h-12 px-4 text-right font-mono text-gov-muted tabular-nums whitespace-nowrap">
+                                            {o.average_weekly_burn_pd.toFixed(2)} PD/wk
                                         </td>
-                                        <td className="h-11 px-4 text-right font-mono font-medium text-gov-text tabular-nums">
-                                            {o.used_person_days.toFixed(2)}
-                                        </td>
-                                        <td className="h-11 px-4 text-right font-mono font-medium text-gov-text tabular-nums">
-                                            {o.remaining_person_days.toFixed(2)}
-                                        </td>
-                                        <td className="h-11 px-4 text-right font-mono text-gov-muted tabular-nums">
-                                            {o.average_weekly_burn_pd.toFixed(
-                                                2,
-                                            )}{" "}
-                                            PD/w
-                                        </td>
-                                        <td className="h-11 px-4 font-mono text-gov-text tabular-nums">
+                                        <td className="h-12 px-4 font-mono text-gov-text tabular-nums whitespace-nowrap">
                                             {o.forecasted_end_date}
                                         </td>
-                                        <td className="h-11 px-4 text-right whitespace-nowrap">
+                                        <td className="h-12 px-4 text-center whitespace-nowrap">
                                             <span
                                                 className={`rounded-sm px-2 py-0.5 text-[10px] font-semibold uppercase border ${
                                                     o.needs_reorder_alert
@@ -270,17 +261,17 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                                                 }`}
                                             >
                                                 {o.needs_reorder_alert
-                                                    ? `Re-Order (${o.days_until_reorder_deadline}d to deadline)`
+                                                    ? `Re-Order (${o.days_until_reorder_deadline}d)`
                                                     : "Runway Nominal"}
                                             </span>
                                         </td>
-                                        <td className="h-11 px-4 text-center">
+                                        <td className="h-12 px-4 text-center whitespace-nowrap">
                                             <button
                                                 onClick={(e) => {
                                                     e.stopPropagation();
                                                     setSelectedOrder(o);
                                                 }}
-                                                className="rounded-md border border-gov-border bg-gov-surface px-2 py-1 text-[11px] font-medium text-gov-text hover:bg-gov-surface-hover cursor-pointer"
+                                                className="rounded-md border border-gov-border bg-gov-surface px-2.5 py-1 text-[11px] font-medium text-gov-text hover:bg-gov-surface-hover hover:border-gov-interactive hover:text-gov-interactive transition-colors cursor-pointer"
                                             >
                                                 Inspect
                                             </button>

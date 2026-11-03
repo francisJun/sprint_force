@@ -113,7 +113,7 @@ export function AppSidebar() {
                                         }`}
                                     >
                                         <Link href="/admin/users">
-                                            <Shield className="h-4 w-4 shrink-0 text-amber-400" />
+                                            <Shield className="h-4 w-4 shrink-0" />
                                             <span className="group-data-[collapsible=icon]:hidden">{isGerman ? 'Benutzer & Rollen' : 'User Governance'}</span>
                                         </Link>
                                     </SidebarMenuButton>

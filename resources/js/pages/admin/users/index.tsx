@@ -272,13 +272,7 @@ export default function AdminUsersIndex({
             {/* Header */}
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-gov-border pb-5">
                 <div>
-                    <div className="flex items-center gap-2">
-                        <span className="inline-flex items-center gap-1.5 rounded-sm border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-[11px] font-semibold text-amber-600 dark:text-amber-400">
-                            <Shield className="h-3 w-3" />
-                            {isGerman ? 'Plattform-Administration' : 'Platform Governance'}
-                        </span>
-                    </div>
-                    <h1 className="mt-1 text-2xl font-bold tracking-tight text-gov-text">
+                    <h1 className="text-2xl font-bold tracking-tight text-gov-text">
                         {t('admin.title')}
                     </h1>
                     <p className="text-xs text-gov-muted">
@@ -290,9 +284,9 @@ export default function AdminUsersIndex({
                         type="button"
                         variant="outline"
                         onClick={() => setIsMatrixOpen(true)}
-                        className="rounded-lg border-gov-border text-xs font-medium cursor-pointer"
+                        className="group rounded-lg border-gov-border bg-gov-surface text-xs font-medium text-gov-text transition-all duration-150 hover:border-gov-interactive hover:bg-gov-interactive hover:text-white shadow-xs cursor-pointer"
                     >
-                        <Shield className="mr-1.5 h-3.5 w-3.5 text-gov-interactive" />
+                        <Shield className="mr-1.5 h-3.5 w-3.5 text-gov-interactive transition-colors duration-150 group-hover:text-white" />
                         {t('admin.rolesMatrix')}
                     </Button>
                     <Button
