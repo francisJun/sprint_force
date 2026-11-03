@@ -80,8 +80,12 @@ export default function Welcome() {
                                 href={dashboard()}
                                 className="inline-flex h-8.5 sm:h-9 items-center justify-center rounded-lg bg-gov-interactive px-3 sm:px-4 text-xs sm:text-sm font-medium text-white transition-colors hover:bg-gov-interactive-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gov-interactive cursor-pointer"
                             >
-                                <span className="hidden sm:inline">{t("common.openWorkspace")}</span>
-                                <span className="sm:hidden">{t("common.dashboard")}</span>
+                                <span className="hidden sm:inline">
+                                    {t("common.openWorkspace")}
+                                </span>
+                                <span className="sm:hidden">
+                                    {t("common.dashboard")}
+                                </span>
                                 <ArrowRight className="ml-1.5 h-3.5 w-3.5 sm:h-4 sm:w-4" />
                             </Link>
                         ) : (
@@ -101,9 +105,11 @@ export default function Welcome() {
                 {/* Hero Section */}
                 <section className="relative border-b border-gov-border bg-gov-surface px-4 sm:px-6 py-12 sm:py-20 lg:px-8 lg:py-24">
                     <div className="mx-auto max-w-5xl text-center">
-                        <div className="inline-flex items-center gap-2 rounded-sm border border-gov-border bg-gov-surface-hover px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gov-muted">
-                            <Scale className="h-3.5 w-3.5 text-gov-interactive" />
-                            {t("landing.heroBadge")}
+                        <div className="inline-flex max-w-full items-center justify-center gap-1.5 sm:gap-2 rounded-sm border border-gov-border bg-gov-surface-hover px-2.5 sm:px-3 py-1 text-[10px] min-[400px]:text-[11px] sm:text-xs font-semibold uppercase tracking-wide sm:tracking-wider text-gov-muted text-center leading-tight">
+                            <Scale className="h-2.5 w-2.5 min-[400px]:h-3 min-[400px]:w-3 sm:h-3.5 sm:w-3.5 text-gov-interactive shrink-0" />
+                            <span className="text-center">
+                                {t("landing.heroBadge")}
+                            </span>
                         </div>
 
                         <h1 className="mt-6 text-2xl min-[400px]:text-3xl font-semibold tracking-tight text-gov-text sm:text-5xl sm:leading-tight">
@@ -422,58 +428,58 @@ export default function Welcome() {
                         {/* Bento Grid */}
                         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
                             {/* Card 1: Large Span (2 Cols) */}
-                            <div className="rounded-lg border border-gov-border bg-gov-surface p-5 sm:p-6 shadow-xs md:col-span-2">
+                            <div className="rounded-lg border border-gov-border bg-gov-surface p-4 sm:p-6 shadow-xs md:col-span-2">
                                 <div className="flex items-center gap-2">
-                                    <Calendar className="h-5 w-5 text-gov-interactive" />
-                                    <h3 className="font-semibold text-lg text-gov-text">
+                                    <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-gov-interactive shrink-0" />
+                                    <h3 className="font-semibold text-base sm:text-lg text-gov-text leading-snug">
                                         {t("landing.bentoRunwayTitle")}
                                     </h3>
                                 </div>
-                                <p className="mt-2 text-xs text-gov-muted leading-relaxed">
+                                <p className="mt-2 text-xs sm:text-sm text-gov-muted leading-relaxed">
                                     {t("landing.bentoRunwayDesc")}
                                 </p>
 
-                                <div className="mt-6 rounded-lg border border-gov-border bg-gov-canvas p-4 text-xs font-mono">
-                                    <div className="flex items-center justify-between border-b border-gov-border pb-2">
-                                        <span className="text-gov-muted uppercase">
+                                <div className="mt-5 sm:mt-6 rounded-lg border border-gov-border bg-gov-canvas p-3 sm:p-4 text-[11px] sm:text-xs font-mono">
+                                    <div className="flex flex-wrap items-center justify-between gap-1.5 border-b border-gov-border pb-2">
+                                        <span className="text-gov-muted uppercase text-[10px] sm:text-xs">
                                             {t("landing.bentoAlgoHeader")}
                                         </span>
-                                        <span className="rounded-sm border border-gov-border bg-gov-surface px-1.5 py-0.5 text-[10px] text-gov-text">
+                                        <span className="rounded-sm border border-gov-border bg-gov-surface px-1.5 py-0.5 text-[9px] sm:text-[10px] text-gov-text shrink-0">
                                             {t("landing.bentoAlgoStatus")}
                                         </span>
                                     </div>
-                                    <div className="mt-3 space-y-1.5 text-gov-text">
-                                        <div className="flex justify-between">
-                                            <span>
+                                    <div className="mt-3 space-y-2 sm:space-y-1.5 text-gov-text">
+                                        <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5 sm:gap-4">
+                                            <span className="wrap-break-word">
                                                 {t("landing.bentoPaceLabel")}
                                             </span>
-                                            <span className="font-semibold">
+                                            <span className="font-semibold sm:text-right shrink-0">
                                                 {t("landing.bentoPaceValue")}
                                             </span>
                                         </div>
-                                        <div className="flex justify-between text-gov-muted">
-                                            <span>
+                                        <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5 sm:gap-4 text-gov-muted">
+                                            <span className="wrap-break-word">
                                                 {t("landing.bentoAbsenceLabel")}
                                             </span>
-                                            <span>
+                                            <span className="sm:text-right shrink-0">
                                                 {t("landing.bentoAbsenceValue")}
                                             </span>
                                         </div>
-                                        <div className="flex justify-between text-gov-muted">
-                                            <span>
+                                        <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5 sm:gap-4 text-gov-muted">
+                                            <span className="wrap-break-word">
                                                 {t("landing.bentoHolidayLabel")}
                                             </span>
-                                            <span>
+                                            <span className="sm:text-right shrink-0">
                                                 {t("landing.bentoHolidayValue")}
                                             </span>
                                         </div>
-                                        <div className="flex justify-between border-t border-gov-border pt-2 text-gov-primary dark:text-gov-interactive">
-                                            <span className="font-semibold">
+                                        <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5 sm:gap-4 border-t border-gov-border pt-2 text-gov-primary dark:text-gov-interactive">
+                                            <span className="font-semibold wrap-break-word">
                                                 {t(
                                                     "landing.bentoFinalDateLabel",
                                                 )}
                                             </span>
-                                            <span className="font-semibold">
+                                            <span className="font-semibold sm:text-right shrink-0">
                                                 {t(
                                                     "landing.bentoFinalDateValue",
                                                 )}
