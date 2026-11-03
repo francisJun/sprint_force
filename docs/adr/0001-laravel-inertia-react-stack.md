@@ -1,51 +1,67 @@
-# 0001: Technology Stack
+# 0001 · Technology Stack Selection
 
-- Status: accepted
-- Date: 2026-10-30
-- Deciders: Team Sprint Force (HourRadar)
+- **Status:** accepted
+- **Date:** 2026-10-30
+- **Deciders:** Team HourRadar
 
 ## Context
 
-For the Article26 Hackathon 2026, the team needs a productive, robust, and maintainable technology stack to build **HourRadar**, an integrated time booking and budget intelligence platform with:
+Enterprise time booking and procurement governance platforms bridge two contrasting domains: strict backend business logic (German statutory labor law compliance, budget accounting, multi-role security) and modern, highly reactive user interfaces (interactive calendar pickers, live burndown charts, real-time runway recalculations).
 
-- Multi-role support (Client Project Lead, External Consultant, Purchasing / Finance).
-- Real-time order budget calculations and predictive runway forecasting.
-- German Working Time Act (ArbZG) validation rules enforced on the server.
-- An embedded streaming AI chatbot (RAG) to assist users with platform usage, order rules, and compliance questions.
-- A requirement that the technical jury can easily run and evaluate the product from the README within 5 minutes without needing paid cloud accounts or complex container setups.
+The engineering stack must satisfy the following technical requirements:
 
-The team has strong experience with PHP, Laravel, React, and Laravel Herd on macOS and Windows.
+- Multi-role role-based access control (External Consultant, Project Lead, Purchasing/Finance, Super Admin).
+- Server-side enforcement of German Working Time Act (ArbZG) regulations and purchase order budget ceilings.
+- High developer velocity with unified security, rapid automated testing, and deterministic local onboarding.
+- Interactive, responsive frontend without the architectural overhead and API synchronization friction of decoupled single-page applications.
+- Embedded streaming AI assistant capable of running both with live enterprise LLM endpoints and an offline local fallback.
+
+## Options Considered
+
+1. **Option A: Decoupled REST/GraphQL API + Standalone SPA (FastAPI/Node.js + React/Next.js)**
+   - *Pros:* Complete separation of client and server codebases.
+   - *Cons:* Duplicated validation schemas, complex state management (Redux/TanStack Query), CORS and token refresh boilerplate, and slower initial feature velocity.
+
+2. **Option B: Traditional Server-Rendered Monolith (Laravel Blade / Django Templates)**
+   - *Pros:* Simple setup, tight backend coupling, built-in CSRF protection.
+   - *Cons:* Clunky user experience for interactive features like live calendar bookings, drag-and-drop status changes, and reactive SVG burndown charts without adding disparate JavaScript libraries.
+
+3. **Option C: Modern Monolithic Hybrid (Laravel 13 + Inertia.js + React 19 + Tailwind CSS) [Chosen]**
+   - *Pros:* Combines the developer velocity and security of a robust Laravel backend with the component richness and responsiveness of React, eliminating API glue code and state synchronization overhead.
 
 ## Decision
 
-We choose the following modern full-stack ecosystem:
+We select **Option C: Laravel 13 + Inertia.js + React 19**:
 
-1. **Backend & Framework**: **Laravel 13** (PHP 8.3+)
-   - Robust service container, Eloquent ORM, database migrations, and built-in authentication.
-   - Clean architectural separation between Domain Services, Form Requests / DTOs, and Eloquent Models.
-2. **Frontend & UI**: **Inertia.js (React) + Vite + Tailwind CSS**
-   - Combines the developer velocity of a monolithic Laravel app with a modern React component UI without client-side state boilerplate or CORS friction.
-3. **Database**: **SQLite** (`database/database.sqlite`)
-   - Fully zero-configuration: requires no external database server, Docker containers, or service credentials.
-   - Survives restarts and supports rapid automated seeding for demo accounts and initial orders.
-4. **Test Runner**: **Pest PHP** (`php artisan test`)
-   - Expressive, readable syntax for unit and feature testing of business rules (e.g. ArbZG daily limits, budget depletion).
-5. **API Documentation**: **Dedoc Scramble** (`dedoc/scramble`)
-   - Generates interactive OpenAPI / Swagger UI automatically without tedious manual PHPDoc annotations.
-6. **AI Assistant & Streaming**: **Laravel AI SDK / OpenAI / Anthropic PHP with Mock Fallback**
-   - Streaming Server-Sent Events (SSE) from a Laravel controller to the React frontend.
-   - Uses an `AI_MOCK=true` toggle in `.env.example` by default so the technical jury can test the streaming chatbot completely offline without requiring paid API keys.
+1. **Backend Framework: Laravel 13 (PHP 8.3+)**
+   - Provides enterprise-grade routing, dependency injection, Eloquent ORM, database migrations, and robust authentication out of the box.
+   - Enforces clean separation between Domain Services (`app/Domain/`), HTTP Controllers, Form Requests/DTOs, and Models.
+2. **Frontend Architecture: Inertia.js (React 19) + Vite + Tailwind CSS**
+   - Delivers a single-page application feel with classic server-driven routing and controller logic.
+   - Eliminates client-side state machine boilerplate while allowing rich component-driven interfaces for interactive dashboards.
+3. **Database Tier: SQLite (Local/Edge) with PostgreSQL Migration Path**
+   - Embedded SQLite for zero-friction local development, instant test execution, and isolated edge installations.
+   - Strict ANSI SQL schema migrations ensure full portability to clustered PostgreSQL in production.
+4. **Automated Testing Suite: Pest PHP**
+   - Expressive, readable unit and integration tests verifying domain business rules and compliance constraints with 100% test reliability.
+5. **API Documentation: Dedoc Scramble**
+   - Generates interactive, OpenAPI 3.1-compliant Swagger documentation automatically directly from route definitions and Form Requests without manual PHPDoc upkeep.
+6. **Streaming AI Architecture: Laravel AI Controller + Server-Sent Events (SSE)**
+   - Streaming SSE endpoint delivers real-time assistant responses.
+   - Built-in `AI_MOCK=true` mode provides deterministic, air-gapped evaluation without external network dependencies.
 
 ## Consequences
 
-### Positive
+- **What becomes easier:**
+  - Full-stack developer productivity: new features require one unified codebase rather than synchronizing disparate backend and frontend repositories.
+  - Zero API boilerplate: controllers return Inertia responses with strongly typed props directly into React page components.
+  - Testability: Pest unit tests run in milliseconds against in-memory/file-based SQLite without external services.
+- **What becomes harder:**
+  - Real-time streaming AI requires dedicated SSE / Fetch endpoints rather than standard Inertia page navigation roundtrips.
 
-- **Fast Local Setup**: Works seamlessly with Laravel Herd on both macOS and Windows.
-- **Evaluation Simplicity**: The technical jury can run the application with standard `composer install`, `npm install`, and `php artisan serve` with SQLite.
-- **Rich Interactive UI**: React + Tailwind provides a responsive, modern interface for both time booking and interactive budget runways.
-- **Compliance & Offline AI**: Server-enforced domain rules tested with Pest; AI assistant runs reliably in mock mode or live with an API key.
-
-### Negative / Trade-offs
-
-- The team must ensure SQLite foreign key constraints and date calculations match production-grade behavior.
-- Real-time streaming over Inertia requires dedicated streaming endpoints (SSE / `fetch`) rather than standard Inertia page visits.
+- **What becomes easier:**
+  - Full-stack developer productivity: new features require one unified codebase rather than synchronizing disparate backend and frontend repositories.
+  - Zero API boilerplate: controllers return Inertia responses with strongly typed props directly into React page components.
+  - Testability: Pest unit tests run in milliseconds against in-memory/file-based SQLite without external services.
+- **What becomes harder:**
+  - Real-time streaming AI requires dedicated SSE / Fetch endpoints rather than standard Inertia page navigation roundtrips.

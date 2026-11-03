@@ -5,14 +5,20 @@ import { useTranslation } from "@/lib/i18n";
 import {
     AlertTriangle,
     ArrowRight,
+    Building2,
     Calendar,
+    Check,
     CheckCircle2,
     Clock,
     FileCheck2,
+    Info,
+    KeyRound,
     Layers,
     Scale,
+    Server,
     Shield,
     Users,
+    Zap,
 } from "lucide-react";
 import { dashboard, login } from "@/routes";
 
@@ -24,7 +30,7 @@ export default function Welcome() {
         <div className="min-h-screen bg-gov-canvas text-gov-text font-sans scroll-smooth selection:bg-gov-interactive selection:text-white">
             <Head title={`HourRadar - ${t("common.tagline")}`} />
 
-            {/* Top Navigation */}
+            {/* Top Navigation - Streamlined to 4 core links */}
             <header className="sticky top-0 z-40 border-b border-gov-border bg-gov-surface/95 backdrop-blur-md">
                 <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
                     <Link
@@ -41,22 +47,22 @@ export default function Welcome() {
 
                     <nav className="hidden items-center gap-8 text-sm font-medium text-gov-muted md:flex">
                         <a
-                            href="#kpi-strip"
-                            className="transition-colors hover:text-gov-text"
-                        >
-                            {t("nav.governanceMetrics")}
-                        </a>
-                        <a
-                            href="#two-sides"
-                            className="transition-colors hover:text-gov-text"
-                        >
-                            {t("nav.bilateralDelivery")}
-                        </a>
-                        <a
                             href="#capabilities"
                             className="transition-colors hover:text-gov-text"
                         >
-                            {t("nav.runwayEngine")}
+                            {t("nav.capabilities")}
+                        </a>
+                        <a
+                            href="#pricing"
+                            className="transition-colors hover:text-gov-text"
+                        >
+                            {t("nav.pricing")}
+                        </a>
+                        <a
+                            href="#security"
+                            className="transition-colors hover:text-gov-text"
+                        >
+                            {t("nav.security")}
                         </a>
                         <a
                             href="#audit-telemetry"
@@ -103,7 +109,7 @@ export default function Welcome() {
                             {t("landing.heroTitle")}
                         </h1>
 
-                        <p className="mx-auto mt-5 max-w-2xl text-base text-gov-muted sm:text-lg">
+                        <p className="mx-auto mt-5 max-w-3xl text-base text-gov-muted sm:text-lg leading-relaxed">
                             {t("landing.heroDescription")}
                         </p>
 
@@ -111,7 +117,7 @@ export default function Welcome() {
                             {auth?.user ? (
                                 <Link
                                     href={dashboard()}
-                                    className="inline-flex h-11 items-center justify-center rounded-lg bg-gov-interactive px-6 text-sm font-medium text-white transition-colors hover:bg-gov-interactive-hover cursor-pointer"
+                                    className="inline-flex h-11 items-center justify-center rounded-lg bg-gov-interactive px-6 text-sm font-medium text-white transition-colors hover:bg-gov-interactive-hover cursor-pointer shadow-xs"
                                 >
                                     {t("landing.openDashboard")}
                                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -119,7 +125,7 @@ export default function Welcome() {
                             ) : (
                                 <Link
                                     href={login()}
-                                    className="inline-flex h-11 items-center justify-center rounded-lg bg-gov-interactive px-6 text-sm font-medium text-white transition-colors hover:bg-gov-interactive-hover cursor-pointer"
+                                    className="inline-flex h-11 items-center justify-center rounded-lg bg-gov-interactive px-6 text-sm font-medium text-white transition-colors hover:bg-gov-interactive-hover cursor-pointer shadow-xs"
                                 >
                                     {t("landing.signInCTA")}
                                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -132,10 +138,30 @@ export default function Welcome() {
                                 {t("landing.inspectAudit")}
                             </a>
                         </div>
+
+                        {/* Enterprise Trust Guardrails */}
+                        <div className="mt-12 grid grid-cols-2 gap-3 text-left sm:grid-cols-4 pt-8 border-t border-gov-border/60">
+                            <div className="flex items-center gap-2 text-xs text-gov-muted">
+                                <Scale className="h-4 w-4 text-gov-interactive shrink-0" />
+                                <span>{t("landing.heroTrustArbzg")}</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-xs text-gov-muted">
+                                <Shield className="h-4 w-4 text-gov-interactive shrink-0" />
+                                <span>{t("landing.heroTrustBetriebsrat")}</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-xs text-gov-muted">
+                                <Server className="h-4 w-4 text-gov-interactive shrink-0" />
+                                <span>{t("landing.heroTrustVpc")}</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-xs text-gov-muted">
+                                <Zap className="h-4 w-4 text-gov-interactive shrink-0" />
+                                <span>{t("landing.heroTrustUnlimited")}</span>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
-                {/* Core Operational KPI Strip */}
+                {/* Core Operational KPI & ROI Strip */}
                 <section
                     id="kpi-strip"
                     className="scroll-mt-20 border-b border-gov-border bg-gov-canvas py-12"
@@ -166,26 +192,26 @@ export default function Welcome() {
                                 </div>
                             </div>
 
-                            {/* Metric 2 */}
+                            {/* Metric 2: Quantified Time Savings */}
                             <div className="rounded-lg border border-gov-border bg-gov-surface p-5 shadow-xs">
                                 <div className="flex items-center justify-between">
                                     <span className="text-xs font-semibold uppercase tracking-wider text-gov-muted">
-                                        {t("landing.kpiApprovedConsumption")}
+                                        {t("landing.kpiSavingsTitle")}
                                     </span>
                                     <Clock className="h-4 w-4 text-gov-muted" />
                                 </div>
                                 <div className="mt-3 text-3xl font-semibold tracking-tight text-gov-text tabular-nums">
-                                    84.00{" "}
+                                    35{" "}
                                     <span className="text-sm font-normal text-gov-muted">
-                                        {t("common.pd")}
+                                        {t("landing.kpiSavingsValue")}
                                     </span>
                                 </div>
                                 <div className="mt-3 flex items-center justify-between text-xs">
                                     <span className="text-gov-muted">
-                                        Burn velocity: 6.0 {t("common.pd")}/wk
+                                        {t("landing.kpiSavingsSub")}
                                     </span>
                                     <span className="font-medium text-gov-text tabular-nums">
-                                        60.0% {t("common.burn")}
+                                        {t("landing.kpiSavingsBadge")}
                                     </span>
                                 </div>
                             </div>
@@ -203,7 +229,7 @@ export default function Welcome() {
                                 </div>
                                 <div className="mt-3 flex items-center justify-between text-xs">
                                     <span className="text-gov-muted">
-                                        § 3 Daily 10h Ceiling
+                                        {t("landing.kpiArbzgSub")}
                                     </span>
                                     <span className="rounded-sm border border-gov-success-border bg-gov-success-bg px-1.5 py-0.5 font-semibold text-[10px] uppercase text-gov-success-text">
                                         {t("common.verified")}
@@ -387,55 +413,45 @@ export default function Welcome() {
                                 <div className="flex items-center gap-2">
                                     <Calendar className="h-5 w-5 text-gov-interactive" />
                                     <h3 className="font-semibold text-lg text-gov-text">
-                                        Predictive Runway Calculation Engine
+                                        {t("landing.bentoRunwayTitle")}
                                     </h3>
                                 </div>
                                 <p className="mt-2 text-xs text-gov-muted leading-relaxed">
-                                    Standard linear division fails in corporate
-                                    project reality. HourRadar models budget
-                                    exhaustion through day-by-day forward
-                                    iteration, skipping weekends, nationwide
-                                    German public holidays, and consultant
-                                    absence periods.
+                                    {t("landing.bentoRunwayDesc")}
                                 </p>
 
                                 <div className="mt-6 rounded-lg border border-gov-border bg-gov-canvas p-4 text-xs font-mono">
                                     <div className="flex items-center justify-between border-b border-gov-border pb-2">
-                                        <span className="text-gov-muted">
-                                            RUNWAY PROJECTION ALGORITHM
+                                        <span className="text-gov-muted uppercase">
+                                            {t("landing.bentoAlgoHeader")}
                                         </span>
                                         <span className="rounded-sm border border-gov-border bg-gov-surface px-1.5 py-0.5 text-[10px] text-gov-text">
-                                            ACTIVE ITERATOR
+                                            {t("landing.bentoAlgoStatus")}
                                         </span>
                                     </div>
                                     <div className="mt-3 space-y-1.5 text-gov-text">
                                         <div className="flex justify-between">
-                                            <span>
-                                                Baseline Pace Projection:
-                                            </span>
+                                            <span>{t("landing.bentoPaceLabel")}</span>
                                             <span className="font-semibold">
-                                                Week 50 (Dec 11)
+                                                {t("landing.bentoPaceValue")}
                                             </span>
                                         </div>
                                         <div className="flex justify-between text-gov-muted">
                                             <span>
-                                                + Consultant Absence Adjustment
-                                                (5 working days):
+                                                {t("landing.bentoAbsenceLabel")}
                                             </span>
-                                            <span>+7 Calendar Days</span>
+                                            <span>{t("landing.bentoAbsenceValue")}</span>
                                         </div>
                                         <div className="flex justify-between text-gov-muted">
-                                            <span>
-                                                + Public Holiday Masking:
-                                            </span>
-                                            <span>Skipped</span>
+                                            <span>{t("landing.bentoHolidayLabel")}</span>
+                                            <span>{t("landing.bentoHolidayValue")}</span>
                                         </div>
                                         <div className="flex justify-between border-t border-gov-border pt-2 text-gov-primary dark:text-gov-interactive">
                                             <span className="font-semibold">
-                                                Final Projected Depletion Date:
+                                                {t("landing.bentoFinalDateLabel")}
                                             </span>
                                             <span className="font-semibold">
-                                                Week 51 (Dec 18, 2026)
+                                                {t("landing.bentoFinalDateValue")}
                                             </span>
                                         </div>
                                     </div>
@@ -447,18 +463,14 @@ export default function Welcome() {
                                 <div className="flex items-center gap-2">
                                     <Scale className="h-5 w-5 text-gov-interactive" />
                                     <h3 className="font-semibold text-base text-gov-text">
-                                        ArbZG § 3 Legal Guardrails
+                                        {t("landing.bentoArbzgTitle")}
                                     </h3>
                                 </div>
                                 <p className="mt-2 text-xs text-gov-muted leading-relaxed">
-                                    Strict statutory enforcement. Bookings
-                                    exceeding the mandatory 10-hour daily
-                                    ceiling are rejected at domain level with
-                                    clear legal error feedback.
+                                    {t("landing.bentoArbzgDesc")}
                                 </p>
                                 <div className="mt-6 rounded-lg border border-gov-critical-border bg-gov-critical-bg p-3 text-[11px] text-gov-critical-text font-mono">
-                                    ArbZG § 3 Violation: Maximum daily working
-                                    time is 10 hours. Entry rejected.
+                                    {t("landing.bentoArbzgAlert")}
                                 </div>
                             </div>
 
@@ -467,18 +479,14 @@ export default function Welcome() {
                                 <div className="flex items-center gap-2">
                                     <AlertTriangle className="h-5 w-5 text-gov-warning-text" />
                                     <h3 className="font-semibold text-base text-gov-text">
-                                        4-Week Procurement Radar
+                                        {t("landing.bentoRadarTitle")}
                                     </h3>
                                 </div>
                                 <p className="mt-2 text-xs text-gov-muted leading-relaxed">
-                                    Enterprise purchasing needs 4 weeks lead
-                                    time. Automated alerts surface in the
-                                    management cockpit when runway drops below
-                                    the procurement horizon.
+                                    {t("landing.bentoRadarDesc")}
                                 </p>
                                 <div className="mt-6 rounded-lg border border-gov-warning-border bg-gov-warning-bg p-3 text-[11px] text-gov-warning-text font-mono">
-                                    Re-Order Deadline: Week 47. Follow-up order
-                                    must be placed immediately.
+                                    {t("landing.bentoRadarAlert")}
                                 </div>
                             </div>
 
@@ -487,28 +495,324 @@ export default function Welcome() {
                                 <div className="flex items-center gap-2">
                                     <FileCheck2 className="h-5 w-5 text-gov-interactive" />
                                     <h3 className="font-semibold text-base text-gov-text">
-                                        Proof of Work Audit & Invoice Settlement
+                                        {t("landing.bentoAuditTitle")}
                                     </h3>
                                 </div>
                                 <p className="mt-2 text-xs text-gov-muted leading-relaxed">
-                                    Project leads inspect submitted timesheet
-                                    entries with granular task proof-of-work
-                                    before approving. Verified hours flow
-                                    directly into invoice reconciliation tables,
-                                    eliminating manual discrepancies between
-                                    timesheets and vendor billings.
+                                    {t("landing.bentoAuditDesc")}
                                 </p>
                                 <div className="mt-4 flex flex-wrap gap-2 text-[11px]">
                                     <span className="rounded-sm border border-gov-border bg-gov-surface-hover px-2 py-1 text-gov-muted">
-                                        1-Click Proof Approval
+                                        {t("landing.bentoBadge1")}
                                     </span>
                                     <span className="rounded-sm border border-gov-border bg-gov-surface-hover px-2 py-1 text-gov-muted">
-                                        Statutory 10-Year Tax Audit Retention
+                                        {t("landing.bentoBadge2")}
                                     </span>
                                     <span className="rounded-sm border border-gov-border bg-gov-surface-hover px-2 py-1 text-gov-muted">
-                                        Scheinselbstständigkeit Safeguards
+                                        {t("landing.bentoBadge3")}
                                     </span>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Enterprise Delivery & Order-Based Pricing Section */}
+                <section
+                    id="pricing"
+                    className="scroll-mt-20 border-b border-gov-border bg-gov-surface py-16 lg:py-20"
+                >
+                    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                        <div className="max-w-3xl">
+                            <span className="text-xs font-semibold uppercase tracking-wider text-gov-interactive">
+                                {t("landing.pricingBadge")}
+                            </span>
+                            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-gov-text sm:text-3xl">
+                                {t("landing.pricingTitle")}
+                            </h2>
+                            <p className="mt-3 text-sm text-gov-muted sm:text-base leading-relaxed">
+                                {t("landing.pricingSubtitle")}
+                            </p>
+                        </div>
+
+                        {/* Pricing Cards Grid */}
+                        <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
+                            {/* Tier 1: Starter */}
+                            <div className="flex flex-col justify-between rounded-xl border border-gov-border bg-gov-canvas p-6 shadow-xs transition-shadow hover:shadow-md">
+                                <div>
+                                    <div className="flex items-center justify-between">
+                                        <h3 className="font-semibold text-base text-gov-text">
+                                            {t("landing.planStarterTitle")}
+                                        </h3>
+                                        <span className="rounded-sm border border-gov-border bg-gov-surface px-2 py-0.5 text-[10px] font-medium text-gov-muted">
+                                            {t("landing.planStarterBadge")}
+                                        </span>
+                                    </div>
+                                    <p className="mt-2 text-xs text-gov-muted">
+                                        {t("landing.planStarterDesc")}
+                                    </p>
+
+                                    <div className="mt-6 flex items-baseline gap-1">
+                                        <span className="text-3xl font-bold tracking-tight text-gov-text">
+                                            {t("landing.planStarterPrice")}
+                                        </span>
+                                        <span className="text-xs text-gov-muted">
+                                            / {t("landing.planStarterPeriod")}
+                                        </span>
+                                    </div>
+
+                                    <div className="mt-2 text-[11px] font-medium text-gov-interactive">
+                                        {t("landing.planStarterSub")}
+                                    </div>
+
+                                    <ul className="mt-6 space-y-3 text-xs text-gov-muted border-t border-gov-border pt-6">
+                                        <li className="flex items-center gap-2">
+                                            <Check className="h-4 w-4 text-gov-interactive shrink-0" />
+                                            <span>{t("landing.planStarterFeat1")}</span>
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <Check className="h-4 w-4 text-gov-interactive shrink-0" />
+                                            <span>{t("landing.planStarterFeat2")}</span>
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <Check className="h-4 w-4 text-gov-interactive shrink-0" />
+                                            <span>{t("landing.planStarterFeat3")}</span>
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <Check className="h-4 w-4 text-gov-interactive shrink-0" />
+                                            <span>{t("landing.planStarterFeat4")}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div className="mt-8 pt-4">
+                                    <Link
+                                        href={login()}
+                                        className="inline-flex w-full h-10 items-center justify-center rounded-lg border border-gov-border bg-gov-surface text-xs font-semibold text-gov-text transition-colors hover:bg-gov-surface-hover"
+                                    >
+                                        {t("landing.planStarterCta")}
+                                    </Link>
+                                </div>
+                            </div>
+
+                            {/* Tier 2: Department (Highlighted) */}
+                            <div className="relative flex flex-col justify-between rounded-xl border-2 border-gov-interactive bg-gov-surface p-6 shadow-md">
+                                <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gov-interactive px-3 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white shadow-xs">
+                                    {t("landing.planDeptBadge")}
+                                </div>
+
+                                <div>
+                                    <div className="flex items-center justify-between">
+                                        <h3 className="font-semibold text-base text-gov-text">
+                                            {t("landing.planDeptTitle")}
+                                        </h3>
+                                        <span className="rounded-sm border border-gov-interactive/30 bg-gov-interactive/10 px-2 py-0.5 text-[10px] font-medium text-gov-interactive">
+                                            Full Governance
+                                        </span>
+                                    </div>
+                                    <p className="mt-2 text-xs text-gov-muted">
+                                        {t("landing.planDeptDesc")}
+                                    </p>
+
+                                    <div className="mt-6 flex items-baseline gap-1">
+                                        <span className="text-3xl font-bold tracking-tight text-gov-text">
+                                            {t("landing.planDeptPrice")}
+                                        </span>
+                                        <span className="text-xs text-gov-muted">
+                                            / {t("landing.planDeptPeriod")}
+                                        </span>
+                                    </div>
+
+                                    <div className="mt-2 text-[11px] font-semibold text-gov-interactive">
+                                        {t("landing.planDeptSub")}
+                                    </div>
+
+                                    <ul className="mt-6 space-y-3 text-xs text-gov-text border-t border-gov-border pt-6">
+                                        <li className="flex items-center gap-2">
+                                            <Check className="h-4 w-4 text-gov-interactive shrink-0" />
+                                            <strong className="font-medium">{t("landing.planDeptFeat1")}</strong>
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <Check className="h-4 w-4 text-gov-interactive shrink-0" />
+                                            <span>{t("landing.planDeptFeat2")}</span>
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <Check className="h-4 w-4 text-gov-interactive shrink-0" />
+                                            <span>{t("landing.planDeptFeat3")}</span>
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <Check className="h-4 w-4 text-gov-interactive shrink-0" />
+                                            <span>{t("landing.planDeptFeat4")}</span>
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <Check className="h-4 w-4 text-gov-interactive shrink-0" />
+                                            <span>{t("landing.planDeptFeat5")}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div className="mt-8 pt-4">
+                                    <Link
+                                        href={login()}
+                                        className="inline-flex w-full h-10 items-center justify-center rounded-lg bg-gov-interactive text-xs font-semibold text-white transition-colors hover:bg-gov-interactive-hover shadow-xs"
+                                    >
+                                        {t("landing.planDeptCta")}
+                                    </Link>
+                                </div>
+                            </div>
+
+                            {/* Tier 3: Enterprise Sovereign */}
+                            <div className="flex flex-col justify-between rounded-xl border border-gov-border bg-gov-canvas p-6 shadow-xs transition-shadow hover:shadow-md">
+                                <div>
+                                    <div className="flex items-center justify-between">
+                                        <h3 className="font-semibold text-base text-gov-text">
+                                            {t("landing.planEntTitle")}
+                                        </h3>
+                                        <span className="rounded-sm border border-gov-border bg-gov-surface px-2 py-0.5 text-[10px] font-medium text-gov-muted">
+                                            {t("landing.planEntBadge")}
+                                        </span>
+                                    </div>
+                                    <p className="mt-2 text-xs text-gov-muted">
+                                        {t("landing.planEntDesc")}
+                                    </p>
+
+                                    <div className="mt-6 flex items-baseline gap-1">
+                                        <span className="text-3xl font-bold tracking-tight text-gov-text">
+                                            {t("landing.planEntPrice")}
+                                        </span>
+                                        <span className="text-xs text-gov-muted">
+                                            / {t("landing.planEntPeriod")}
+                                        </span>
+                                    </div>
+
+                                    <div className="mt-2 text-[11px] font-medium text-gov-muted">
+                                        {t("landing.planEntSub")}
+                                    </div>
+
+                                    <ul className="mt-6 space-y-3 text-xs text-gov-muted border-t border-gov-border pt-6">
+                                        <li className="flex items-center gap-2">
+                                            <Check className="h-4 w-4 text-gov-interactive shrink-0" />
+                                            <span>{t("landing.planEntFeat1")}</span>
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <Check className="h-4 w-4 text-gov-interactive shrink-0" />
+                                            <span>{t("landing.planEntFeat2")}</span>
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <Check className="h-4 w-4 text-gov-interactive shrink-0" />
+                                            <span>{t("landing.planEntFeat3")}</span>
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <Check className="h-4 w-4 text-gov-interactive shrink-0" />
+                                            <span>{t("landing.planEntFeat4")}</span>
+                                        </li>
+                                        <li className="flex items-center gap-2">
+                                            <Check className="h-4 w-4 text-gov-interactive shrink-0" />
+                                            <span>{t("landing.planEntFeat5")}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div className="mt-8 pt-4">
+                                    <Link
+                                        href={login()}
+                                        className="inline-flex w-full h-10 items-center justify-center rounded-lg border border-gov-border bg-gov-surface text-xs font-semibold text-gov-text transition-colors hover:bg-gov-surface-hover"
+                                    >
+                                        {t("landing.planEntCta")}
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Order-Based Philosophy Callout Banner */}
+                        <div className="mt-12 rounded-xl border border-gov-border bg-gov-surface p-6 shadow-xs">
+                            <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+                                <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-gov-interactive/10 text-gov-interactive">
+                                    <Info className="size-5" />
+                                </div>
+                                <div>
+                                    <h4 className="font-semibold text-sm text-gov-text">
+                                        {t("landing.pricingWhyTitle")}
+                                    </h4>
+                                    <p className="mt-1 text-xs text-gov-muted leading-relaxed">
+                                        {t("landing.pricingWhyText")}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Enterprise Security, Deployment & Data Sovereignty Section */}
+                <section
+                    id="security"
+                    className="scroll-mt-20 border-b border-gov-border bg-gov-canvas py-16 lg:py-20"
+                >
+                    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                        <div className="max-w-3xl">
+                            <span className="text-xs font-semibold uppercase tracking-wider text-gov-interactive">
+                                {t("landing.securityBadge")}
+                            </span>
+                            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-gov-text sm:text-3xl">
+                                {t("landing.securityTitle")}
+                            </h2>
+                            <p className="mt-3 text-sm text-gov-muted sm:text-base leading-relaxed">
+                                {t("landing.securitySubtitle")}
+                            </p>
+                        </div>
+
+                        {/* 4 Pillars Grid */}
+                        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                            {/* Pillar 1 */}
+                            <div className="rounded-xl border border-gov-border bg-gov-surface p-6 shadow-xs">
+                                <div className="flex size-10 items-center justify-center rounded-lg bg-gov-surface-hover text-gov-interactive">
+                                    <Building2 className="size-5" />
+                                </div>
+                                <h3 className="mt-4 font-semibold text-base text-gov-text">
+                                    {t("landing.secWorksCouncilTitle")}
+                                </h3>
+                                <p className="mt-2 text-xs text-gov-muted leading-relaxed">
+                                    {t("landing.secWorksCouncilDesc")}
+                                </p>
+                            </div>
+
+                            {/* Pillar 2 */}
+                            <div className="rounded-xl border border-gov-border bg-gov-surface p-6 shadow-xs">
+                                <div className="flex size-10 items-center justify-center rounded-lg bg-gov-surface-hover text-gov-interactive">
+                                    <Server className="size-5" />
+                                </div>
+                                <h3 className="mt-4 font-semibold text-base text-gov-text">
+                                    {t("landing.secSovereignTitle")}
+                                </h3>
+                                <p className="mt-2 text-xs text-gov-muted leading-relaxed">
+                                    {t("landing.secSovereignDesc")}
+                                </p>
+                            </div>
+
+                            {/* Pillar 3 */}
+                            <div className="rounded-xl border border-gov-border bg-gov-surface p-6 shadow-xs">
+                                <div className="flex size-10 items-center justify-center rounded-lg bg-gov-surface-hover text-gov-interactive">
+                                    <KeyRound className="size-5" />
+                                </div>
+                                <h3 className="mt-4 font-semibold text-base text-gov-text">
+                                    {t("landing.secSsoTitle")}
+                                </h3>
+                                <p className="mt-2 text-xs text-gov-muted leading-relaxed">
+                                    {t("landing.secSsoDesc")}
+                                </p>
+                            </div>
+
+                            {/* Pillar 4 */}
+                            <div className="rounded-xl border border-gov-border bg-gov-surface p-6 shadow-xs">
+                                <div className="flex size-10 items-center justify-center rounded-lg bg-gov-surface-hover text-gov-interactive">
+                                    <Zap className="size-5" />
+                                </div>
+                                <h3 className="mt-4 font-semibold text-base text-gov-text">
+                                    {t("landing.secQueueTitle")}
+                                </h3>
+                                <p className="mt-2 text-xs text-gov-muted leading-relaxed">
+                                    {t("landing.secQueueDesc")}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -523,19 +827,17 @@ export default function Welcome() {
                         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
                             <div>
                                 <span className="text-xs font-semibold uppercase tracking-wider text-gov-interactive">
-                                    Live Order Telemetry
+                                    {t("landing.telemetryBadge")}
                                 </span>
                                 <h2 className="mt-1 text-2xl font-semibold tracking-tight text-gov-text sm:text-3xl">
-                                    Purchase Order Governance Schedule
+                                    {t("landing.telemetryTitle")}
                                 </h2>
                                 <p className="mt-2 text-xs text-gov-muted">
-                                    Real-time status across active corporate
-                                    orders, allocations, burn pace, and re-order
-                                    thresholds.
+                                    {t("landing.telemetrySubtitle")}
                                 </p>
                             </div>
                             <span className="rounded-sm border border-gov-border bg-gov-surface-hover px-3 py-1 font-mono text-xs text-gov-muted">
-                                AUDIT STAMP:{" "}
+                                {t("landing.telemetryAuditStamp")}{" "}
                                 {new Date().toISOString().split("T")[0]}
                             </span>
                         </div>
@@ -547,28 +849,28 @@ export default function Welcome() {
                                     <thead className="border-b border-gov-border bg-gov-surface-hover text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
                                         <tr>
                                             <th className="h-9 px-4">
-                                                Order ID
+                                                {t("landing.telemetryThOrderId")}
                                             </th>
                                             <th className="h-9 px-4">
-                                                Project / Line Title
+                                                {t("landing.telemetryThProject")}
                                             </th>
                                             <th className="h-9 px-4">
-                                                Service Provider
+                                                {t("landing.telemetryThProvider")}
                                             </th>
                                             <th className="h-9 px-4 text-right">
-                                                Budget (PD)
+                                                {t("landing.telemetryThBudget")}
                                             </th>
                                             <th className="h-9 px-4 text-right">
-                                                Approved (PD)
+                                                {t("landing.telemetryThApproved")}
                                             </th>
                                             <th className="h-9 px-4 text-right">
-                                                Burn Pace
+                                                {t("landing.telemetryThBurnPace")}
                                             </th>
                                             <th className="h-9 px-4">
-                                                Projected Depletion
+                                                {t("landing.telemetryThProjected")}
                                             </th>
                                             <th className="h-9 px-4 text-right">
-                                                Status
+                                                {t("landing.telemetryThStatus")}
                                             </th>
                                         </tr>
                                     </thead>
@@ -578,7 +880,7 @@ export default function Welcome() {
                                                 PO-4500012345
                                             </td>
                                             <td className="h-11 px-4 font-medium text-gov-text">
-                                                Customer Portal Migration
+                                                {t("landing.telemetryProject1")}
                                             </td>
                                             <td className="h-11 px-4 text-gov-muted">
                                                 Acme Consulting GmbH
@@ -590,14 +892,14 @@ export default function Welcome() {
                                                 84.00
                                             </td>
                                             <td className="h-11 px-4 text-right font-mono text-gov-muted tabular-nums">
-                                                6.0 PD/wk
+                                                6.0 {t("common.pd")}/wk
                                             </td>
                                             <td className="h-11 px-4 font-mono text-gov-text tabular-nums">
                                                 2026-12-18 (W51)
                                             </td>
                                             <td className="h-11 px-4 text-right">
                                                 <span className="rounded-sm border border-gov-warning-border bg-gov-warning-bg px-2 py-0.5 font-semibold text-[10px] uppercase text-gov-warning-text">
-                                                    Re-Order Action (W47)
+                                                    {t("landing.telemetryStatusReorder")}
                                                 </span>
                                             </td>
                                         </tr>
@@ -606,7 +908,7 @@ export default function Welcome() {
                                                 PO-4500012890
                                             </td>
                                             <td className="h-11 px-4 font-medium text-gov-text">
-                                                Legacy ERP Data Bridge
+                                                {t("landing.telemetryProject2")}
                                             </td>
                                             <td className="h-11 px-4 text-gov-muted">
                                                 Systec Solutions AG
@@ -618,14 +920,14 @@ export default function Welcome() {
                                                 22.50
                                             </td>
                                             <td className="h-11 px-4 text-right font-mono text-gov-muted tabular-nums">
-                                                4.5 PD/wk
+                                                4.5 {t("common.pd")}/wk
                                             </td>
                                             <td className="h-11 px-4 font-mono text-gov-text tabular-nums">
                                                 2027-03-05 (W09)
                                             </td>
                                             <td className="h-11 px-4 text-right">
                                                 <span className="rounded-sm border border-gov-success-border bg-gov-success-bg px-2 py-0.5 font-semibold text-[10px] uppercase text-gov-success-text">
-                                                    Runway Nominal
+                                                    {t("landing.telemetryStatusNominal")}
                                                 </span>
                                             </td>
                                         </tr>
@@ -646,42 +948,40 @@ export default function Welcome() {
                                 HourRadar
                             </span>
                             <p className="text-xs text-gov-muted leading-relaxed">
-                                Enterprise time governance and predictive budget
-                                runway platform for statutory professional
-                                services procurement.
+                                {t("landing.footerDesc")}
                             </p>
                         </div>
                         <div>
                             <span className="font-semibold uppercase tracking-wider text-[11px] text-gov-text">
-                                Compliance & Legal
+                                {t("landing.footerColCompliance")}
                             </span>
                             <ul className="mt-3 space-y-2">
-                                <li>German ArbZG § 3 Compliance</li>
-                                <li>Sunday & Holiday Rest Rules (§ 9)</li>
-                                <li>Statutory Tax Audit Retention</li>
-                                <li>Scheinselbstständigkeit Safeguards</li>
+                                <li>{t("landing.footerCompliance1")}</li>
+                                <li>{t("landing.footerCompliance2")}</li>
+                                <li>{t("landing.footerCompliance3")}</li>
+                                <li>{t("landing.footerCompliance4")}</li>
                             </ul>
                         </div>
                         <div>
                             <span className="font-semibold uppercase tracking-wider text-[11px] text-gov-text">
-                                Platform Architecture
+                                {t("landing.footerColArchitecture")}
                             </span>
                             <ul className="mt-3 space-y-2">
-                                <li>Predictive Runway Engine</li>
-                                <li>Bilateral Service Delivery</li>
-                                <li>Purchase Order Burndown</li>
-                                <li>Procurement Re-Order Radar</li>
+                                <li>{t("landing.footerArch1")}</li>
+                                <li>{t("landing.footerArch2")}</li>
+                                <li>{t("landing.footerArch3")}</li>
+                                <li>{t("landing.footerArch4")}</li>
                             </ul>
                         </div>
                         <div>
                             <span className="font-semibold uppercase tracking-wider text-[11px] text-gov-text">
-                                Data Sovereignty
+                                {t("landing.footerColSovereignty")}
                             </span>
                             <ul className="mt-3 space-y-2">
-                                <li>EU GDPR Compliant Architecture</li>
-                                <li>On-Premise / Private Cloud Deployable</li>
-                                <li>Zero Public LLM Data Ingestion</li>
-                                <li>Role-Based Access Enforcement</li>
+                                <li>{t("landing.footerSov1")}</li>
+                                <li>{t("landing.footerSov2")}</li>
+                                <li>{t("landing.footerSov3")}</li>
+                                <li>{t("landing.footerSov4")}</li>
                             </ul>
                         </div>
                     </div>
@@ -691,9 +991,9 @@ export default function Welcome() {
                             {t("landing.footerCopy")}
                         </div>
                         <div className="flex gap-6">
-                            <span>Bilateral Governance</span>
-                            <span>Statutory Protection</span>
-                            <span>Audit Readiness</span>
+                            <span>{t("landing.footerTag1")}</span>
+                            <span>{t("landing.footerTag2")}</span>
+                            <span>{t("landing.footerTag3")}</span>
                         </div>
                     </div>
                 </div>
