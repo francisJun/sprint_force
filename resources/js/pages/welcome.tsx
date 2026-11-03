@@ -169,93 +169,93 @@ export default function Welcome() {
                     <div className="mx-auto max-w-7xl px-6 lg:px-8">
                         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                             {/* Metric 1 */}
-                            <div className="rounded-lg border border-gov-border bg-gov-surface p-5 shadow-xs">
-                                <div className="flex items-center justify-between">
-                                    <span className="text-xs font-semibold uppercase tracking-wider text-gov-muted">
+                            <div className="rounded-lg border border-gov-border bg-gov-surface p-5 shadow-xs flex flex-col justify-between h-full">
+                                <div className="flex items-center justify-between gap-2 h-5">
+                                    <span className="text-xs font-semibold uppercase tracking-wider text-gov-muted truncate">
                                         {t("landing.kpiPoAllocation")}
                                     </span>
-                                    <Layers className="h-4 w-4 text-gov-muted" />
+                                    <Layers className="h-4 w-4 shrink-0 text-gov-muted" />
                                 </div>
-                                <div className="mt-3 text-3xl font-semibold tracking-tight text-gov-text tabular-nums">
-                                    140.00{" "}
+                                <div className="my-3 text-3xl font-semibold tracking-tight text-gov-text tabular-nums flex items-baseline gap-1.5">
+                                    <span>140.00</span>
                                     <span className="text-sm font-normal text-gov-muted">
                                         {t("common.pd")}
                                     </span>
                                 </div>
-                                <div className="mt-3 flex items-center justify-between text-xs">
-                                    <span className="text-gov-muted">
+                                <div className="flex items-center justify-between gap-2 text-xs pt-3 border-t border-gov-border/40 h-6">
+                                    <span className="text-gov-muted truncate font-mono text-[11px]">
                                         PO-4500012345
                                     </span>
-                                    <span className="rounded-sm border border-gov-success-border bg-gov-success-bg px-1.5 py-0.5 font-semibold text-[10px] uppercase text-gov-success-text">
+                                    <span className="shrink-0 rounded-sm border border-gov-success-border bg-gov-success-bg px-1.5 py-0.5 font-semibold text-[10px] uppercase text-gov-success-text">
                                         {t("common.active")}
                                     </span>
                                 </div>
                             </div>
 
                             {/* Metric 2: Quantified Time Savings */}
-                            <div className="rounded-lg border border-gov-border bg-gov-surface p-5 shadow-xs">
-                                <div className="flex items-center justify-between">
-                                    <span className="text-xs font-semibold uppercase tracking-wider text-gov-muted">
+                            <div className="rounded-lg border border-gov-border bg-gov-surface p-5 shadow-xs flex flex-col justify-between h-full">
+                                <div className="flex items-center justify-between gap-2 h-5">
+                                    <span className="text-xs font-semibold uppercase tracking-wider text-gov-muted truncate">
                                         {t("landing.kpiSavingsTitle")}
                                     </span>
-                                    <Clock className="h-4 w-4 text-gov-muted" />
+                                    <Clock className="h-4 w-4 shrink-0 text-gov-muted" />
                                 </div>
-                                <div className="mt-3 text-3xl font-semibold tracking-tight text-gov-text tabular-nums">
-                                    35{" "}
+                                <div className="my-3 text-3xl font-semibold tracking-tight text-gov-text tabular-nums flex items-baseline gap-1.5">
+                                    <span>35</span>
                                     <span className="text-sm font-normal text-gov-muted">
-                                        {t("landing.kpiSavingsValue")}
+                                        {t("landing.kpiSavingsUnit")}
                                     </span>
                                 </div>
-                                <div className="mt-3 flex items-center justify-between text-xs">
-                                    <span className="text-gov-muted">
+                                <div className="flex items-center justify-between gap-2 text-xs pt-3 border-t border-gov-border/40 h-6">
+                                    <span className="text-gov-muted truncate text-[11px]">
                                         {t("landing.kpiSavingsSub")}
                                     </span>
-                                    <span className="font-medium text-gov-text tabular-nums">
+                                    <span className="shrink-0 rounded-sm border border-gov-border bg-gov-surface-hover px-1.5 py-0.5 font-semibold text-[10px] uppercase text-gov-interactive">
                                         {t("landing.kpiSavingsBadge")}
                                     </span>
                                 </div>
                             </div>
 
                             {/* Metric 3 */}
-                            <div className="rounded-lg border border-gov-border bg-gov-surface p-5 shadow-xs">
-                                <div className="flex items-center justify-between">
-                                    <span className="text-xs font-semibold uppercase tracking-wider text-gov-muted">
+                            <div className="rounded-lg border border-gov-border bg-gov-surface p-5 shadow-xs flex flex-col justify-between h-full">
+                                <div className="flex items-center justify-between gap-2 h-5">
+                                    <span className="text-xs font-semibold uppercase tracking-wider text-gov-muted truncate">
                                         {t("landing.kpiArbzgRate")}
                                     </span>
-                                    <Shield className="h-4 w-4 text-gov-muted" />
+                                    <Shield className="h-4 w-4 shrink-0 text-gov-muted" />
                                 </div>
-                                <div className="mt-3 text-3xl font-semibold tracking-tight text-gov-text tabular-nums">
-                                    100.0%
+                                <div className="my-3 text-3xl font-semibold tracking-tight text-gov-text tabular-nums flex items-baseline">
+                                    <span>100.0%</span>
                                 </div>
-                                <div className="mt-3 flex items-center justify-between text-xs">
-                                    <span className="text-gov-muted">
+                                <div className="flex items-center justify-between gap-2 text-xs pt-3 border-t border-gov-border/40 h-6">
+                                    <span className="text-gov-muted truncate text-[11px]">
                                         {t("landing.kpiArbzgSub")}
                                     </span>
-                                    <span className="rounded-sm border border-gov-success-border bg-gov-success-bg px-1.5 py-0.5 font-semibold text-[10px] uppercase text-gov-success-text">
+                                    <span className="shrink-0 rounded-sm border border-gov-success-border bg-gov-success-bg px-1.5 py-0.5 font-semibold text-[10px] uppercase text-gov-success-text">
                                         {t("common.verified")}
                                     </span>
                                 </div>
                             </div>
 
                             {/* Metric 4 */}
-                            <div className="rounded-lg border border-gov-border bg-gov-surface p-5 shadow-xs">
-                                <div className="flex items-center justify-between">
-                                    <span className="text-xs font-semibold uppercase tracking-wider text-gov-muted">
+                            <div className="rounded-lg border border-gov-border bg-gov-surface p-5 shadow-xs flex flex-col justify-between h-full">
+                                <div className="flex items-center justify-between gap-2 h-5">
+                                    <span className="text-xs font-semibold uppercase tracking-wider text-gov-muted truncate">
                                         {t("landing.kpiLeadTime")}
                                     </span>
-                                    <AlertTriangle className="h-4 w-4 text-gov-muted" />
+                                    <AlertTriangle className="h-4 w-4 shrink-0 text-gov-muted" />
                                 </div>
-                                <div className="mt-3 text-3xl font-semibold tracking-tight text-gov-text tabular-nums">
-                                    28{" "}
+                                <div className="my-3 text-3xl font-semibold tracking-tight text-gov-text tabular-nums flex items-baseline gap-1.5">
+                                    <span>28</span>
                                     <span className="text-sm font-normal text-gov-muted">
                                         {t("common.days")}
                                     </span>
                                 </div>
-                                <div className="mt-3 flex items-center justify-between text-xs">
-                                    <span className="text-gov-muted">
+                                <div className="flex items-center justify-between gap-2 text-xs pt-3 border-t border-gov-border/40 h-6">
+                                    <span className="text-gov-muted truncate text-[11px]">
                                         {t("landing.kpiLeadDesc")}
                                     </span>
-                                    <span className="rounded-sm border border-gov-warning-border bg-gov-warning-bg px-1.5 py-0.5 font-semibold text-[10px] uppercase text-gov-warning-text">
+                                    <span className="shrink-0 rounded-sm border border-gov-warning-border bg-gov-warning-bg px-1.5 py-0.5 font-semibold text-[10px] uppercase text-gov-warning-text">
                                         {t("landing.kpiLeadBadge")}
                                     </span>
                                 </div>
@@ -548,7 +548,7 @@ export default function Welcome() {
                                             {t("landing.planStarterBadge")}
                                         </span>
                                     </div>
-                                    <p className="mt-2 text-xs text-gov-muted">
+                                    <p className="mt-2 text-xs text-gov-muted min-h-[36px]">
                                         {t("landing.planStarterDesc")}
                                     </p>
 
@@ -561,7 +561,7 @@ export default function Welcome() {
                                         </span>
                                     </div>
 
-                                    <div className="mt-2 text-[11px] font-medium text-gov-interactive">
+                                    <div className="mt-2 text-[11px] font-medium text-gov-interactive min-h-[18px]">
                                         {t("landing.planStarterSub")}
                                     </div>
 
@@ -610,7 +610,7 @@ export default function Welcome() {
                                             Full Governance
                                         </span>
                                     </div>
-                                    <p className="mt-2 text-xs text-gov-muted">
+                                    <p className="mt-2 text-xs text-gov-muted min-h-[36px]">
                                         {t("landing.planDeptDesc")}
                                     </p>
 
@@ -623,7 +623,7 @@ export default function Welcome() {
                                         </span>
                                     </div>
 
-                                    <div className="mt-2 text-[11px] font-semibold text-gov-interactive">
+                                    <div className="mt-2 text-[11px] font-semibold text-gov-interactive min-h-[18px]">
                                         {t("landing.planDeptSub")}
                                     </div>
 
@@ -672,7 +672,7 @@ export default function Welcome() {
                                             {t("landing.planEntBadge")}
                                         </span>
                                     </div>
-                                    <p className="mt-2 text-xs text-gov-muted">
+                                    <p className="mt-2 text-xs text-gov-muted min-h-[36px]">
                                         {t("landing.planEntDesc")}
                                     </p>
 
@@ -685,7 +685,7 @@ export default function Welcome() {
                                         </span>
                                     </div>
 
-                                    <div className="mt-2 text-[11px] font-medium text-gov-muted">
+                                    <div className="mt-2 text-[11px] font-medium text-gov-muted min-h-[18px]">
                                         {t("landing.planEntSub")}
                                     </div>
 
@@ -764,11 +764,11 @@ export default function Welcome() {
                         {/* 4 Pillars Grid */}
                         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                             {/* Pillar 1 */}
-                            <div className="rounded-xl border border-gov-border bg-gov-surface p-6 shadow-xs">
+                            <div className="rounded-xl border border-gov-border bg-gov-surface p-6 shadow-xs flex flex-col h-full">
                                 <div className="flex size-10 items-center justify-center rounded-lg bg-gov-surface-hover text-gov-interactive">
                                     <Building2 className="size-5" />
                                 </div>
-                                <h3 className="mt-4 font-semibold text-base text-gov-text">
+                                <h3 className="mt-4 font-semibold text-base text-gov-text min-h-[48px] flex items-center">
                                     {t("landing.secWorksCouncilTitle")}
                                 </h3>
                                 <p className="mt-2 text-xs text-gov-muted leading-relaxed">
@@ -777,11 +777,11 @@ export default function Welcome() {
                             </div>
 
                             {/* Pillar 2 */}
-                            <div className="rounded-xl border border-gov-border bg-gov-surface p-6 shadow-xs">
+                            <div className="rounded-xl border border-gov-border bg-gov-surface p-6 shadow-xs flex flex-col h-full">
                                 <div className="flex size-10 items-center justify-center rounded-lg bg-gov-surface-hover text-gov-interactive">
                                     <Server className="size-5" />
                                 </div>
-                                <h3 className="mt-4 font-semibold text-base text-gov-text">
+                                <h3 className="mt-4 font-semibold text-base text-gov-text min-h-[48px] flex items-center">
                                     {t("landing.secSovereignTitle")}
                                 </h3>
                                 <p className="mt-2 text-xs text-gov-muted leading-relaxed">
@@ -790,11 +790,11 @@ export default function Welcome() {
                             </div>
 
                             {/* Pillar 3 */}
-                            <div className="rounded-xl border border-gov-border bg-gov-surface p-6 shadow-xs">
+                            <div className="rounded-xl border border-gov-border bg-gov-surface p-6 shadow-xs flex flex-col h-full">
                                 <div className="flex size-10 items-center justify-center rounded-lg bg-gov-surface-hover text-gov-interactive">
                                     <KeyRound className="size-5" />
                                 </div>
-                                <h3 className="mt-4 font-semibold text-base text-gov-text">
+                                <h3 className="mt-4 font-semibold text-base text-gov-text min-h-[48px] flex items-center">
                                     {t("landing.secSsoTitle")}
                                 </h3>
                                 <p className="mt-2 text-xs text-gov-muted leading-relaxed">
@@ -803,11 +803,11 @@ export default function Welcome() {
                             </div>
 
                             {/* Pillar 4 */}
-                            <div className="rounded-xl border border-gov-border bg-gov-surface p-6 shadow-xs">
+                            <div className="rounded-xl border border-gov-border bg-gov-surface p-6 shadow-xs flex flex-col h-full">
                                 <div className="flex size-10 items-center justify-center rounded-lg bg-gov-surface-hover text-gov-interactive">
                                     <Zap className="size-5" />
                                 </div>
-                                <h3 className="mt-4 font-semibold text-base text-gov-text">
+                                <h3 className="mt-4 font-semibold text-base text-gov-text min-h-[48px] flex items-center">
                                     {t("landing.secQueueTitle")}
                                 </h3>
                                 <p className="mt-2 text-xs text-gov-muted leading-relaxed">

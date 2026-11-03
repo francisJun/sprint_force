@@ -226,7 +226,7 @@ export const translations = {
             kpiArbzgRate: "ArbZG Compliance Rate",
             kpiLeadTime: "Procurement Lead Time",
             kpiLeadDays: "28 Days",
-            kpiLeadDesc: "Advance notice threshold",
+            kpiLeadDesc: "Advance notice",
             kpiLeadBadge: "Active Alert",
             twoSidesBadge: "Operational Governance",
             twoSidesTitle: "Bilateral Delivery: Two sides of the same hour.",
@@ -300,10 +300,10 @@ export const translations = {
             heroTrustUnlimited: "Unlimited User Seats",
             // Reconciliation savings KPI
             kpiSavingsTitle: "Reconciliation Savings",
-            kpiSavingsValue: "35 hrs / mo",
-            kpiSavingsSub: "Per 10 active PO orders",
-            kpiSavingsBadge: "Zero manual drift",
-            kpiArbzgSub: "§ 3 Daily 10h Ceiling",
+            kpiSavingsUnit: "hrs / mo",
+            kpiSavingsSub: "10 Active Orders",
+            kpiSavingsBadge: "Zero Drift",
+            kpiArbzgSub: "§ 3 10h Ceiling",
             // Bento Grid
             bentoRunwayTitle: "Predictive Runway Calculation Engine",
             bentoRunwayDesc: "Standard linear division fails in corporate project reality. HourRadar models budget exhaustion through day-by-day forward iteration, skipping weekends, nationwide German public holidays, and consultant absence periods.",
@@ -746,10 +746,10 @@ export const translations = {
             heroTrustUnlimited: "Keine Pro-Kopf-Gebühren",
             // Reconciliation savings KPI
             kpiSavingsTitle: "Abstimmungs-Ersparnis",
-            kpiSavingsValue: "35 Std. / Mo.",
-            kpiSavingsSub: "Pro 10 aktive Bestellungen",
-            kpiSavingsBadge: "Keine manuelle Abweichung",
-            kpiArbzgSub: "§ 3 Tägliche 10h-Obergrenze",
+            kpiSavingsUnit: "Std. / Mo.",
+            kpiSavingsSub: "10 aktive Aufträge",
+            kpiSavingsBadge: "Ohne Drift",
+            kpiArbzgSub: "§ 3 10h-Obergrenze",
             // Bento Grid
             bentoRunwayTitle: "Vorausschauende Reichweiten-Engine",
             bentoRunwayDesc: "Lineare Hochrechnungen scheitern an der Projektpraxis. HourRadar simuliert die Budgeterschöpfung taggenau vorwärts – unter Berücksichtigung von Wochenenden, deutschen Feiertagen und Urlaubsabwesenheiten.",
