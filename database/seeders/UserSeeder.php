@@ -37,6 +37,30 @@ class UserSeeder extends Seeder
             ]
         );
 
+        // Role 1b: External Consultant 2 (Supplier side)
+        User::updateOrCreate(
+            ['email' => 'consultant2@example.com'],
+            [
+                'name' => 'Elena Rostova',
+                'password' => $password,
+                'role' => 'consultant',
+                'supplier_id' => $supplier?->id,
+                'email_verified_at' => now(),
+            ]
+        );
+
+        // Role 1c: External Consultant 3 (Supplier side)
+        User::updateOrCreate(
+            ['email' => 'consultant3@example.com'],
+            [
+                'name' => 'David Chen',
+                'password' => $password,
+                'role' => 'consultant',
+                'supplier_id' => $supplier?->id,
+                'email_verified_at' => now(),
+            ]
+        );
+
         // Role 2: Client Project Lead
         User::updateOrCreate(
             ['email' => 'projectlead@example.com'],

@@ -108,7 +108,19 @@ class DashboardController extends Controller
             ]);
         }
 
-        // 2. Client Project Lead & Purchasing Overview Cockpits
+        // 2. Purchasing Overview Cockpit (Data Minimization: omit consultant personal timesheet details)
+        if ($user->isPurchasing()) {
+            return Inertia::render('dashboard', [
+                'user' => [
+                    'name' => $user->name,
+                    'role' => $user->role,
+                ],
+                'orders' => $this->getOrdersWithRunway(),
+                'pendingBookings' => [],
+            ]);
+        }
+
+        // 3. Client Project Lead Overview Cockpit
         return Inertia::render('dashboard', [
             'user' => [
                 'name' => $user->name,
@@ -124,10 +136,15 @@ class DashboardController extends Controller
      */
     public function orders(Request $request): Response
     {
+        $user = $request->user();
+        if (! $user->isProjectLead() && ! $user->isPurchasing() && ! $user->isSuperAdmin()) {
+            abort(403, 'Access denied: Order runway view requires Project Lead, Purchasing, or Super Admin privileges.');
+        }
+
         return Inertia::render('orders/index', [
             'user' => [
-                'name' => $request->user()->name,
-                'role' => $request->user()->role,
+                'name' => $user->name,
+                'role' => $user->role,
             ],
             'orders' => $this->getOrdersWithRunway(),
         ]);
@@ -138,10 +155,15 @@ class DashboardController extends Controller
      */
     public function approvals(Request $request): Response
     {
+        $user = $request->user();
+        if (! $user->isProjectLead() && ! $user->isSuperAdmin()) {
+            abort(403, 'Access denied: Timesheet approvals view requires Project Lead or Super Admin privileges.');
+        }
+
         return Inertia::render('approvals/index', [
             'user' => [
-                'name' => $request->user()->name,
-                'role' => $request->user()->role,
+                'name' => $user->name,
+                'role' => $user->role,
             ],
             'pendingBookings' => $this->getPendingBookings(),
             'orders' => $this->getOrdersWithRunway(),
@@ -153,10 +175,15 @@ class DashboardController extends Controller
      */
     public function purchasingOrders(Request $request): Response
     {
+        $user = $request->user();
+        if (! $user->isPurchasing() && ! $user->isSuperAdmin()) {
+            abort(403, 'Access denied: Framework orders view requires Purchasing or Super Admin privileges.');
+        }
+
         return Inertia::render('purchasing/orders', [
             'user' => [
-                'name' => $request->user()->name,
-                'role' => $request->user()->role,
+                'name' => $user->name,
+                'role' => $user->role,
             ],
             'orders' => $this->getOrdersWithRunway(),
         ]);
@@ -167,10 +194,15 @@ class DashboardController extends Controller
      */
     public function purchasingInvoices(Request $request): Response
     {
+        $user = $request->user();
+        if (! $user->isPurchasing() && ! $user->isSuperAdmin()) {
+            abort(403, 'Access denied: Invoice reconciliation view requires Purchasing or Super Admin privileges.');
+        }
+
         return Inertia::render('purchasing/invoices', [
             'user' => [
-                'name' => $request->user()->name,
-                'role' => $request->user()->role,
+                'name' => $user->name,
+                'role' => $user->role,
             ],
             'orders' => $this->getOrdersWithRunway(),
         ]);
@@ -207,7 +239,7 @@ class DashboardController extends Controller
             });
     }
 
-    private function getPendingBookings()
+    private function getPendingBookings(bool $anonymize = false)
     {
         return TimeBooking::where('status', 'submitted')
             ->with(['user', 'purchaseOrder'])
@@ -215,12 +247,12 @@ class DashboardController extends Controller
             ->get()
             ->map(fn ($b) => [
                 'id' => $b->id,
-                'consultant_name' => $b->user->name,
+                'consultant_name' => $anonymize ? 'Anonymized Consultant' : $b->user->name,
                 'order_number' => $b->purchaseOrder->order_number,
                 'order_title' => $b->purchaseOrder->title,
                 'date' => $b->date->toDateString(),
                 'hours' => (float) $b->hours,
-                'description' => $b->description,
+                'description' => $anonymize ? '[Anonymized description]' : $b->description,
             ]);
     }
 }

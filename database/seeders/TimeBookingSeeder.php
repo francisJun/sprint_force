@@ -66,5 +66,32 @@ class TimeBookingSeeder extends Seeder
                 'status' => 'submitted',
             ]
         );
+
+        // Seed bookings for Order 2 (4500098765)
+        $order2 = PurchaseOrder::where('order_number', '4500098765')->first();
+        $consultant3 = User::where('email', 'consultant3@example.com')->first();
+
+        if ($order2 && $consultant3) {
+            for ($i = 2; $i >= 1; $i--) {
+                $weekStart = Carbon::now()->subWeeks($i)->startOfWeek();
+
+                for ($dayOffset = 0; $dayOffset < 5; $dayOffset++) {
+                    $bookingDate = $weekStart->copy()->addDays($dayOffset);
+
+                    TimeBooking::updateOrCreate(
+                        [
+                            'purchase_order_id' => $order2->id,
+                            'user_id' => $consultant3->id,
+                            'date' => $bookingDate->toDateString(),
+                        ],
+                        [
+                            'hours' => 8.00,
+                            'description' => 'Microservice integration and API contract definition.',
+                            'status' => 'approved',
+                        ]
+                    );
+                }
+            }
+        }
     }
 }

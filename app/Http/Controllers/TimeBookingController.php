@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\TimeTracking\Rules\ArbzgDailyLimitRule;
+use App\Domain\TimeTracking\Exceptions\BookingValidationException;
 use App\Domain\TimeTracking\Rules\ConsultantAssignedToOrderRule;
+use App\Models\PurchaseOrder;
 use App\Models\TimeBooking;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TimeBookingController extends Controller
 {
@@ -15,6 +17,8 @@ class TimeBookingController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        Gate::authorize('create', TimeBooking::class);
+
         $user = $request->user();
 
         $validated = $request->validate([
@@ -36,7 +40,9 @@ class TimeBookingController extends Controller
             'special_authorization' => ['nullable', 'boolean'],
         ]);
 
-        $order = \App\Models\PurchaseOrder::findOrFail($validated['purchase_order_id']);
+        $order = PurchaseOrder::findOrFail($validated['purchase_order_id']);
+
+        Gate::authorize('bookTime', $order);
 
         try {
             $booking = $order->book($user, $validated);
@@ -47,7 +53,7 @@ class TimeBookingController extends Controller
             }
 
             return back()->with('success', $message);
-        } catch (\App\Domain\TimeTracking\Exceptions\BookingValidationException $e) {
+        } catch (BookingValidationException $e) {
             return back()
                 ->withErrors([$e->getField() ?? 'hours' => $e->getMessage()])
                 ->withInput();
@@ -55,12 +61,14 @@ class TimeBookingController extends Controller
     }
 
     /**
-     * Approve a submitted time booking (Client Project Lead).
+     * Approve a submitted time booking (Client Project Lead & Super Admin).
      */
     public function approve(Request $request, TimeBooking $timeBooking): RedirectResponse
     {
-        if ($request->user()->isConsultant()) {
-            abort(403, 'Consultants are not permitted to approve time bookings.');
+        Gate::authorize('approve', $timeBooking);
+
+        if (! $timeBooking->isSubmitted()) {
+            return back()->withErrors(['booking' => 'Only submitted time bookings can be approved.']);
         }
 
         $timeBooking->update([
@@ -76,8 +84,10 @@ class TimeBookingController extends Controller
      */
     public function reject(Request $request, TimeBooking $timeBooking): RedirectResponse
     {
-        if ($request->user()->isConsultant()) {
-            abort(403, 'Consultants are not permitted to reject time bookings.');
+        Gate::authorize('reject', $timeBooking);
+
+        if (! $timeBooking->isSubmitted()) {
+            return back()->withErrors(['booking' => 'Only submitted time bookings can be rejected.']);
         }
 
         $validated = $request->validate([

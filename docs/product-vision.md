@@ -1,7 +1,6 @@
 # Product vision
 
-> Fill this in together on Friday (about 30 minutes). Replace every `TODO`.
-> Keep it short. Every AI prompt in the [guide](guide.md) uses this file as context.
+> Completed product vision for HourRadar. Every AI prompt in the [guide](guide.md) uses this file as context.
 
 ## Product name
 

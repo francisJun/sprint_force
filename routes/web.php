@@ -26,13 +26,23 @@ Route::get('/error/{code}', function (int $code) {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Dedicated Project Lead Views
-    Route::get('/orders', [DashboardController::class, 'orders'])->name('orders.index');
-    Route::get('/approvals', [DashboardController::class, 'approvals'])->name('approvals.index');
+    // Dedicated Project Lead & Runway Views
+    Route::get('/orders', [DashboardController::class, 'orders'])
+        ->middleware('role:project_lead,purchasing,super_admin')
+        ->name('orders.index');
+
+    Route::get('/approvals', [DashboardController::class, 'approvals'])
+        ->middleware('role:project_lead,super_admin')
+        ->name('approvals.index');
 
     // Dedicated Purchasing Views
-    Route::get('/purchasing/orders', [DashboardController::class, 'purchasingOrders'])->name('purchasing.orders');
-    Route::get('/purchasing/invoices', [DashboardController::class, 'purchasingInvoices'])->name('purchasing.invoices');
+    Route::prefix('purchasing')
+        ->middleware('role:purchasing,super_admin')
+        ->name('purchasing.')
+        ->group(function () {
+            Route::get('/orders', [DashboardController::class, 'purchasingOrders'])->name('orders');
+            Route::get('/invoices', [DashboardController::class, 'purchasingInvoices'])->name('invoices');
+        });
 
     // Time Booking Actions
     Route::post('/bookings', [TimeBookingController::class, 'store'])->name('bookings.store');

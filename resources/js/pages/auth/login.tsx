@@ -1,17 +1,17 @@
-import { Form, Head } from '@inertiajs/react';
-import InputError from '@/components/input-error';
-import PasswordInput from '@/components/password-input';
-import TextLink from '@/components/text-link';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Spinner } from '@/components/ui/spinner';
-import { store } from '@/routes/login';
-import { request } from '@/routes/password';
-import PasskeyVerify from '@/components/passkey-verify';
-import { ArrowRight, KeyRound } from 'lucide-react';
-import { useTranslation } from '@/lib/i18n';
+import { Form, Head } from "@inertiajs/react";
+import InputError from "@/components/input-error";
+import PasswordInput from "@/components/password-input";
+import TextLink from "@/components/text-link";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Spinner } from "@/components/ui/spinner";
+import { store } from "@/routes/login";
+import { request } from "@/routes/password";
+import PasskeyVerify from "@/components/passkey-verify";
+import { ArrowRight, KeyRound } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 type Props = {
     status?: string;
@@ -23,7 +23,7 @@ export default function Login({ status, canResetPassword }: Props) {
 
     return (
         <>
-            <Head title={`${t("common.signIn")} - HourRadar`} />
+            <Head title={`${t("common.signIn")}`} />
 
             <PasskeyVerify />
 
@@ -35,14 +35,17 @@ export default function Login({ status, canResetPassword }: Props) {
 
             <Form
                 {...store.form()}
-                resetOnSuccess={['password']}
+                resetOnSuccess={["password"]}
                 className="flex flex-col gap-4 text-xs"
             >
                 {({ processing, errors }) => (
                     <>
                         <div className="space-y-4">
                             <div className="space-y-1.5">
-                                <Label htmlFor="email" className="text-xs font-medium text-gov-text">
+                                <Label
+                                    htmlFor="email"
+                                    className="text-xs font-medium text-gov-text"
+                                >
                                     {t("auth.email")}
                                 </Label>
                                 <Input
@@ -61,7 +64,10 @@ export default function Login({ status, canResetPassword }: Props) {
 
                             <div className="space-y-1.5">
                                 <div className="flex items-center justify-between">
-                                    <Label htmlFor="password" className="text-xs font-medium text-gov-text">
+                                    <Label
+                                        htmlFor="password"
+                                        className="text-xs font-medium text-gov-text"
+                                    >
                                         {t("auth.password")}
                                     </Label>
                                     {canResetPassword && (
@@ -120,7 +126,10 @@ export default function Login({ status, canResetPassword }: Props) {
 
                         {canResetPassword && (
                             <div className="mt-3 border-t border-gov-border pt-3 text-center text-xs text-gov-muted">
-                                <span>First time login or need to set your password? </span>
+                                <span>
+                                    First time login or need to set your
+                                    password?{" "}
+                                </span>
                                 <TextLink
                                     href={request()}
                                     className="font-medium text-gov-interactive hover:underline"
