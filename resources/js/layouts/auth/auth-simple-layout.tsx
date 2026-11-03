@@ -13,8 +13,8 @@ export default function AuthSimpleLayout({
     const { t } = useTranslation();
 
     return (
-        <div className="relative flex min-h-svh flex-col items-center justify-center bg-gov-canvas p-6 text-gov-text md:p-10 selection:bg-gov-interactive selection:text-white">
-            <div className="absolute top-4 right-4">
+        <div className="relative flex min-h-svh flex-col items-center justify-center bg-gov-canvas p-4 sm:p-6 md:p-10 text-gov-text selection:bg-gov-interactive selection:text-white">
+            <div className="absolute top-3 right-3 sm:top-4 sm:right-4">
                 <LanguageSwitcher variant="segmented" />
             </div>
 
@@ -36,7 +36,7 @@ export default function AuthSimpleLayout({
                     </div>
 
                     {/* Card Container conforming strictly to DESIGN.md */}
-                    <div className="rounded-lg border border-gov-border bg-gov-surface p-8 shadow-xs">
+                    <div className="rounded-lg border border-gov-border bg-gov-surface p-5 sm:p-8 shadow-xs">
                         <div className="mb-6">
                             <h1 className="font-semibold text-lg text-gov-text tracking-tight">
                                 {title || t("auth.loginTitle")}

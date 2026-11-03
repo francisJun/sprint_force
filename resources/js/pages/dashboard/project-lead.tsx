@@ -241,7 +241,7 @@ export default function ProjectLeadDashboard({
             {/* Split Cockpit: Runway Burndown vs Proof-of-Work Queue */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Panel 1: Order Runway Burndown */}
-                <div className="rounded-lg border border-gov-border bg-gov-surface p-5 shadow-xs flex flex-col justify-between">
+                <div className="rounded-lg border border-gov-border bg-gov-surface p-4 sm:p-5 shadow-xs flex flex-col justify-between">
                     <div>
                         <div className="flex items-center justify-between pb-4 border-b border-gov-border">
                             <div>
@@ -274,7 +274,7 @@ export default function ProjectLeadDashboard({
                                         onClick={() =>
                                             setSelectedOrderForModal(o)
                                         }
-                                        className="rounded-lg border border-gov-border bg-gov-canvas p-3.5 space-y-2.5 transition-colors hover:border-gov-accent/60 cursor-pointer"
+                                        className="rounded-lg border border-gov-border bg-gov-canvas p-3 sm:p-3.5 space-y-2.5 transition-colors hover:border-gov-accent/60 cursor-pointer"
                                     >
                                         <div className="flex items-start justify-between gap-2">
                                             <div>
@@ -282,7 +282,7 @@ export default function ProjectLeadDashboard({
                                                     <span className="font-mono text-xs font-semibold text-gov-text">
                                                         {o.order_number}
                                                     </span>
-                                                    <span className="text-xs text-gov-muted truncate max-w-50px">
+                                                    <span className="text-xs text-gov-muted truncate max-w-36 min-[400px]:max-w-48 sm:max-w-64">
                                                         {o.title}
                                                     </span>
                                                 </div>
@@ -342,7 +342,7 @@ export default function ProjectLeadDashboard({
                         </div>
                     </div>
 
-                    <div className="pt-5 mt-5 border-t border-gov-border flex items-center justify-between">
+                    <div className="pt-5 mt-5 border-t border-gov-border flex flex-col min-[420px]:flex-row items-start min-[420px]:items-center justify-between gap-2.5">
                         <span className="text-xs text-gov-muted font-mono tabular-nums">
                             {t("burndown.weeklyBurn")}: {averageBurnRate.toFixed(1)}{" "}
                             {t("common.pd")}/wk
@@ -358,7 +358,7 @@ export default function ProjectLeadDashboard({
                 </div>
 
                 {/* Panel 2: Proof of Work Verification Queue */}
-                <div className="rounded-lg border border-gov-border bg-gov-surface p-5 shadow-xs flex flex-col justify-between">
+                <div className="rounded-lg border border-gov-border bg-gov-surface p-4 sm:p-5 shadow-xs flex flex-col justify-between">
                     <div>
                         <div className="flex items-center justify-between pb-4 border-b border-gov-border">
                             <div>
@@ -385,7 +385,7 @@ export default function ProjectLeadDashboard({
                                 pendingBookings.slice(0, 3).map((b) => (
                                     <div
                                         key={b.id}
-                                        className="rounded-lg border border-gov-border bg-gov-canvas p-3.5 flex items-start justify-between gap-3"
+                                        className="rounded-lg border border-gov-border bg-gov-canvas p-3 sm:p-3.5 flex flex-col min-[440px]:flex-row items-start min-[440px]:items-center justify-between gap-3"
                                     >
                                         <div className="space-y-1">
                                             <div className="flex items-center gap-2">
@@ -408,7 +408,7 @@ export default function ProjectLeadDashboard({
                                             </div>
                                         </div>
 
-                                        <div className="flex items-center gap-1.5 shrink-0">
+                                        <div className="flex items-center gap-1.5 shrink-0 self-end min-[440px]:self-auto">
                                             <button
                                                 onClick={() =>
                                                     handleApprove(b.id)
@@ -432,7 +432,7 @@ export default function ProjectLeadDashboard({
                         </div>
                     </div>
 
-                    <div className="pt-5 mt-5 border-t border-gov-border flex items-center justify-between">
+                    <div className="pt-5 mt-5 border-t border-gov-border flex flex-col min-[420px]:flex-row items-start min-[420px]:items-center justify-between gap-2.5">
                         <span className="text-xs text-gov-muted">
                             {t("lead.deliverableVerified")}
                         </span>
@@ -452,8 +452,8 @@ export default function ProjectLeadDashboard({
                 open={!!selectedOrderForModal}
                 onOpenChange={(open) => !open && setSelectedOrderForModal(null)}
             >
-                <DialogContent className="sm:max-w-4xl lg:max-w-5xl max-h-[90vh] overflow-y-auto bg-gov-surface border-gov-border text-gov-text">
-                    <DialogHeader className="pr-12">
+                <DialogContent className="p-4 sm:p-6 sm:max-w-4xl lg:max-w-5xl max-h-[90vh] overflow-y-auto bg-gov-surface border-gov-border text-gov-text">
+                    <DialogHeader className="pr-8 sm:pr-12">
                         <div className="flex flex-wrap items-center gap-2.5">
                             <span className="flex items-center gap-2">
                                 <FileText className="h-4 w-4 text-gov-interactive" />
@@ -610,7 +610,7 @@ export default function ProjectLeadDashboard({
                 open={!!rejectingBooking}
                 onOpenChange={(open) => !open && setRejectingBooking(null)}
             >
-                <DialogContent className="max-w-md bg-gov-surface border-gov-border text-gov-text">
+                <DialogContent className="p-4 sm:p-6 max-w-md bg-gov-surface border-gov-border text-gov-text">
                     <DialogHeader>
                         <DialogTitle className="text-base font-semibold text-gov-text">
                             {isGerman ? 'Leistungsnachweis ablehnen' : 'Reject Timesheet Submission'}

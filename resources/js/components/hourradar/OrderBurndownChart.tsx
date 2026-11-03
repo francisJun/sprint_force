@@ -356,6 +356,7 @@ export function OrderBurndownChart({
                                     className="cursor-pointer"
                                     onMouseEnter={() => setHoveredIndex(i)}
                                     onMouseLeave={() => setHoveredIndex(null)}
+                                    onTouchStart={() => setHoveredIndex(hoveredIndex === i ? null : i)}
                                 >
                                     {/* Invisible expanded hit target */}
                                     <rect
@@ -446,12 +447,11 @@ export function OrderBurndownChart({
                     {/* Interactive Floating Tooltip */}
                     {activePoint && hoveredIndex !== null && (
                         <div
-                            className="absolute pointer-events-none rounded-md border border-gov-border bg-gov-surface p-2.5 shadow-md text-xs font-mono z-10 space-y-1 transition-all max-w-[calc(100%-1rem)]"
+                            className="absolute pointer-events-none rounded-md border border-gov-border bg-gov-surface p-2 sm:p-2.5 shadow-md text-xs font-mono z-10 space-y-1 transition-all max-w-[calc(100%-1rem)] left-2 sm:left-[var(--tooltip-x)] sm:-translate-x-1/2"
                             style={{
-                                left: `${Math.min(75, Math.max(25, (hoveredIndex / (dataPoints.length - 1)) * 100))}%`,
                                 top: '8px',
-                                transform: 'translateX(-50%)',
-                            }}
+                                '--tooltip-x': `${Math.min(80, Math.max(20, (hoveredIndex / (dataPoints.length - 1)) * 100))}%`,
+                            } as React.CSSProperties}
                         >
                             <div className="font-semibold text-gov-text border-b border-gov-border pb-1 flex items-center justify-between gap-3 text-[11px]">
                                 <span>{activePoint.label} ({activePoint.date})</span>

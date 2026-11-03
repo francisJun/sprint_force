@@ -80,8 +80,8 @@ export default function Welcome() {
                                 href={dashboard()}
                                 className="inline-flex h-8.5 sm:h-9 items-center justify-center rounded-lg bg-gov-interactive px-3 sm:px-4 text-xs sm:text-sm font-medium text-white transition-colors hover:bg-gov-interactive-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gov-interactive cursor-pointer"
                             >
-                                <span className="hidden xs:inline">{t("common.openWorkspace")}</span>
-                                <span className="xs:hidden">{t("common.dashboard")}</span>
+                                <span className="hidden sm:inline">{t("common.openWorkspace")}</span>
+                                <span className="sm:hidden">{t("common.dashboard")}</span>
                                 <ArrowRight className="ml-1.5 h-3.5 w-3.5 sm:h-4 sm:w-4" />
                             </Link>
                         ) : (
@@ -106,7 +106,7 @@ export default function Welcome() {
                             {t("landing.heroBadge")}
                         </div>
 
-                        <h1 className="mt-6 text-2xl xs:text-3xl font-semibold tracking-tight text-gov-text sm:text-5xl sm:leading-tight">
+                        <h1 className="mt-6 text-2xl min-[400px]:text-3xl font-semibold tracking-tight text-gov-text sm:text-5xl sm:leading-tight">
                             {t("landing.heroTitle")}
                         </h1>
 
@@ -114,11 +114,11 @@ export default function Welcome() {
                             {t("landing.heroDescription")}
                         </p>
 
-                        <div className="mt-8 flex flex-col xs:flex-row items-center justify-center gap-3 sm:gap-4">
+                        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
                             {auth?.user ? (
                                 <Link
                                     href={dashboard()}
-                                    className="inline-flex h-11 w-full xs:w-auto items-center justify-center rounded-lg bg-gov-interactive px-6 text-sm font-medium text-white transition-colors hover:bg-gov-interactive-hover cursor-pointer shadow-xs"
+                                    className="inline-flex h-11 w-full sm:w-auto items-center justify-center rounded-lg bg-gov-interactive px-6 text-sm font-medium text-white transition-colors hover:bg-gov-interactive-hover cursor-pointer shadow-xs"
                                 >
                                     {t("landing.openDashboard")}
                                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -126,7 +126,7 @@ export default function Welcome() {
                             ) : (
                                 <Link
                                     href={login()}
-                                    className="inline-flex h-11 w-full xs:w-auto items-center justify-center rounded-lg bg-gov-interactive px-6 text-sm font-medium text-white transition-colors hover:bg-gov-interactive-hover cursor-pointer shadow-xs"
+                                    className="inline-flex h-11 w-full sm:w-auto items-center justify-center rounded-lg bg-gov-interactive px-6 text-sm font-medium text-white transition-colors hover:bg-gov-interactive-hover cursor-pointer shadow-xs"
                                 >
                                     {t("landing.signInCTA")}
                                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -134,7 +134,7 @@ export default function Welcome() {
                             )}
                             <a
                                 href="#audit-telemetry"
-                                className="inline-flex h-11 w-full xs:w-auto items-center justify-center rounded-lg border border-gov-border bg-gov-surface px-6 text-sm font-medium text-gov-text transition-colors hover:bg-gov-surface-hover cursor-pointer"
+                                className="inline-flex h-11 w-full sm:w-auto items-center justify-center rounded-lg border border-gov-border bg-gov-surface px-6 text-sm font-medium text-gov-text transition-colors hover:bg-gov-surface-hover cursor-pointer"
                             >
                                 {t("landing.inspectAudit")}
                             </a>

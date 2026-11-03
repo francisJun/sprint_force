@@ -104,7 +104,7 @@ export function Pagination({
                 </p>
 
                 {onPageSizeChange && (
-                    <div className="hidden sm:flex items-center gap-1.5 pl-3 border-l border-gov-border">
+                    <div className="flex items-center gap-1.5 sm:pl-3 sm:border-l border-gov-border">
                         <span className="text-[11px] text-gov-muted">
                             {isGerman ? "Pro Seite:" : "Per page:"}
                         </span>

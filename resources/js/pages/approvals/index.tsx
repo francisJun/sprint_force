@@ -83,14 +83,14 @@ export default function ApprovalsIndex({
     };
 
     return (
-        <div className="flex h-full flex-1 flex-col p-4 md:p-6 bg-gov-canvas text-gov-text font-sans">
+        <div className="flex h-full flex-1 flex-col p-3 sm:p-4 md:p-6 bg-gov-canvas text-gov-text font-sans">
             <Head title={`${t("nav.approvals")} - HourRadar`} />
 
             {/* Header */}
             <div className="border-b border-gov-border pb-5">
                 <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
                     <div>
-                        <h1 className="font-semibold text-2xl tracking-tight text-gov-text">
+                        <h1 className="font-semibold text-xl sm:text-2xl tracking-tight text-gov-text">
                             {t("lead.pendingTitle")}
                         </h1>
                         <p className="mt-1 text-xs text-gov-muted">
@@ -98,7 +98,7 @@ export default function ApprovalsIndex({
                         </p>
                     </div>
 
-                    <span className="rounded-sm border border-gov-border bg-gov-surface px-3 py-1.5 text-xs font-mono font-medium text-gov-text tabular-nums">
+                    <span className="rounded-sm border border-gov-border bg-gov-surface px-3 py-1.5 text-xs font-mono font-medium text-gov-text tabular-nums self-start sm:self-auto">
                         {pendingBookings.length} {t("common.pending")}
                     </span>
                 </div>
@@ -138,19 +138,19 @@ export default function ApprovalsIndex({
                             <table className="w-full text-left text-xs">
                                 <thead className="border-b border-gov-border bg-gov-surface-hover text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
                                     <tr>
-                                        <th className="h-9 px-4">{t("lead.thConsultant")}</th>
-                                        <th className="h-9 px-4">{t("consultant.thOrder")}</th>
-                                        <th className="h-9 px-4">{t("consultant.thDate")}</th>
-                                        <th className="h-9 px-4 text-right">
+                                        <th className="h-9 px-3 sm:px-4 whitespace-nowrap">{t("lead.thConsultant")}</th>
+                                        <th className="h-9 px-3 sm:px-4">{t("consultant.thOrder")}</th>
+                                        <th className="h-9 px-3 sm:px-4 whitespace-nowrap">{t("consultant.thDate")}</th>
+                                        <th className="h-9 px-3 sm:px-4 text-right whitespace-nowrap">
                                             {t("consultant.thHours")}
                                         </th>
-                                        <th className="h-9 px-4 text-right">
+                                        <th className="h-9 px-3 sm:px-4 text-right whitespace-nowrap">
                                             {t("consultant.thPd")}
                                         </th>
-                                        <th className="h-9 px-4">
+                                        <th className="h-9 px-3 sm:px-4">
                                             {t("consultant.thProof")}
                                         </th>
-                                        <th className="h-9 px-4 text-right">
+                                        <th className="h-9 px-3 sm:px-4 text-right whitespace-nowrap">
                                             {t("common.actions")}
                                         </th>
                                     </tr>
@@ -162,29 +162,29 @@ export default function ApprovalsIndex({
                                                 key={b.id}
                                                 className="transition-colors hover:bg-gov-surface-hover"
                                             >
-                                                <td className="h-11 px-4 font-medium text-gov-text">
+                                                <td className="h-11 px-3 sm:px-4 font-medium text-gov-text whitespace-nowrap">
                                                     {b.consultant_name}
                                                 </td>
-                                                <td className="h-11 px-4 text-gov-text">
+                                                <td className="h-11 px-3 sm:px-4 text-gov-text">
                                                     <div className="font-mono tabular-nums">
                                                         {b.order_number}
                                                     </div>
-                                                    <div className="text-[10px] text-gov-muted truncate max-w-35">
+                                                    <div className="text-[10px] text-gov-muted truncate max-w-28 sm:max-w-40">
                                                         {b.order_title}
                                                     </div>
                                                 </td>
-                                                <td className="h-11 px-4 font-mono tabular-nums text-gov-muted whitespace-nowrap">
+                                                <td className="h-11 px-3 sm:px-4 font-mono tabular-nums text-gov-muted whitespace-nowrap">
                                                     {b.date}
                                                 </td>
-                                                <td className="h-11 px-4 text-right font-mono font-semibold text-gov-text tabular-nums">
+                                                <td className="h-11 px-3 sm:px-4 text-right font-mono font-semibold text-gov-text tabular-nums whitespace-nowrap">
                                                     {b.hours.toFixed(2)}h
                                                 </td>
-                                                <td className="h-11 px-4 text-right font-mono text-gov-muted tabular-nums">
+                                                <td className="h-11 px-3 sm:px-4 text-right font-mono text-gov-muted tabular-nums whitespace-nowrap">
                                                     {(b.hours / 8).toFixed(2)}{" "}
                                                     PD
                                                 </td>
                                                 <td
-                                                    className="h-11 px-4 max-w-sm text-gov-muted truncate cursor-pointer hover:text-gov-interactive"
+                                                    className="h-11 px-3 sm:px-4 max-w-xs sm:max-w-sm text-gov-muted truncate cursor-pointer hover:text-gov-interactive"
                                                     onClick={() =>
                                                         setSelectedBooking(b)
                                                     }
@@ -194,7 +194,7 @@ export default function ApprovalsIndex({
                                                         {b.description}
                                                     </span>
                                                 </td>
-                                                <td className="h-11 px-4 text-right whitespace-nowrap">
+                                                <td className="h-11 px-3 sm:px-4 text-right whitespace-nowrap">
                                                     <div className="flex items-center justify-end gap-2">
                                                         <button
                                                             type="button"
@@ -248,7 +248,7 @@ export default function ApprovalsIndex({
                 open={!!rejectingBooking}
                 onOpenChange={(open) => !open && setRejectingBooking(null)}
             >
-                <DialogContent className="max-w-md bg-gov-surface border-gov-border text-gov-text">
+                <DialogContent className="p-4 sm:p-6 max-w-md bg-gov-surface border-gov-border text-gov-text">
                     <DialogHeader>
                         <DialogTitle className="text-base font-semibold text-gov-critical-text flex items-center gap-2">
                             <XCircle className="h-4 w-4" />
@@ -359,7 +359,7 @@ export default function ApprovalsIndex({
                 open={!!selectedBooking}
                 onOpenChange={(open) => !open && setSelectedBooking(null)}
             >
-                <DialogContent className="max-w-md bg-gov-surface border-gov-border text-gov-text">
+                <DialogContent className="p-4 sm:p-6 max-w-md bg-gov-surface border-gov-border text-gov-text">
                     <DialogHeader>
                         <DialogTitle className="text-base font-semibold text-gov-text flex items-center gap-2">
                             <FileText className="h-4 w-4 text-gov-interactive" />

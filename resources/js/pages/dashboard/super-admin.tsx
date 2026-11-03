@@ -103,7 +103,7 @@ export default function SuperAdminDashboard({
             {/* Header Strip */}
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-gov-border pb-5">
                 <div>
-                    <h1 className="text-2xl font-bold tracking-tight text-gov-text">
+                    <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-gov-text">
                         {t("admin.overseerCockpit")}
                     </h1>
                     <p className="text-xs text-gov-muted">
@@ -132,7 +132,7 @@ export default function SuperAdminDashboard({
                         </span>
                         <Users className="h-4 w-4 text-gov-interactive" />
                     </div>
-                    <div className="mt-2 text-2xl font-bold text-gov-text">
+                    <div className="mt-2 text-xl sm:text-2xl font-bold text-gov-text">
                         {stats.total_users}
                     </div>
                     <div className="mt-2 flex flex-wrap gap-1.5 text-[10px]">
@@ -161,7 +161,7 @@ export default function SuperAdminDashboard({
                         </span>
                         <Layers className="h-4 w-4 text-blue-500" />
                     </div>
-                    <div className="mt-2 text-2xl font-bold text-gov-text">
+                    <div className="mt-2 text-xl sm:text-2xl font-bold text-gov-text">
                         {stats.active_orders}{" "}
                         <span className="text-xs font-normal text-gov-muted">
                             / {stats.total_orders}
@@ -185,7 +185,7 @@ export default function SuperAdminDashboard({
                         </span>
                         <Clock className="h-4 w-4 text-emerald-500" />
                     </div>
-                    <div className="mt-2 text-2xl font-bold text-gov-text">
+                    <div className="mt-2 text-xl sm:text-2xl font-bold text-gov-text">
                         {stats.total_booked_hours.toLocaleString()}{" "}
                         <span className="text-xs font-normal text-gov-muted">
                             {isGerman ? 'Std.' : 'hrs'}
@@ -211,7 +211,7 @@ export default function SuperAdminDashboard({
                             className={`h-4 w-4 ${stats.arbzg_notices_count > 0 ? "text-amber-500" : "text-gov-muted"}`}
                         />
                     </div>
-                    <div className="mt-2 text-2xl font-bold text-gov-text">
+                    <div className="mt-2 text-xl sm:text-2xl font-bold text-gov-text">
                         {stats.arbzg_notices_count}
                     </div>
                     <p className="mt-2 text-[11px] text-gov-muted">
@@ -336,19 +336,19 @@ export default function SuperAdminDashboard({
                         <table className="w-full text-left text-xs">
                             <thead className="border-b border-gov-border text-[11px] font-medium uppercase text-gov-muted">
                                 <tr>
-                                    <th className="py-2 pr-3">
+                                    <th className="py-2 pr-3 whitespace-nowrap">
                                         {t("admin.name")}
                                     </th>
-                                    <th className="py-2 pr-3">
+                                    <th className="py-2 pr-3 whitespace-nowrap">
                                         {t("admin.email")}
                                     </th>
-                                    <th className="py-2 pr-3">
+                                    <th className="py-2 pr-3 whitespace-nowrap">
                                         {t("admin.role")}
                                     </th>
-                                    <th className="py-2 pr-3">
+                                    <th className="py-2 pr-3 whitespace-nowrap">
                                         {t("admin.supplier")}
                                     </th>
-                                    <th className="py-2 text-right">
+                                    <th className="py-2 text-right whitespace-nowrap">
                                         {t("admin.created")}
                                     </th>
                                 </tr>
@@ -363,23 +363,23 @@ export default function SuperAdminDashboard({
                                             key={u.id}
                                             className="hover:bg-gov-canvas/50"
                                         >
-                                            <td className="py-2.5 pr-3 font-medium">
+                                            <td className="py-2.5 pr-3 font-medium whitespace-nowrap">
                                                 {u.name}
                                             </td>
-                                            <td className="py-2.5 pr-3 text-gov-muted font-mono text-[11px]">
+                                            <td className="py-2.5 pr-3 text-gov-muted font-mono text-[11px] whitespace-nowrap">
                                                 {u.email}
                                             </td>
-                                            <td className="py-2.5 pr-3">
+                                            <td className="py-2.5 pr-3 whitespace-nowrap">
                                                 <span
                                                     className={`inline-flex rounded-sm px-2 py-0.5 text-[10px] font-semibold border ${badge.bg} ${badge.text} ${badge.border}`}
                                                 >
                                                     {badge.label}
                                                 </span>
                                             </td>
-                                            <td className="py-2.5 pr-3 text-gov-muted">
+                                            <td className="py-2.5 pr-3 text-gov-muted whitespace-nowrap">
                                                 {u.supplier_name || "—"}
                                             </td>
-                                            <td className="py-2.5 text-right text-gov-muted font-mono text-[11px]">
+                                            <td className="py-2.5 text-right text-gov-muted font-mono text-[11px] whitespace-nowrap">
                                                 {u.created_at || "—"}
                                             </td>
                                         </tr>

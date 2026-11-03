@@ -252,7 +252,7 @@ export default function AdminUsersIndex({
     };
 
     return (
-        <div className="flex h-full flex-1 flex-col p-4 md:p-6 bg-gov-canvas text-gov-text font-sans space-y-6">
+        <div className="flex h-full flex-1 flex-col p-3 sm:p-4 md:p-6 bg-gov-canvas text-gov-text font-sans space-y-6">
             <Head title={`${t('admin.title')} - HourRadar`} />
 
             {/* Error or Success alerts */}
@@ -272,14 +272,14 @@ export default function AdminUsersIndex({
             {/* Header */}
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-b border-gov-border pb-5">
                 <div>
-                    <h1 className="text-2xl font-bold tracking-tight text-gov-text">
+                    <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-gov-text">
                         {t('admin.title')}
                     </h1>
                     <p className="text-xs text-gov-muted">
                         {t('admin.subtitle')}
                     </p>
                 </div>
-                <div className="flex flex-wrap items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
                     <Button
                         type="button"
                         variant="outline"
@@ -356,7 +356,7 @@ export default function AdminUsersIndex({
                         className="pl-9 h-9 text-xs rounded-lg border-gov-border bg-gov-canvas"
                     />
                 </form>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto">
                     <Label htmlFor="role-filter" className="text-xs text-gov-muted whitespace-nowrap">
                         {t('common.filter')}:
                     </Label>
@@ -381,12 +381,12 @@ export default function AdminUsersIndex({
                     <table className="w-full text-left text-xs">
                         <thead className="border-b border-gov-border bg-gov-canvas/60 text-[11px] font-medium uppercase text-gov-muted">
                             <tr>
-                                <th className="p-3 pl-4">{t('admin.name')}</th>
-                                <th className="p-3">{t('admin.email')}</th>
-                                <th className="p-3">{t('admin.role')}</th>
-                                <th className="p-3">{t('admin.supplier')}</th>
-                                <th className="p-3">{t('admin.created')}</th>
-                                <th className="p-3 pr-4 text-right">{t('admin.actions')}</th>
+                                <th className="p-3 pl-4 whitespace-nowrap">{t('admin.name')}</th>
+                                <th className="p-3 whitespace-nowrap">{t('admin.email')}</th>
+                                <th className="p-3 whitespace-nowrap">{t('admin.role')}</th>
+                                <th className="p-3 whitespace-nowrap">{t('admin.supplier')}</th>
+                                <th className="p-3 whitespace-nowrap">{t('admin.created')}</th>
+                                <th className="p-3 pr-4 text-right whitespace-nowrap">{t('admin.actions')}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gov-border text-gov-text">
@@ -401,24 +401,24 @@ export default function AdminUsersIndex({
                                     const badge = roleBadgeStyles[u.role] || roleBadgeStyles.consultant;
                                     return (
                                         <tr key={u.id} className="hover:bg-gov-canvas/50 transition-colors">
-                                            <td className="p-3 pl-4 font-medium flex items-center gap-2">
+                                            <td className="p-3 pl-4 font-medium flex items-center gap-2 whitespace-nowrap">
                                                 <div className="flex h-7 w-7 items-center justify-center rounded-md bg-gov-canvas border border-gov-border text-[11px] font-bold text-gov-text uppercase">
                                                     {u.name.substring(0, 2)}
                                                 </div>
                                                 <span>{u.name}</span>
                                             </td>
-                                            <td className="p-3 text-gov-muted font-mono text-[11px]">
+                                            <td className="p-3 text-gov-muted font-mono text-[11px] whitespace-nowrap">
                                                 {u.email}
                                             </td>
-                                            <td className="p-3">
+                                            <td className="p-3 whitespace-nowrap">
                                                 <span className={`inline-flex rounded-sm px-2 py-0.5 text-[10px] font-semibold border ${badge.bg} ${badge.text} ${badge.border}`}>
                                                     {badge.label}
                                                 </span>
                                             </td>
-                                            <td className="p-3 text-gov-muted">
+                                            <td className="p-3 text-gov-muted whitespace-nowrap">
                                                 {u.supplier_name || '—'}
                                             </td>
-                                            <td className="p-3 text-gov-muted font-mono text-[11px]">
+                                            <td className="p-3 text-gov-muted font-mono text-[11px] whitespace-nowrap">
                                                 {u.created_at || '—'}
                                             </td>
                                             <td className="p-3 pr-4 text-right">
@@ -484,7 +484,7 @@ export default function AdminUsersIndex({
 
             {/* Create User Dialog */}
             <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
-                <DialogContent className="sm:max-w-md bg-gov-surface text-gov-text border-gov-border">
+                <DialogContent className="p-4 sm:p-6 sm:max-w-md bg-gov-surface text-gov-text border-gov-border">
                     <DialogHeader>
                         <DialogTitle className="text-base font-bold text-gov-text">
                             {t('admin.addUser')}
@@ -619,7 +619,7 @@ export default function AdminUsersIndex({
 
             {/* Edit User Dialog */}
             <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
-                <DialogContent className="sm:max-w-md bg-gov-surface text-gov-text border-gov-border">
+                <DialogContent className="p-4 sm:p-6 sm:max-w-md bg-gov-surface text-gov-text border-gov-border">
                     <DialogHeader>
                         <DialogTitle className="text-base font-bold text-gov-text">
                             {t('admin.editUser')}
@@ -751,7 +751,7 @@ export default function AdminUsersIndex({
 
             {/* Delete Confirmation Dialog */}
             <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
-                <DialogContent className="sm:max-w-md bg-gov-surface text-gov-text border-gov-border">
+                <DialogContent className="p-4 sm:p-6 sm:max-w-md bg-gov-surface text-gov-text border-gov-border">
                     <DialogHeader>
                         <DialogTitle className="text-base font-bold text-red-600 dark:text-red-400 flex items-center gap-2">
                             <AlertTriangle className="h-5 w-5" />
@@ -787,8 +787,8 @@ export default function AdminUsersIndex({
 
             {/* Roles & Permissions Matrix Dialog */}
             <Dialog open={isMatrixOpen} onOpenChange={setIsMatrixOpen}>
-                <DialogContent className="sm:max-w-3xl bg-gov-surface text-gov-text border-gov-border max-h-[85vh] overflow-y-auto">
-                    <DialogHeader>
+                <DialogContent className="p-4 sm:p-6 sm:max-w-3xl bg-gov-surface text-gov-text border-gov-border max-h-[85vh] overflow-y-auto">
+                    <DialogHeader className="pr-8 sm:pr-12">
                         <div className="flex items-center gap-2">
                             <span className="rounded-sm bg-amber-500/10 px-2 py-0.5 text-[10px] font-semibold text-amber-600 dark:text-amber-400 border border-amber-500/20">
                                 RBAC Matrix
@@ -802,21 +802,21 @@ export default function AdminUsersIndex({
                         </DialogDescription>
                     </DialogHeader>
 
-                    <div className="mt-3 rounded-lg border border-gov-border overflow-hidden">
-                        <table className="w-full text-left text-xs">
+                    <div className="mt-3 rounded-lg border border-gov-border overflow-x-auto">
+                        <table className="w-full text-left text-xs min-w-[500px]">
                             <thead className="border-b border-gov-border bg-gov-canvas/80 text-[11px] font-medium uppercase text-gov-muted">
                                 <tr>
-                                    <th className="p-3 pl-4">{t('admin.actionColumn')}</th>
-                                    <th className="p-3 text-center">{t('admin.superAdmin')}</th>
-                                    <th className="p-3 text-center">{t('admin.projectLead')}</th>
-                                    <th className="p-3 text-center">{t('admin.purchasing')}</th>
-                                    <th className="p-3 text-center pr-4">{t('admin.consultant')}</th>
+                                    <th className="p-3 pl-4 whitespace-nowrap">{t('admin.actionColumn')}</th>
+                                    <th className="p-3 text-center whitespace-nowrap">{t('admin.superAdmin')}</th>
+                                    <th className="p-3 text-center whitespace-nowrap">{t('admin.projectLead')}</th>
+                                    <th className="p-3 text-center whitespace-nowrap">{t('admin.purchasing')}</th>
+                                    <th className="p-3 text-center pr-4 whitespace-nowrap">{t('admin.consultant')}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gov-border text-gov-text">
                                 {permissionsMatrix.map((row, idx) => (
                                     <tr key={idx} className="hover:bg-gov-canvas/40 transition-colors">
-                                        <td className="p-3 pl-4 font-medium text-gov-text">
+                                        <td className="p-3 pl-4 font-medium text-gov-text whitespace-nowrap">
                                             {row.action}
                                         </td>
                                         <td className="p-3 text-center">

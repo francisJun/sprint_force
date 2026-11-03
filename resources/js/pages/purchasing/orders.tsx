@@ -80,7 +80,7 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
     const criticalOrders = orders.filter((o) => o.needs_reorder_alert);
 
     return (
-        <div className="flex h-full flex-1 flex-col p-4 md:p-6 bg-gov-canvas text-gov-text font-sans">
+        <div className="flex h-full flex-1 flex-col p-3 sm:p-4 md:p-6 bg-gov-canvas text-gov-text font-sans">
             <Head title={`${t("nav.purchasingOrders")} - HourRadar`} />
 
             {/* Header */}
@@ -88,7 +88,7 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                 <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
                     <div>
                         <div className="flex items-center gap-2.5">
-                            <h1 className="font-semibold text-2xl tracking-tight text-gov-text">
+                            <h1 className="font-semibold text-xl sm:text-2xl tracking-tight text-gov-text">
                                 {t("purchasing.poTableTitle")}
                             </h1>
                             <span className="rounded-sm border border-gov-border bg-gov-surface px-2 py-0.5 font-semibold text-[10px] uppercase text-gov-muted">
@@ -108,7 +108,7 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                 </div>
 
                 {/* Filter & Search Bar */}
-                <div className="mt-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div className="mt-5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
                     <div className="relative w-full sm:w-72">
                         <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-gov-muted" />
                         <input
@@ -123,7 +123,7 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                         />
                     </div>
 
-                    <div className="flex w-full sm:w-auto items-center gap-2">
+                    <div className="flex flex-wrap w-full sm:w-auto items-center gap-1.5 sm:gap-2">
                         <button
                             onClick={() => {
                                 setStatusFilter("all");
@@ -192,19 +192,19 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                     <table className="w-full text-left text-xs">
                         <thead className="border-b border-gov-border bg-gov-surface-hover text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
                             <tr>
-                                <th className="h-9 px-4 whitespace-nowrap">{isGerman ? "Bestellcode" : "Order Code"}</th>
-                                <th className="h-9 px-4">{isGerman ? "Projekt & Dienstleister" : "Project & Vendor"}</th>
-                                <th className="h-9 px-4 text-right whitespace-nowrap">
+                                <th className="h-9 px-3 sm:px-4 whitespace-nowrap">{isGerman ? "Bestellcode" : "Order Code"}</th>
+                                <th className="h-9 px-3 sm:px-4">{isGerman ? "Projekt & Dienstleister" : "Project & Vendor"}</th>
+                                <th className="h-9 px-3 sm:px-4 text-right whitespace-nowrap">
                                     {isGerman ? "Budget (PT)" : "Budget (PD)"}
                                 </th>
-                                <th className="h-9 px-4 text-right whitespace-nowrap">
+                                <th className="h-9 px-3 sm:px-4 text-right whitespace-nowrap">
                                     {isGerman ? "Brennrate" : "Burn Rate"}
                                 </th>
-                                <th className="h-9 px-4 whitespace-nowrap">{isGerman ? "Prognose Ende" : "Forecast End"}</th>
-                                <th className="h-9 px-4 text-center whitespace-nowrap">
+                                <th className="h-9 px-3 sm:px-4 whitespace-nowrap">{isGerman ? "Prognose Ende" : "Forecast End"}</th>
+                                <th className="h-9 px-3 sm:px-4 text-center whitespace-nowrap">
                                     {isGerman ? "Status" : "Status"}
                                 </th>
-                                <th className="h-9 px-4 text-center whitespace-nowrap">
+                                <th className="h-9 px-3 sm:px-4 text-center whitespace-nowrap">
                                     {isGerman ? "Aktion" : "Action"}
                                 </th>
                             </tr>
@@ -228,10 +228,10 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                                         className="transition-colors hover:bg-gov-surface-hover cursor-pointer"
                                         onClick={() => setSelectedOrder(o)}
                                     >
-                                        <td className="h-12 px-4 font-mono font-medium text-gov-text tabular-nums whitespace-nowrap">
+                                        <td className="h-12 px-3 sm:px-4 font-mono font-medium text-gov-text tabular-nums whitespace-nowrap">
                                             {o.order_number}
                                         </td>
-                                        <td className="h-12 px-4">
+                                        <td className="h-12 px-3 sm:px-4">
                                             <div className="font-medium text-gov-text">
                                                 {o.title}
                                             </div>
@@ -239,7 +239,7 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                                                 {o.supplier_name}
                                             </div>
                                         </td>
-                                        <td className="h-12 px-4 text-right tabular-nums whitespace-nowrap">
+                                        <td className="h-12 px-3 sm:px-4 text-right tabular-nums whitespace-nowrap">
                                             <div className="font-mono font-medium text-gov-text">
                                                 {o.used_person_days.toFixed(1)} / {o.total_person_days.toFixed(1)} {t("common.pd")}
                                             </div>
@@ -247,13 +247,13 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                                                 {o.remaining_person_days.toFixed(1)} {isGerman ? "PT verfügbar" : "PD available"}
                                             </div>
                                         </td>
-                                        <td className="h-12 px-4 text-right font-mono text-gov-muted tabular-nums whitespace-nowrap">
+                                        <td className="h-12 px-3 sm:px-4 text-right font-mono text-gov-muted tabular-nums whitespace-nowrap">
                                             {o.average_weekly_burn_pd.toFixed(2)} {isGerman ? "PT/Woche" : "PD/wk"}
                                         </td>
-                                        <td className="h-12 px-4 font-mono text-gov-text tabular-nums whitespace-nowrap">
+                                        <td className="h-12 px-3 sm:px-4 font-mono text-gov-text tabular-nums whitespace-nowrap">
                                             {o.forecasted_end_date}
                                         </td>
-                                        <td className="h-12 px-4 text-center whitespace-nowrap">
+                                        <td className="h-12 px-3 sm:px-4 text-center whitespace-nowrap">
                                             <span
                                                 className={`rounded-sm px-2 py-0.5 text-[10px] font-semibold uppercase border ${
                                                     o.needs_reorder_alert
@@ -266,7 +266,7 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                                                     : (isGerman ? "Reichweite nominal" : "Runway Nominal")}
                                             </span>
                                         </td>
-                                        <td className="h-12 px-4 text-center whitespace-nowrap">
+                                        <td className="h-12 px-3 sm:px-4 text-center whitespace-nowrap">
                                             <button
                                                 onClick={(e) => {
                                                     e.stopPropagation();
@@ -300,8 +300,8 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                 open={!!selectedOrder}
                 onOpenChange={(open) => !open && setSelectedOrder(null)}
             >
-                <DialogContent className="sm:max-w-4xl lg:max-w-5xl max-h-[90vh] overflow-y-auto bg-gov-surface border-gov-border text-gov-text">
-                    <DialogHeader className="pr-12">
+                <DialogContent className="p-4 sm:p-6 sm:max-w-4xl lg:max-w-5xl max-h-[90vh] overflow-y-auto bg-gov-surface border-gov-border text-gov-text">
+                    <DialogHeader className="pr-8 sm:pr-12">
                         <div className="flex flex-wrap items-center gap-2.5">
                             <div className="flex items-center gap-2">
                                 <FileText className="h-4 w-4 text-gov-accent" />

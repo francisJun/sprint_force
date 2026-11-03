@@ -14,7 +14,7 @@ export default function AuthCardLayout({
     description?: string;
 }>) {
     return (
-        <div className="flex min-h-svh flex-col items-center justify-center bg-gov-canvas p-6 text-gov-text md:p-10 selection:bg-gov-interactive selection:text-white">
+        <div className="flex min-h-svh flex-col items-center justify-center bg-gov-canvas p-4 sm:p-6 md:p-10 text-gov-text selection:bg-gov-interactive selection:text-white">
             <div className="flex w-full max-w-md flex-col gap-6">
                 {/* Brand Header */}
                 <div className="flex flex-col items-center gap-2 text-center">
@@ -29,7 +29,7 @@ export default function AuthCardLayout({
                 </div>
 
                 {/* Card Shell adhering strictly to DESIGN.md (Level 1: 8px radius, #FFFFFF, 1px #E2E8F0 border) */}
-                <div className="rounded-lg border border-gov-border bg-gov-surface p-8 shadow-xs">
+                <div className="rounded-lg border border-gov-border bg-gov-surface p-5 sm:p-8 shadow-xs">
                     <div className="mb-6">
                         <h1 className="font-semibold text-lg text-gov-text tracking-tight">
                             {title || 'Enterprise Sign In'}

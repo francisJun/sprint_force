@@ -170,7 +170,7 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
     const totalApproved = allInvoices.reduce((sum, inv) => sum + inv.approved_pd, 0);
 
     return (
-        <div className="flex h-full flex-1 flex-col p-4 md:p-6 bg-gov-canvas text-gov-text font-sans">
+        <div className="flex h-full flex-1 flex-col p-3 sm:p-4 md:p-6 bg-gov-canvas text-gov-text font-sans">
             <Head title={`${t("nav.purchasingInvoices")} - HourRadar`} />
 
             {/* Header */}
@@ -178,7 +178,7 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
                 <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
                     <div>
                         <div className="flex items-center gap-2.5">
-                            <h1 className="font-semibold text-2xl tracking-tight text-gov-text">
+                            <h1 className="font-semibold text-xl sm:text-2xl tracking-tight text-gov-text">
                                 {t("purchasing.invoicesTableTitle")}
                             </h1>
                             <span className="rounded-sm border border-gov-border bg-gov-surface px-2 py-0.5 font-semibold text-[10px] uppercase text-gov-muted">
@@ -198,7 +198,7 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
                 </div>
 
                 {/* Filter & Search Bar */}
-                <div className="mt-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div className="mt-5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
                     <div className="relative w-full sm:w-72">
                         <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-gov-muted" />
                         <input
@@ -213,7 +213,7 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
                         />
                     </div>
 
-                    <div className="flex w-full sm:w-auto items-center gap-2">
+                    <div className="flex flex-wrap w-full sm:w-auto items-center gap-1.5 sm:gap-2">
                         <button
                             onClick={() => {
                                 setStatusFilter('all');
@@ -250,7 +250,7 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
                         {isGerman ? 'Gesamtes Rechnungsvolumen' : 'Total Invoiced Volume'}
                     </span>
-                    <div className="mt-2 text-2xl font-semibold text-gov-text font-mono tabular-nums">
+                    <div className="mt-2 text-xl sm:text-2xl font-semibold text-gov-text font-mono tabular-nums">
                         {totalClaimed.toFixed(2)}{' '}
                         <span className="text-sm font-normal text-gov-muted">{t("common.pd")}</span>
                     </div>
@@ -265,7 +265,7 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
                         {isGerman ? 'Vom Auftraggeber geprüft & freigegeben' : 'Client Verified & Approved'}
                     </span>
-                    <div className="mt-2 text-2xl font-semibold text-gov-text font-mono tabular-nums">
+                    <div className="mt-2 text-xl sm:text-2xl font-semibold text-gov-text font-mono tabular-nums">
                         {totalApproved.toFixed(2)}{' '}
                         <span className="text-sm font-normal text-gov-muted">{t("common.pd")}</span>
                     </div>
@@ -280,7 +280,7 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
                         {isGerman ? 'Abweichungsquote' : 'Variance Discrepancy Rate'}
                     </span>
-                    <div className="mt-2 text-2xl font-semibold text-gov-success-text font-mono tabular-nums">
+                    <div className="mt-2 text-xl sm:text-2xl font-semibold text-gov-success-text font-mono tabular-nums">
                         0.00%
                     </div>
                     <div className="mt-1 text-[11px] text-gov-muted">
@@ -297,15 +297,15 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
                     <table className="w-full text-left text-xs">
                         <thead className="border-b border-gov-border bg-gov-surface-hover text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
                             <tr>
-                                <th className="h-9 px-4">{isGerman ? 'Rechnungs-Referenz' : 'Invoice Reference'}</th>
-                                <th className="h-9 px-4">{isGerman ? 'Dienstleister' : 'Vendor'}</th>
-                                <th className="h-9 px-4">{isGerman ? 'Bestellung (PO)' : 'Purchase Order'}</th>
-                                <th className="h-9 px-4">{isGerman ? 'Rechnungsdatum' : 'Invoice Date'}</th>
-                                <th className="h-9 px-4 text-right">{isGerman ? 'Berechnete PT' : 'Claimed PD'}</th>
-                                <th className="h-9 px-4 text-right">{isGerman ? 'Freigegebene PT' : 'Approved Timesheets'}</th>
-                                <th className="h-9 px-4 text-right">{isGerman ? 'Abweichung' : 'Variance'}</th>
-                                <th className="h-9 px-4 text-right">{isGerman ? 'Abrechnungsstatus' : 'Settlement State'}</th>
-                                <th className="h-9 px-4 text-center">{isGerman ? 'Prüfaktionen' : 'Audit Actions'}</th>
+                                <th className="h-9 px-3 sm:px-4 whitespace-nowrap">{isGerman ? 'Rechnungs-Referenz' : 'Invoice Reference'}</th>
+                                <th className="h-9 px-3 sm:px-4 whitespace-nowrap">{isGerman ? 'Dienstleister' : 'Vendor'}</th>
+                                <th className="h-9 px-3 sm:px-4 whitespace-nowrap">{isGerman ? 'Bestellung (PO)' : 'Purchase Order'}</th>
+                                <th className="h-9 px-3 sm:px-4 whitespace-nowrap">{isGerman ? 'Rechnungsdatum' : 'Invoice Date'}</th>
+                                <th className="h-9 px-3 sm:px-4 text-right whitespace-nowrap">{isGerman ? 'Berechnete PT' : 'Claimed PD'}</th>
+                                <th className="h-9 px-3 sm:px-4 text-right whitespace-nowrap">{isGerman ? 'Freigegebene PT' : 'Approved Timesheets'}</th>
+                                <th className="h-9 px-3 sm:px-4 text-right whitespace-nowrap">{isGerman ? 'Abweichung' : 'Variance'}</th>
+                                <th className="h-9 px-3 sm:px-4 text-right whitespace-nowrap">{isGerman ? 'Abrechnungsstatus' : 'Settlement State'}</th>
+                                <th className="h-9 px-3 sm:px-4 text-center whitespace-nowrap">{isGerman ? 'Prüfaktionen' : 'Audit Actions'}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gov-border">
@@ -324,33 +324,33 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
                                         className="transition-colors hover:bg-gov-surface-hover cursor-pointer"
                                         onClick={() => setSelectedInvoice(inv)}
                                     >
-                                        <td className="h-11 px-4 font-mono font-medium text-gov-text tabular-nums">
+                                        <td className="h-11 px-3 sm:px-4 font-mono font-medium text-gov-text tabular-nums whitespace-nowrap">
                                             {inv.reference}
                                         </td>
-                                        <td className="h-11 px-4 text-gov-text">
+                                        <td className="h-11 px-3 sm:px-4 text-gov-text whitespace-nowrap">
                                             {inv.vendor}
                                         </td>
-                                        <td className="h-11 px-4 font-mono text-gov-muted">
+                                        <td className="h-11 px-3 sm:px-4 font-mono text-gov-muted whitespace-nowrap">
                                             {inv.order_number}
                                         </td>
-                                        <td className="h-11 px-4 font-mono text-gov-muted tabular-nums">
+                                        <td className="h-11 px-3 sm:px-4 font-mono text-gov-muted tabular-nums whitespace-nowrap">
                                             {inv.date}
                                         </td>
-                                        <td className="h-11 px-4 text-right font-mono text-gov-text tabular-nums font-medium">
+                                        <td className="h-11 px-3 sm:px-4 text-right font-mono text-gov-text tabular-nums font-medium whitespace-nowrap">
                                             {inv.claimed_pd.toFixed(2)} {t("common.pd")}
                                         </td>
-                                        <td className="h-11 px-4 text-right font-mono text-gov-text tabular-nums font-medium">
+                                        <td className="h-11 px-3 sm:px-4 text-right font-mono text-gov-text tabular-nums font-medium whitespace-nowrap">
                                             {inv.approved_pd.toFixed(2)} {t("common.pd")}
                                         </td>
-                                        <td className="h-11 px-4 text-right font-mono text-gov-success-text tabular-nums font-medium">
+                                        <td className="h-11 px-3 sm:px-4 text-right font-mono text-gov-success-text tabular-nums font-medium whitespace-nowrap">
                                             {inv.variance}
                                         </td>
-                                        <td className="h-11 px-4 text-right">
+                                        <td className="h-11 px-3 sm:px-4 text-right whitespace-nowrap">
                                             <span className="rounded-sm border border-gov-success-border bg-gov-success-bg px-2 py-0.5 text-[10px] font-semibold uppercase text-gov-success-text">
                                                 {isGerman ? 'Abgeglichen & Freigegeben' : inv.status}
                                             </span>
                                         </td>
-                                        <td className="h-11 px-4 text-center">
+                                        <td className="h-11 px-3 sm:px-4 text-center whitespace-nowrap">
                                             <button
                                                 onClick={(e) => {
                                                     e.stopPropagation();
@@ -381,8 +381,8 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
 
             {/* 3-Way Match Audit Verification Modal */}
             <Dialog open={!!selectedInvoice} onOpenChange={(open) => !open && setSelectedInvoice(null)}>
-                <DialogContent className="max-w-xl bg-gov-surface border-gov-border text-gov-text">
-                    <DialogHeader>
+                <DialogContent className="p-4 sm:p-6 max-w-xl bg-gov-surface border-gov-border text-gov-text">
+                    <DialogHeader className="pr-8 sm:pr-12">
                         <div className="flex items-center gap-2">
                             <Scale className="h-4 w-4 text-gov-accent" />
                             <DialogTitle className="text-base font-semibold text-gov-text">
@@ -416,7 +416,7 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
                             </div>
 
                             {/* 3 Pillars of the Match */}
-                            <div className="grid grid-cols-3 gap-2 text-xs">
+                            <div className="grid grid-cols-1 min-[480px]:grid-cols-3 gap-2 text-xs">
                                 <div className="rounded-lg border border-gov-border bg-gov-canvas p-3">
                                     <span className="text-[10px] font-semibold uppercase text-gov-muted block">
                                         {isGerman ? '1. Bestellobligation' : '1. PO Commitment'}

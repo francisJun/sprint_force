@@ -181,7 +181,7 @@ export function ChatbotDrawer() {
                                         Online
                                     </span>
                                 </div>
-                                <p className="text-[10px] text-gov-muted mt-0.5 truncate max-w-[160px] xs:max-w-xs sm:max-w-none">
+                                <p className="text-[10px] text-gov-muted mt-0.5 truncate max-w-[160px] min-[400px]:max-w-xs sm:max-w-none">
                                     {isGerman
                                         ? "Rechtskonformität, Budgetreichweite & Rechnungsprüfung"
                                         : "Labor compliance, budget runway & invoice audit intelligence"}

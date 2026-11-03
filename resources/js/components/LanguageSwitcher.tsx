@@ -71,7 +71,7 @@ export function LanguageSwitcher({
                 type="button"
                 onClick={() => changeLanguage("en")}
                 aria-pressed={locale === "en"}
-                className={`inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-mono font-medium transition-all cursor-pointer ${
+                className={`inline-flex items-center gap-1 px-1.5 sm:px-2 py-1 rounded text-xs font-mono font-medium transition-all cursor-pointer ${
                     locale === "en"
                         ? "bg-gov-surface text-gov-text shadow-xs border border-gov-border font-semibold"
                         : "text-gov-muted hover:text-gov-text"
@@ -84,7 +84,7 @@ export function LanguageSwitcher({
                 type="button"
                 onClick={() => changeLanguage("de")}
                 aria-pressed={locale === "de"}
-                className={`inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-mono font-medium transition-all cursor-pointer ${
+                className={`inline-flex items-center gap-1 px-1.5 sm:px-2 py-1 rounded text-xs font-mono font-medium transition-all cursor-pointer ${
                     locale === "de"
                         ? "bg-gov-surface text-gov-text shadow-xs border border-gov-border font-semibold"
                         : "text-gov-muted hover:text-gov-text"

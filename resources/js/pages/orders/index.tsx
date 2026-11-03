@@ -74,14 +74,14 @@ export default function OrdersIndex({ user, orders }: Props) {
     const orderPagination = usePagination(filteredOrders, 6);
 
     return (
-        <div className="flex h-full flex-1 flex-col p-4 md:p-6 bg-gov-canvas text-gov-text font-sans">
+        <div className="flex h-full flex-1 flex-col p-3 sm:p-4 md:p-6 bg-gov-canvas text-gov-text font-sans">
             <Head title="Order Runway & Depletion Schedule - HourRadar" />
 
             {/* Header */}
             <div className="border-b border-gov-border pb-5">
                 <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
                     <div>
-                        <h1 className="font-semibold text-2xl tracking-tight text-gov-text">
+                        <h1 className="font-semibold text-xl sm:text-2xl tracking-tight text-gov-text">
                             {t("nav.orders")}
                         </h1>
                         <p className="mt-1 text-xs text-gov-muted">
@@ -97,7 +97,7 @@ export default function OrdersIndex({ user, orders }: Props) {
                 </div>
 
                 {/* Filter & Search Bar */}
-                <div className="mt-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div className="mt-5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
                     <div className="relative w-full sm:w-72">
                         <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-gov-muted" />
                         <input
@@ -109,7 +109,7 @@ export default function OrdersIndex({ user, orders }: Props) {
                         />
                     </div>
 
-                    <div className="flex items-center gap-1.5 self-start sm:self-auto text-xs">
+                    <div className="flex flex-wrap items-center gap-1.5 self-start sm:self-auto text-xs">
                         <span className="text-[11px] text-gov-muted mr-1">{t("common.status")}:</span>
                         {(['all', 'alert', 'nominal'] as const).map((filter) => (
                             <button
@@ -152,12 +152,12 @@ export default function OrdersIndex({ user, orders }: Props) {
                             return (
                                 <div
                                     key={order.id}
-                                    className={`rounded-lg border bg-gov-surface p-6 shadow-xs transition-shadow hover:shadow-md cursor-pointer ${
+                                    className={`rounded-lg border bg-gov-surface p-4 sm:p-6 shadow-xs transition-shadow hover:shadow-md cursor-pointer ${
                                         order.needs_reorder_alert ? 'border-gov-warning-border' : 'border-gov-border'
                                     }`}
                                     onClick={() => setSelectedOrder(order)}
                                 >
-                                    <div className="flex items-start justify-between">
+                                    <div className="flex items-start justify-between gap-2">
                                         <div>
                                             <span className="font-mono text-xs text-gov-muted tabular-nums">
                                                 {order.order_number}
@@ -171,7 +171,7 @@ export default function OrdersIndex({ user, orders }: Props) {
                                         </div>
 
                                         <span
-                                            className={`rounded-sm px-2.5 py-0.5 text-[10px] font-semibold uppercase border ${
+                                            className={`rounded-sm px-2.5 py-0.5 text-[10px] font-semibold uppercase border shrink-0 ${
                                                 order.needs_reorder_alert
                                                     ? 'border-gov-warning-border bg-gov-warning-bg text-gov-warning-text'
                                                     : 'border-gov-success-border bg-gov-success-bg text-gov-success-text'
@@ -185,7 +185,7 @@ export default function OrdersIndex({ user, orders }: Props) {
 
                                     {/* Progress Bar */}
                                     <div className="mt-5 space-y-2">
-                                        <div className="flex items-center justify-between font-mono text-xs text-gov-muted tabular-nums">
+                                        <div className="flex flex-col min-[380px]:flex-row min-[380px]:items-center justify-between gap-1 font-mono text-xs text-gov-muted tabular-nums">
                                             <span>
                                                 {isGerman ? 'Verbraucht:' : 'Consumed:'} <strong className="text-gov-text font-semibold">{order.used_person_days.toFixed(2)} {t("common.pd")}</strong> ({percentUsed}%)
                                             </span>
@@ -208,7 +208,7 @@ export default function OrdersIndex({ user, orders }: Props) {
                                     </div>
 
                                     {/* Metrics Grid */}
-                                    <div className="mt-5 grid grid-cols-2 gap-3 rounded-lg border border-gov-border bg-gov-canvas p-3.5 text-xs font-mono">
+                                    <div className="mt-5 grid grid-cols-1 min-[380px]:grid-cols-2 gap-3 rounded-lg border border-gov-border bg-gov-canvas p-3 sm:p-3.5 text-xs font-mono">
                                         <div>
                                             <span className="text-[10px] text-gov-muted uppercase block">
                                                 {isGerman ? 'Restkontingent' : 'Remaining Capital'}
@@ -272,8 +272,8 @@ export default function OrdersIndex({ user, orders }: Props) {
 
             {/* Order Detail Modal with Burndown Trajectory */}
             <Dialog open={!!selectedOrder} onOpenChange={(open) => !open && setSelectedOrder(null)}>
-                <DialogContent className="sm:max-w-4xl lg:max-w-5xl max-h-[90vh] overflow-y-auto bg-gov-surface border-gov-border text-gov-text">
-                    <DialogHeader className="pr-12">
+                <DialogContent className="p-4 sm:p-6 sm:max-w-4xl lg:max-w-5xl max-h-[90vh] overflow-y-auto bg-gov-surface border-gov-border text-gov-text">
+                    <DialogHeader className="pr-8 sm:pr-12">
                         <div className="flex flex-wrap items-center gap-2.5">
                             <span className="flex items-center gap-2">
                                 <FileText className="h-4 w-4 text-gov-interactive" />
