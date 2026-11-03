@@ -27,7 +27,7 @@ interface Props {
 }
 
 export default function PurchasingDashboard({ user, orders }: Props) {
-    const { t } = useTranslation();
+    const { t, isGerman } = useTranslation();
     const totalAllocated = orders.reduce(
         (sum, o) => sum + o.total_person_days,
         0,
@@ -126,7 +126,9 @@ export default function PurchasingDashboard({ user, orders }: Props) {
                         </span>
                     </div>
                     <div className="mt-1 text-[11px] text-gov-muted">
-                        Across {orders.length} agreements
+                        {isGerman
+                            ? `Über ${orders.length} Vereinbarungen`
+                            : `Across ${orders.length} agreements`}
                     </div>
                 </div>
 
@@ -213,7 +215,7 @@ export default function PurchasingDashboard({ user, orders }: Props) {
                                                 {o.title}
                                             </div>
                                             <div className="text-[11px] text-gov-muted">
-                                                Vendor: {o.supplier_name}
+                                                {isGerman ? 'Dienstleister:' : 'Vendor:'} {o.supplier_name}
                                             </div>
                                         </div>
 
@@ -306,7 +308,7 @@ export default function PurchasingDashboard({ user, orders }: Props) {
                                             </div>
                                         </div>
                                         <span className="rounded-sm border border-gov-success-border bg-gov-success-bg px-2 py-0.5 text-[10px] font-semibold uppercase text-gov-success-text">
-                                            {inv.status}
+                                            {isGerman ? 'Abgeglichen & Freigegeben' : inv.status}
                                         </span>
                                     </div>
 

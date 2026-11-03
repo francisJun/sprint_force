@@ -137,7 +137,9 @@ export default function OrdersIndex({ user, orders }: Props) {
             <div className="mt-6 space-y-6">
                 {orderPagination.paginatedItems.length === 0 ? (
                     <div className="rounded-lg border border-gov-border bg-gov-surface p-12 text-center text-xs text-gov-muted">
-                        No purchase orders matching the filter criteria.
+                        {isGerman
+                            ? 'Keine Rahmenbestellungen entsprechen den Filterkriterien.'
+                            : 'No purchase orders matching the filter criteria.'}
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -164,7 +166,7 @@ export default function OrdersIndex({ user, orders }: Props) {
                                                 {order.title}
                                             </h2>
                                             <p className="mt-0.5 text-xs text-gov-muted">
-                                                Vendor: {order.supplier_name} · {order.consultants_count} Consultants
+                                                {isGerman ? 'Dienstleister' : 'Vendor'}: {order.supplier_name} · {order.consultants_count} {isGerman ? 'Berater' : 'Consultants'}
                                             </p>
                                         </div>
 
@@ -175,7 +177,9 @@ export default function OrdersIndex({ user, orders }: Props) {
                                                     : 'border-gov-success-border bg-gov-success-bg text-gov-success-text'
                                             }`}
                                         >
-                                            {order.needs_reorder_alert ? 'Re-Order Alert' : 'Nominal Runway'}
+                                            {order.needs_reorder_alert
+                                                ? (isGerman ? 'Nachbestell-Warnung' : 'Re-Order Alert')
+                                                : (isGerman ? 'Normale Reichweite' : 'Nominal Runway')}
                                         </span>
                                     </div>
 
@@ -183,10 +187,10 @@ export default function OrdersIndex({ user, orders }: Props) {
                                     <div className="mt-5 space-y-2">
                                         <div className="flex items-center justify-between font-mono text-xs text-gov-muted tabular-nums">
                                             <span>
-                                                Consumed: <strong className="text-gov-text font-semibold">{order.used_person_days.toFixed(2)} PD</strong> ({percentUsed}%)
+                                                {isGerman ? 'Verbraucht:' : 'Consumed:'} <strong className="text-gov-text font-semibold">{order.used_person_days.toFixed(2)} {t("common.pd")}</strong> ({percentUsed}%)
                                             </span>
                                             <span>
-                                                Budget: <strong className="text-gov-text font-semibold">{order.total_person_days.toFixed(2)} PD</strong>
+                                                {isGerman ? 'Budget:' : 'Budget:'} <strong className="text-gov-text font-semibold">{order.total_person_days.toFixed(2)} {t("common.pd")}</strong>
                                             </span>
                                         </div>
                                         <div className="h-2 w-full overflow-hidden rounded-full bg-gov-canvas">
@@ -207,23 +211,23 @@ export default function OrdersIndex({ user, orders }: Props) {
                                     <div className="mt-5 grid grid-cols-2 gap-3 rounded-lg border border-gov-border bg-gov-canvas p-3.5 text-xs font-mono">
                                         <div>
                                             <span className="text-[10px] text-gov-muted uppercase block">
-                                                Remaining Capital
+                                                {isGerman ? 'Restkontingent' : 'Remaining Capital'}
                                             </span>
                                             <span className="font-semibold text-gov-text tabular-nums text-sm">
-                                                {order.remaining_person_days.toFixed(2)} PD
+                                                {order.remaining_person_days.toFixed(2)} {t("common.pd")}
                                             </span>
                                         </div>
                                         <div>
                                             <span className="text-[10px] text-gov-muted uppercase block">
-                                                Weekly Burn Velocity
+                                                {isGerman ? 'Wöchentliche Brennrate' : 'Weekly Burn Velocity'}
                                             </span>
                                             <span className="font-semibold text-gov-text tabular-nums text-sm">
-                                                {order.average_weekly_burn_pd.toFixed(1)} PD/wk
+                                                {order.average_weekly_burn_pd.toFixed(1)} {isGerman ? 'PT/Woche' : 'PD/wk'}
                                             </span>
                                         </div>
                                         <div className="border-t border-gov-border pt-2">
                                             <span className="text-[10px] text-gov-muted uppercase block">
-                                                Forecasted Exhaustion
+                                                {isGerman ? 'Prognostizierte Erschöpfung' : 'Forecasted Exhaustion'}
                                             </span>
                                             <span className="font-semibold text-gov-text tabular-nums">
                                                 {order.forecasted_end_date}
@@ -231,7 +235,7 @@ export default function OrdersIndex({ user, orders }: Props) {
                                         </div>
                                         <div className="border-t border-gov-border pt-2">
                                             <span className="text-[10px] text-gov-muted uppercase block">
-                                                Target Contract End
+                                                {isGerman ? 'Vertragsende Ziel' : 'Target Contract End'}
                                             </span>
                                             <span className="font-semibold text-gov-text tabular-nums">
                                                 {order.target_end_date}
@@ -241,7 +245,9 @@ export default function OrdersIndex({ user, orders }: Props) {
 
                                     {order.vacation_days_affecting_runway > 0 && (
                                         <p className="mt-3 text-[11px] text-gov-muted font-medium">
-                                            Includes {order.vacation_days_affecting_runway} consultant absence days adjusting exhaustion forward.
+                                            {isGerman
+                                                ? `Enthält ${order.vacation_days_affecting_runway} Berater-Abwesenheitstage, die das Reichweitenende nach hinten verschieben.`
+                                                : `Includes ${order.vacation_days_affecting_runway} consultant absence days adjusting exhaustion forward.`}
                                         </p>
                                     )}
                                 </div>
@@ -272,7 +278,7 @@ export default function OrdersIndex({ user, orders }: Props) {
                             <span className="flex items-center gap-2">
                                 <FileText className="h-4 w-4 text-gov-interactive" />
                                 <DialogTitle className="text-base font-semibold text-gov-text">
-                                    Order Specification & Runway: {selectedOrder?.order_number}
+                                    {isGerman ? 'Auftragsreichweite & Burndown:' : 'Order Specification & Runway:'} {selectedOrder?.order_number}
                                 </DialogTitle>
                             </span>
                             <span
@@ -282,11 +288,13 @@ export default function OrdersIndex({ user, orders }: Props) {
                                         : 'border-gov-success-border bg-gov-success-bg text-gov-success-text'
                                 }`}
                             >
-                                {selectedOrder?.needs_reorder_alert ? 'Re-Order Required' : 'Active Runway'}
+                                {selectedOrder?.needs_reorder_alert
+                                    ? (isGerman ? 'Nachbestellung erforderlich' : 'Re-Order Required')
+                                    : (isGerman ? 'Aktive Reichweite' : 'Active Runway')}
                             </span>
                         </div>
                         <DialogDescription className="text-xs text-gov-muted">
-                            {selectedOrder?.title} · Vendor: {selectedOrder?.supplier_name}
+                            {selectedOrder?.title} · {isGerman ? 'Dienstleister:' : 'Vendor:'} {selectedOrder?.supplier_name}
                         </DialogDescription>
                     </DialogHeader>
 
@@ -309,34 +317,38 @@ export default function OrdersIndex({ user, orders }: Props) {
                             {/* Additional Parameters Matrix */}
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                                 <div className="rounded-lg border border-gov-border bg-gov-canvas p-3 space-y-1.5 font-mono">
-                                    <div className="text-[10px] uppercase font-semibold text-gov-muted">Delivery Framework</div>
+                                    <div className="text-[10px] uppercase font-semibold text-gov-muted">
+                                        {isGerman ? 'Lieferrahmen' : 'Delivery Framework'}
+                                    </div>
                                     <div className="flex justify-between text-gov-text">
-                                        <span className="text-gov-muted">Vendor Partner:</span>
+                                        <span className="text-gov-muted">{isGerman ? 'Dienstleistungspartner:' : 'Vendor Partner:'}</span>
                                         <span className="font-medium">{selectedOrder.supplier_name}</span>
                                     </div>
                                     <div className="flex justify-between text-gov-text">
-                                        <span className="text-gov-muted">Target Contract End:</span>
+                                        <span className="text-gov-muted">{isGerman ? 'Vertragsende Ziel:' : 'Target Contract End:'}</span>
                                         <span className="font-semibold tabular-nums">{selectedOrder.target_end_date}</span>
                                     </div>
                                     <div className="flex justify-between text-gov-text">
-                                        <span className="text-gov-muted">Assigned Consultants:</span>
-                                        <span className="font-medium">{selectedOrder.consultants_count} Staff</span>
+                                        <span className="text-gov-muted">{isGerman ? 'Zugewiesene Berater:' : 'Assigned Consultants:'}</span>
+                                        <span className="font-medium">{selectedOrder.consultants_count} {isGerman ? 'Mitarbeiter' : 'Staff'}</span>
                                     </div>
                                 </div>
 
                                 <div className="rounded-lg border border-gov-border bg-gov-canvas p-3 space-y-1.5 font-mono">
-                                    <div className="text-[10px] uppercase font-semibold text-gov-muted">Statutory Absence Adjustments</div>
-                                    <div className="flex justify-between text-gov-text">
-                                        <span className="text-gov-muted">Vacation Days Buffer:</span>
-                                        <span className="font-semibold tabular-nums">{selectedOrder.vacation_days_affecting_runway} days</span>
+                                    <div className="text-[10px] uppercase font-semibold text-gov-muted">
+                                        {isGerman ? 'Gesetzliche Abwesenheitsanpassungen' : 'Statutory Absence Adjustments'}
                                     </div>
                                     <div className="flex justify-between text-gov-text">
-                                        <span className="text-gov-muted">Forecasted Exhaustion:</span>
+                                        <span className="text-gov-muted">{isGerman ? 'Urlaubstage-Puffer:' : 'Vacation Days Buffer:'}</span>
+                                        <span className="font-semibold tabular-nums">{selectedOrder.vacation_days_affecting_runway} {isGerman ? 'Tage' : 'days'}</span>
+                                    </div>
+                                    <div className="flex justify-between text-gov-text">
+                                        <span className="text-gov-muted">{isGerman ? 'Prognostizierte Erschöpfung:' : 'Forecasted Exhaustion:'}</span>
                                         <span className="font-semibold tabular-nums">{selectedOrder.forecasted_end_date}</span>
                                     </div>
                                     <div className="flex justify-between text-gov-text">
-                                        <span className="text-gov-muted">Lead Time Notice Window:</span>
-                                        <span className="font-medium text-gov-warning-text tabular-nums">28 Calendar Days</span>
+                                        <span className="text-gov-muted">{isGerman ? 'Vorlauffrist-Fenster:' : 'Lead Time Notice Window:'}</span>
+                                        <span className="font-medium text-gov-warning-text tabular-nums">{isGerman ? '28 Kalendertage' : '28 Calendar Days'}</span>
                                     </div>
                                 </div>
                             </div>
@@ -347,7 +359,7 @@ export default function OrdersIndex({ user, orders }: Props) {
                                     onClick={() => setSelectedOrder(null)}
                                     className="h-8 rounded-lg border border-gov-border bg-gov-surface px-4 text-xs font-medium text-gov-text hover:bg-gov-surface-hover cursor-pointer"
                                 >
-                                    Close Specification
+                                    {isGerman ? 'Spezifikation schließen' : 'Close Specification'}
                                 </button>
                             </div>
                         </div>

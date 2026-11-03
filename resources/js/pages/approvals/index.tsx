@@ -39,7 +39,7 @@ export default function ApprovalsIndex({
     pendingBookings,
     orders,
 }: Props) {
-    const { t } = useTranslation();
+    const { t, isGerman } = useTranslation();
     const [search, setSearch] = useState("");
     const [selectedBooking, setSelectedBooking] =
         useState<PendingBookingItem | null>(null);
@@ -125,11 +125,12 @@ export default function ApprovalsIndex({
                         <div className="p-16 text-center text-xs text-gov-muted space-y-2">
                             <CheckCircle2 className="mx-auto h-8 w-8 text-gov-success-text opacity-70" />
                             <p className="font-medium text-gov-text">
-                                All Timesheet Submissions Reconciled
+                                {isGerman ? 'Alle Leistungsnachweise abgestimmt' : 'All Timesheet Submissions Reconciled'}
                             </p>
                             <p className="text-gov-muted max-w-sm mx-auto">
-                                No consultant timesheets are currently awaiting
-                                review. All hours have been signed off.
+                                {isGerman
+                                    ? 'Derzeit warten keine Berater-Leistungsnachweise auf Prüfung. Alle Stunden wurden freigegeben.'
+                                    : 'No consultant timesheets are currently awaiting review. All hours have been signed off.'}
                             </p>
                         </div>
                     ) : (
@@ -251,11 +252,12 @@ export default function ApprovalsIndex({
                     <DialogHeader>
                         <DialogTitle className="text-base font-semibold text-gov-critical-text flex items-center gap-2">
                             <XCircle className="h-4 w-4" />
-                            Reject Timesheet Submission
+                            {isGerman ? 'Leistungsnachweis ablehnen' : 'Reject Timesheet Submission'}
                         </DialogTitle>
                         <DialogDescription className="text-xs text-gov-muted">
-                            Provide an audit rationale for returning this
-                            timesheet to the consultant.
+                            {isGerman
+                                ? 'Geben Sie eine sachliche Begründung für die Rückweisung an den Berater an.'
+                                : 'Provide an audit rationale for returning this timesheet to the consultant.'}
                         </DialogDescription>
                     </DialogHeader>
 
@@ -264,7 +266,7 @@ export default function ApprovalsIndex({
                             <div className="rounded-lg border border-gov-border bg-gov-canvas p-3 font-mono space-y-1.5">
                                 <div className="flex justify-between">
                                     <span className="text-gov-muted">
-                                        Consultant:
+                                        {isGerman ? 'Berater:' : 'Consultant:'}
                                     </span>
                                     <span className="font-semibold text-gov-text">
                                         {rejectingBooking.consultant_name}
@@ -272,7 +274,7 @@ export default function ApprovalsIndex({
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-gov-muted">
-                                        Logged Date:
+                                        {isGerman ? 'Erfassungsdatum:' : 'Logged Date:'}
                                     </span>
                                     <span className="font-medium text-gov-text">
                                         {rejectingBooking.date}
@@ -280,25 +282,27 @@ export default function ApprovalsIndex({
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-gov-muted">
-                                        Claimed Duration:
+                                        {isGerman ? 'Erfasste Dauer:' : 'Claimed Duration:'}
                                     </span>
                                     <span className="font-semibold text-gov-text">
                                         {rejectingBooking.hours.toFixed(2)}h (
                                         {(rejectingBooking.hours / 8).toFixed(
                                             2,
                                         )}{" "}
-                                        PD)
+                                        {t("common.pd")})
                                     </span>
                                 </div>
                             </div>
 
                             <div className="space-y-1.5">
                                 <label className="block font-medium text-xs text-gov-text">
-                                    Rejection Rationale (Required)
+                                    {isGerman ? 'Ablehnungsbegründung (erforderlich)' : 'Rejection Rationale (Required)'}
                                 </label>
                                 <textarea
                                     rows={3}
-                                    placeholder="Specify reason (e.g. deliverable incomplete, hours incorrectly allocated)..."
+                                    placeholder={isGerman
+                                        ? 'Begründung angeben (z. B. Teilleistung unvollständig, Stunden fehlerhaft zugeordnet)...'
+                                        : 'Specify reason (e.g. deliverable incomplete, hours incorrectly allocated)...'}
                                     value={rejectionReason}
                                     onChange={(e) =>
                                         setRejectionReason(e.target.value)
@@ -309,20 +313,20 @@ export default function ApprovalsIndex({
                                 {/* Quick selection tags */}
                                 <div className="flex flex-wrap gap-1.5 pt-1">
                                     {[
-                                        "Deliverable incomplete",
-                                        "Hours misallocated",
-                                        "Requires task details",
-                                        "Exceeds milestone scope",
-                                    ].map((tag) => (
+                                        { en: "Deliverable incomplete", de: "Liefergegenstand unvollständig" },
+                                        { en: "Hours misallocated", de: "Stunden fehlerhaft zugeordnet" },
+                                        { en: "Requires task details", de: "Erfordert detailliertere Aufgabenbeschreibung" },
+                                        { en: "Exceeds milestone scope", de: "Überschreitet Meilensteinumfang" },
+                                    ].map((tagObj) => (
                                         <button
-                                            key={tag}
+                                            key={tagObj.en}
                                             type="button"
                                             onClick={() =>
-                                                setRejectionReason(tag)
+                                                setRejectionReason(isGerman ? tagObj.de : tagObj.en)
                                             }
                                             className="rounded-xs border border-gov-border bg-gov-canvas px-2 py-0.5 text-[10px] text-gov-muted hover:text-gov-text cursor-pointer"
                                         >
-                                            + {tag}
+                                            + {isGerman ? tagObj.de : tagObj.en}
                                         </button>
                                     ))}
                                 </div>
@@ -334,7 +338,7 @@ export default function ApprovalsIndex({
                                     onClick={() => setRejectingBooking(null)}
                                     className="h-8 rounded-lg border border-gov-border bg-gov-surface px-3 text-xs font-medium text-gov-muted hover:text-gov-text cursor-pointer"
                                 >
-                                    Cancel
+                                    {t("common.cancel")}
                                 </button>
                                 <button
                                     type="button"
@@ -342,7 +346,7 @@ export default function ApprovalsIndex({
                                     onClick={handleRejectConfirm}
                                     className="h-8 rounded-lg bg-gov-critical-text px-4 text-xs font-medium text-white hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
                                 >
-                                    Confirm Rejection
+                                    {isGerman ? 'Ablehnung bestätigen' : 'Confirm Rejection'}
                                 </button>
                             </div>
                         </div>
@@ -359,11 +363,12 @@ export default function ApprovalsIndex({
                     <DialogHeader>
                         <DialogTitle className="text-base font-semibold text-gov-text flex items-center gap-2">
                             <FileText className="h-4 w-4 text-gov-interactive" />
-                            Proof of Work Deliverable Specification
+                            {isGerman ? 'Leistungsnachweis-Spezifikation' : 'Proof of Work Deliverable Specification'}
                         </DialogTitle>
                         <DialogDescription className="text-xs text-gov-muted">
-                            Submitted documentation verified against client
-                            acceptance criteria.
+                            {isGerman
+                                ? 'Eingereichte Dokumentation geprüft gegen vertragliche Abnahmekriterien.'
+                                : 'Submitted documentation verified against client acceptance criteria.'}
                         </DialogDescription>
                     </DialogHeader>
 
@@ -372,7 +377,7 @@ export default function ApprovalsIndex({
                             <div className="rounded-lg border border-gov-border bg-gov-canvas p-3.5 space-y-2 font-mono">
                                 <div className="flex justify-between">
                                     <span className="text-gov-muted">
-                                        Consultant:
+                                        {isGerman ? 'Berater:' : 'Consultant:'}
                                     </span>
                                     <span className="font-semibold text-gov-text">
                                         {selectedBooking.consultant_name}
@@ -380,7 +385,7 @@ export default function ApprovalsIndex({
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-gov-muted">
-                                        Order Line:
+                                        {isGerman ? 'Bestellposition:' : 'Order Line:'}
                                     </span>
                                     <span className="font-medium text-gov-text">
                                         {selectedBooking.order_number} (
@@ -389,7 +394,7 @@ export default function ApprovalsIndex({
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-gov-muted">
-                                        Recorded Date:
+                                        {isGerman ? 'Erfassungsdatum:' : 'Recorded Date:'}
                                     </span>
                                     <span className="font-medium text-gov-text">
                                         {selectedBooking.date}
@@ -397,19 +402,19 @@ export default function ApprovalsIndex({
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-gov-muted">
-                                        Duration:
+                                        {isGerman ? 'Dauer:' : 'Duration:'}
                                     </span>
                                     <span className="font-semibold text-gov-text">
                                         {selectedBooking.hours.toFixed(2)}h (
                                         {(selectedBooking.hours / 8).toFixed(2)}{" "}
-                                        PD)
+                                        {t("common.pd")})
                                     </span>
                                 </div>
                             </div>
 
                             <div className="space-y-1.5">
                                 <span className="text-[11px] font-semibold uppercase tracking-wider text-gov-muted block">
-                                    Deliverable Description
+                                    {isGerman ? 'Tätigkeitsbeschreibung' : 'Deliverable Description'}
                                 </span>
                                 <div className="rounded-lg border border-gov-border bg-gov-surface p-3 text-xs leading-relaxed text-gov-text">
                                     {selectedBooking.description}
@@ -422,7 +427,7 @@ export default function ApprovalsIndex({
                                     onClick={() => setSelectedBooking(null)}
                                     className="h-8 rounded-lg border border-gov-border bg-gov-surface px-3.5 text-xs font-medium text-gov-text hover:bg-gov-surface-hover cursor-pointer"
                                 >
-                                    Close
+                                    {t("common.close")}
                                 </button>
                                 <button
                                     type="button"
@@ -432,7 +437,7 @@ export default function ApprovalsIndex({
                                     }}
                                     className="h-8 rounded-lg bg-gov-interactive px-4 text-xs font-medium text-white hover:bg-gov-interactive-hover cursor-pointer"
                                 >
-                                    Approve Proof of Work
+                                    {isGerman ? 'Leistungsnachweis genehmigen' : 'Approve Proof of Work'}
                                 </button>
                             </div>
                         </div>

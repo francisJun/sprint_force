@@ -181,7 +181,9 @@ export default function ProjectLeadDashboard({
                         </span>
                     </div>
                     <div className="mt-1 text-[11px] text-gov-muted">
-                        Across {orders.length} agreements
+                        {isGerman
+                            ? `Über ${orders.length} Vereinbarungen`
+                            : `Across ${orders.length} agreements`}
                     </div>
                 </div>
 
@@ -456,7 +458,7 @@ export default function ProjectLeadDashboard({
                             <span className="flex items-center gap-2">
                                 <FileText className="h-4 w-4 text-gov-interactive" />
                                 <DialogTitle className="text-base font-semibold text-gov-text">
-                                    Order Runway & Burndown:{" "}
+                                    {isGerman ? 'Auftragsreichweite & Burndown:' : 'Order Runway & Burndown:'}{' '}
                                     {selectedOrderForModal?.order_number}
                                 </DialogTitle>
                             </span>
@@ -468,12 +470,12 @@ export default function ProjectLeadDashboard({
                                 }`}
                             >
                                 {selectedOrderForModal?.needs_reorder_alert
-                                    ? "Re-Order Required"
-                                    : "Active Runway"}
+                                    ? (isGerman ? "Nachbestellung erforderlich" : "Re-Order Required")
+                                    : (isGerman ? "Aktive Reichweite" : "Active Runway")}
                             </span>
                         </div>
                         <DialogDescription className="text-xs text-gov-muted">
-                            {selectedOrderForModal?.title} · Vendor:{" "}
+                            {selectedOrderForModal?.title} · {isGerman ? 'Dienstleister:' : 'Vendor:'}{' '}
                             {selectedOrderForModal?.supplier_name}
                         </DialogDescription>
                     </DialogHeader>
@@ -516,11 +518,11 @@ export default function ProjectLeadDashboard({
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                                 <div className="rounded-lg border border-gov-border bg-gov-canvas p-3 space-y-1.5 font-mono">
                                     <div className="text-[10px] uppercase font-semibold text-gov-muted">
-                                        Delivery Framework
+                                        {isGerman ? 'Lieferrahmen' : 'Delivery Framework'}
                                     </div>
                                     <div className="flex justify-between text-gov-text">
                                         <span className="text-gov-muted">
-                                            Vendor Partner:
+                                            {isGerman ? 'Dienstleistungspartner:' : 'Vendor Partner:'}
                                         </span>
                                         <span className="font-medium">
                                             {
@@ -530,7 +532,7 @@ export default function ProjectLeadDashboard({
                                     </div>
                                     <div className="flex justify-between text-gov-text">
                                         <span className="text-gov-muted">
-                                            Target Contract End:
+                                            {isGerman ? 'Vertragsende Ziel:' : 'Target Contract End:'}
                                         </span>
                                         <span className="font-semibold tabular-nums">
                                             {
@@ -540,35 +542,35 @@ export default function ProjectLeadDashboard({
                                     </div>
                                     <div className="flex justify-between text-gov-text">
                                         <span className="text-gov-muted">
-                                            Assigned Consultants:
+                                            {isGerman ? 'Zugewiesene Berater:' : 'Assigned Consultants:'}
                                         </span>
                                         <span className="font-medium">
                                             {
                                                 selectedOrderForModal.consultants_count
                                             }{" "}
-                                            Staff
+                                            {isGerman ? 'Mitarbeiter' : 'Staff'}
                                         </span>
                                     </div>
                                 </div>
 
                                 <div className="rounded-lg border border-gov-border bg-gov-canvas p-3 space-y-1.5 font-mono">
                                     <div className="text-[10px] uppercase font-semibold text-gov-muted">
-                                        Statutory Absence Adjustments
+                                        {isGerman ? 'Gesetzliche Abwesenheitsanpassungen' : 'Statutory Absence Adjustments'}
                                     </div>
                                     <div className="flex justify-between text-gov-text">
                                         <span className="text-gov-muted">
-                                            Vacation Days Buffer:
+                                            {isGerman ? 'Urlaubstage-Puffer:' : 'Vacation Days Buffer:'}
                                         </span>
                                         <span className="font-semibold tabular-nums">
                                             {
                                                 selectedOrderForModal.vacation_days_affecting_runway
                                             }{" "}
-                                            days
+                                            {isGerman ? 'Tage' : 'days'}
                                         </span>
                                     </div>
                                     <div className="flex justify-between text-gov-text">
                                         <span className="text-gov-muted">
-                                            Forecasted Exhaustion:
+                                            {isGerman ? 'Prognostizierte Erschöpfung:' : 'Forecasted Exhaustion:'}
                                         </span>
                                         <span className="font-semibold tabular-nums">
                                             {
@@ -578,10 +580,10 @@ export default function ProjectLeadDashboard({
                                     </div>
                                     <div className="flex justify-between text-gov-text">
                                         <span className="text-gov-muted">
-                                            Lead Time Notice Window:
+                                            {isGerman ? 'Vorlauffrist-Fenster:' : 'Lead Time Notice Window:'}
                                         </span>
                                         <span className="font-medium text-gov-warning-text tabular-nums">
-                                            28 Calendar Days
+                                            {isGerman ? '28 Kalendertage' : '28 Calendar Days'}
                                         </span>
                                     </div>
                                 </div>
@@ -595,7 +597,7 @@ export default function ProjectLeadDashboard({
                                     }
                                     className="h-8 rounded-lg border border-gov-border bg-gov-surface px-4 text-xs font-medium text-gov-text hover:bg-gov-surface-hover cursor-pointer"
                                 >
-                                    Close Specification
+                                    {isGerman ? 'Spezifikation schließen' : 'Close Specification'}
                                 </button>
                             </div>
                         </div>
@@ -611,11 +613,12 @@ export default function ProjectLeadDashboard({
                 <DialogContent className="max-w-md bg-gov-surface border-gov-border text-gov-text">
                     <DialogHeader>
                         <DialogTitle className="text-base font-semibold text-gov-text">
-                            Reject Timesheet Submission
+                            {isGerman ? 'Leistungsnachweis ablehnen' : 'Reject Timesheet Submission'}
                         </DialogTitle>
                         <DialogDescription className="text-xs text-gov-muted">
-                            Provide structured audit feedback for{" "}
-                            {rejectingBooking?.consultant_name}.
+                            {isGerman
+                                ? `Strukturiertes Prüf-Feedback für ${rejectingBooking?.consultant_name} angeben.`
+                                : `Provide structured audit feedback for ${rejectingBooking?.consultant_name}.`}
                         </DialogDescription>
                     </DialogHeader>
 

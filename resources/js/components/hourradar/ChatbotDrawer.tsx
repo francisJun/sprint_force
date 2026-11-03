@@ -194,8 +194,8 @@ export function ChatbotDrawer() {
                                 onClick={() => setIsMaximized((prev) => !prev)}
                                 title={
                                     isMaximized
-                                        ? "Restore default size"
-                                        : "Expand drawer"
+                                        ? (isGerman ? "Kompaktansicht" : "Restore default size")
+                                        : (isGerman ? "Vergrößern" : "Expand drawer")
                                 }
                                 className="rounded-lg p-1.5 text-gov-muted hover:text-gov-text hover:bg-gov-surface transition-colors cursor-pointer"
                             >
@@ -207,7 +207,7 @@ export function ChatbotDrawer() {
                             </button>
                             <button
                                 onClick={() => setIsOpen(false)}
-                                title="Close drawer"
+                                title={isGerman ? "Schließen" : "Close drawer"}
                                 className="rounded-lg p-1.5 text-gov-muted hover:text-gov-text hover:bg-gov-surface transition-colors cursor-pointer"
                             >
                                 <X className="h-4 w-4" />
@@ -241,7 +241,7 @@ export function ChatbotDrawer() {
                                     {m.text || (
                                         <span className="flex items-center gap-1.5 text-gov-muted italic text-[11px]">
                                             <RefreshCw className="h-3 w-3 animate-spin" />
-                                            Analyzing telemetry...
+                                            {isGerman ? "Analysiere Telemetriedaten..." : "Analyzing telemetry..."}
                                         </span>
                                     )}
                                 </div>
@@ -254,7 +254,7 @@ export function ChatbotDrawer() {
                     <div className="border-t border-gov-border bg-gov-canvas/60 px-3.5 py-2.5">
                         <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase text-gov-muted mb-1.5">
                             <Sparkles className="h-3 w-3 text-gov-interactive" />
-                            <span>Quick Topics</span>
+                            <span>{isGerman ? "Schnellthemen" : "Quick Topics"}</span>
                         </div>
                         <div className="flex gap-2 overflow-x-auto pb-1 text-xs scrollbar-thin">
                             {quickQuestions.map((q, i) => (

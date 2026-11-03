@@ -156,7 +156,7 @@ export function OrderBurndownChart({
                 </div>
                 <div>
                     <span className="text-[10px] text-gov-muted uppercase block">{t("burndown.weeklyBurn")}</span>
-                    <span className="font-semibold text-gov-text tabular-nums">{weeklyBurnRate.toFixed(1)} {t("common.pd")}/wk</span>
+                    <span className="font-semibold text-gov-text tabular-nums">{weeklyBurnRate.toFixed(1)} {isGerman ? 'PT/Woche' : 'PD/wk'}</span>
                 </div>
                 <div>
                     <span className="text-[10px] text-gov-muted uppercase block">{t("burndown.exhaustionExpected")}</span>
@@ -234,7 +234,7 @@ export function OrderBurndownChart({
                                         textAnchor="end"
                                         className="fill-gov-muted font-mono text-[9px] tabular-nums"
                                     >
-                                        {tick.toFixed(0)} PD
+                                        {tick.toFixed(0)} {t("common.pd")}
                                     </text>
                                 </g>
                             );
@@ -457,7 +457,7 @@ export function OrderBurndownChart({
                                 <span>{activePoint.label} ({activePoint.date})</span>
                                 {activePoint.is_today && (
                                     <span className="rounded-xs bg-gov-interactive/10 text-gov-interactive px-1.5 py-0.2 text-[9px] uppercase font-bold">
-                                        Current
+                                        {isGerman ? 'Aktuell' : 'Current'}
                                     </span>
                                 )}
                             </div>
@@ -465,29 +465,31 @@ export function OrderBurndownChart({
                             <div className="space-y-0.5 text-[11px] pt-0.5">
                                 {activePoint.actual_pd !== null && (
                                     <div className="flex justify-between gap-4 text-gov-text">
-                                        <span className="text-gov-muted">Actual Remaining:</span>
-                                        <span className="font-bold tabular-nums">{activePoint.actual_pd.toFixed(1)} PD</span>
+                                        <span className="text-gov-muted">{isGerman ? 'Tatsächlich verbleibend:' : 'Actual Remaining:'}</span>
+                                        <span className="font-bold tabular-nums">{activePoint.actual_pd.toFixed(1)} {t("common.pd")}</span>
                                     </div>
                                 )}
                                 {activePoint.projected_pd !== null && activePoint.actual_pd === null && (
                                     <div className="flex justify-between gap-4 text-gov-warning-text">
-                                        <span>Projected Runway:</span>
-                                        <span className="font-bold tabular-nums">{activePoint.projected_pd.toFixed(1)} PD</span>
+                                        <span>{isGerman ? 'Prognostizierte Reichweite:' : 'Projected Runway:'}</span>
+                                        <span className="font-bold tabular-nums">{activePoint.projected_pd.toFixed(1)} {t("common.pd")}</span>
                                     </div>
                                 )}
                                 <div className="flex justify-between gap-4 text-gov-muted">
-                                    <span>Planned Target:</span>
-                                    <span className="tabular-nums">{activePoint.ideal_pd.toFixed(1)} PD</span>
+                                    <span>{isGerman ? 'Geplanter Soll-Pfad:' : 'Planned Target:'}</span>
+                                    <span className="tabular-nums">{activePoint.ideal_pd.toFixed(1)} {t("common.pd")}</span>
                                 </div>
                                 {activePoint.actual_pd !== null && (
                                     <div className="flex justify-between gap-4 text-[10px] pt-1 border-t border-gov-border">
-                                        <span className="text-gov-muted">Variance:</span>
+                                        <span className="text-gov-muted">{isGerman ? 'Abweichung:' : 'Variance:'}</span>
                                         <span className={`font-semibold tabular-nums ${
                                             activePoint.actual_pd >= activePoint.ideal_pd ? 'text-gov-success-text' : 'text-gov-warning-text'
                                         }`}>
                                             {(activePoint.actual_pd - activePoint.ideal_pd) >= 0 ? '+' : ''}
-                                            {(activePoint.actual_pd - activePoint.ideal_pd).toFixed(1)} PD
-                                            {(activePoint.actual_pd >= activePoint.ideal_pd) ? ' (Under Burn)' : ' (Accelerated)'}
+                                            {(activePoint.actual_pd - activePoint.ideal_pd).toFixed(1)} {t("common.pd")}
+                                            {(activePoint.actual_pd >= activePoint.ideal_pd)
+                                                ? (isGerman ? ' (Geringerer Verbrauch)' : ' (Under Burn)')
+                                                : (isGerman ? ' (Beschleunigter Verbrauch)' : ' (Accelerated)')}
                                         </span>
                                     </div>
                                 )}

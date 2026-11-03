@@ -189,3 +189,4 @@ Where the technical jury can inspect the evidence for each [technical scoring cr
 | SUMAILA MOHAMMED SUADIK | [@msumaila775-rgb](https://github.com/msumaila775-rgb) |
 | Fosuhene Samuel | [@da-real-alpha](https://github.com/da-real-alpha) |
 | Fusheini Amin | [@fusheiniamin721-dotcom](https://github.com/fusheiniamin721-dotcom) |
+| Mudirikatu Suale | [@sualemudirikatu-droid](https://github.com/sualemudirikatu-droid) |

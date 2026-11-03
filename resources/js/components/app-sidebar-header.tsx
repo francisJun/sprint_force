@@ -12,7 +12,7 @@ export function AppSidebarHeader({
     breadcrumbs?: BreadcrumbItemType[];
 }) {
     const page = usePage();
-    const { t } = useTranslation();
+    const { t, isGerman } = useTranslation();
     const { auth } = page.props;
     const userRole = (auth?.user as any)?.role || "consultant";
     const currentPath = page.url;
@@ -41,13 +41,20 @@ export function AppSidebarHeader({
             { title: "HourRadar", href: dashboard() },
             { title: t("nav.purchasingInvoices"), href: "/purchasing/invoices" },
         ];
+    } else if (currentPath.startsWith("/admin/users")) {
+        computedBreadcrumbs = [
+            { title: "HourRadar", href: dashboard() },
+            { title: isGerman ? "Benutzer & Rollen" : "User Governance", href: "/admin/users" },
+        ];
     } else {
         const fallbackTitle =
             userRole === "consultant"
                 ? t("nav.consultantWorkstation")
                 : userRole === "purchasing"
                   ? t("nav.purchasingRadar")
-                  : t("nav.projectLeadCockpit");
+                  : userRole === "super_admin"
+                    ? (isGerman ? "Super-Admin Kontrollzentrum" : "Super Admin Command Center")
+                    : t("nav.projectLeadCockpit");
 
         computedBreadcrumbs = [
             {

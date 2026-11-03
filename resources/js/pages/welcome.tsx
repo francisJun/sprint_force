@@ -353,10 +353,14 @@ export default function Welcome() {
                                         <CheckCircle2 className="h-4 w-4 shrink-0 text-gov-interactive mt-0.5" />
                                         <div>
                                             <strong className="font-medium text-gov-text">
-                                                {t("landing.clientFeature1Title")}
+                                                {t(
+                                                    "landing.clientFeature1Title",
+                                                )}
                                             </strong>
                                             <p className="mt-0.5 text-gov-muted">
-                                                {t("landing.clientFeature1Desc")}
+                                                {t(
+                                                    "landing.clientFeature1Desc",
+                                                )}
                                             </p>
                                         </div>
                                     </li>
@@ -364,10 +368,14 @@ export default function Welcome() {
                                         <CheckCircle2 className="h-4 w-4 shrink-0 text-gov-interactive mt-0.5" />
                                         <div>
                                             <strong className="font-medium text-gov-text">
-                                                {t("landing.clientFeature2Title")}
+                                                {t(
+                                                    "landing.clientFeature2Title",
+                                                )}
                                             </strong>
                                             <p className="mt-0.5 text-gov-muted">
-                                                {t("landing.clientFeature2Desc")}
+                                                {t(
+                                                    "landing.clientFeature2Desc",
+                                                )}
                                             </p>
                                         </div>
                                     </li>
@@ -375,10 +383,14 @@ export default function Welcome() {
                                         <CheckCircle2 className="h-4 w-4 shrink-0 text-gov-interactive mt-0.5" />
                                         <div>
                                             <strong className="font-medium text-gov-text">
-                                                {t("landing.clientFeature3Title")}
+                                                {t(
+                                                    "landing.clientFeature3Title",
+                                                )}
                                             </strong>
                                             <p className="mt-0.5 text-gov-muted">
-                                                {t("landing.clientFeature3Desc")}
+                                                {t(
+                                                    "landing.clientFeature3Desc",
+                                                )}
                                             </p>
                                         </div>
                                     </li>
@@ -431,7 +443,9 @@ export default function Welcome() {
                                     </div>
                                     <div className="mt-3 space-y-1.5 text-gov-text">
                                         <div className="flex justify-between">
-                                            <span>{t("landing.bentoPaceLabel")}</span>
+                                            <span>
+                                                {t("landing.bentoPaceLabel")}
+                                            </span>
                                             <span className="font-semibold">
                                                 {t("landing.bentoPaceValue")}
                                             </span>
@@ -440,18 +454,28 @@ export default function Welcome() {
                                             <span>
                                                 {t("landing.bentoAbsenceLabel")}
                                             </span>
-                                            <span>{t("landing.bentoAbsenceValue")}</span>
+                                            <span>
+                                                {t("landing.bentoAbsenceValue")}
+                                            </span>
                                         </div>
                                         <div className="flex justify-between text-gov-muted">
-                                            <span>{t("landing.bentoHolidayLabel")}</span>
-                                            <span>{t("landing.bentoHolidayValue")}</span>
+                                            <span>
+                                                {t("landing.bentoHolidayLabel")}
+                                            </span>
+                                            <span>
+                                                {t("landing.bentoHolidayValue")}
+                                            </span>
                                         </div>
                                         <div className="flex justify-between border-t border-gov-border pt-2 text-gov-primary dark:text-gov-interactive">
                                             <span className="font-semibold">
-                                                {t("landing.bentoFinalDateLabel")}
+                                                {t(
+                                                    "landing.bentoFinalDateLabel",
+                                                )}
                                             </span>
                                             <span className="font-semibold">
-                                                {t("landing.bentoFinalDateValue")}
+                                                {t(
+                                                    "landing.bentoFinalDateValue",
+                                                )}
                                             </span>
                                         </div>
                                     </div>
@@ -548,7 +572,7 @@ export default function Welcome() {
                                             {t("landing.planStarterBadge")}
                                         </span>
                                     </div>
-                                    <p className="mt-2 text-xs text-gov-muted min-h-[36px]">
+                                    <p className="mt-2 text-xs text-gov-muted min-h-9">
                                         {t("landing.planStarterDesc")}
                                     </p>
 
@@ -561,26 +585,34 @@ export default function Welcome() {
                                         </span>
                                     </div>
 
-                                    <div className="mt-2 text-[11px] font-medium text-gov-interactive min-h-[18px]">
+                                    <div className="mt-2 text-[11px] font-medium text-gov-interactive min-h-4.5">
                                         {t("landing.planStarterSub")}
                                     </div>
 
                                     <ul className="mt-6 space-y-3 text-xs text-gov-muted border-t border-gov-border pt-6">
                                         <li className="flex items-center gap-2">
                                             <Check className="h-4 w-4 text-gov-interactive shrink-0" />
-                                            <span>{t("landing.planStarterFeat1")}</span>
+                                            <span>
+                                                {t("landing.planStarterFeat1")}
+                                            </span>
                                         </li>
                                         <li className="flex items-center gap-2">
                                             <Check className="h-4 w-4 text-gov-interactive shrink-0" />
-                                            <span>{t("landing.planStarterFeat2")}</span>
+                                            <span>
+                                                {t("landing.planStarterFeat2")}
+                                            </span>
                                         </li>
                                         <li className="flex items-center gap-2">
                                             <Check className="h-4 w-4 text-gov-interactive shrink-0" />
-                                            <span>{t("landing.planStarterFeat3")}</span>
+                                            <span>
+                                                {t("landing.planStarterFeat3")}
+                                            </span>
                                         </li>
                                         <li className="flex items-center gap-2">
                                             <Check className="h-4 w-4 text-gov-interactive shrink-0" />
-                                            <span>{t("landing.planStarterFeat4")}</span>
+                                            <span>
+                                                {t("landing.planStarterFeat4")}
+                                            </span>
                                         </li>
                                     </ul>
                                 </div>
@@ -610,7 +642,7 @@ export default function Welcome() {
                                             Full Governance
                                         </span>
                                     </div>
-                                    <p className="mt-2 text-xs text-gov-muted min-h-[36px]">
+                                    <p className="mt-2 text-xs text-gov-muted min-h-9">
                                         {t("landing.planDeptDesc")}
                                     </p>
 
@@ -623,30 +655,40 @@ export default function Welcome() {
                                         </span>
                                     </div>
 
-                                    <div className="mt-2 text-[11px] font-semibold text-gov-interactive min-h-[18px]">
+                                    <div className="mt-2 text-[11px] font-semibold text-gov-interactive min-h-4.5">
                                         {t("landing.planDeptSub")}
                                     </div>
 
                                     <ul className="mt-6 space-y-3 text-xs text-gov-text border-t border-gov-border pt-6">
                                         <li className="flex items-center gap-2">
                                             <Check className="h-4 w-4 text-gov-interactive shrink-0" />
-                                            <strong className="font-medium">{t("landing.planDeptFeat1")}</strong>
+                                            <strong className="font-medium">
+                                                {t("landing.planDeptFeat1")}
+                                            </strong>
                                         </li>
                                         <li className="flex items-center gap-2">
                                             <Check className="h-4 w-4 text-gov-interactive shrink-0" />
-                                            <span>{t("landing.planDeptFeat2")}</span>
+                                            <span>
+                                                {t("landing.planDeptFeat2")}
+                                            </span>
                                         </li>
                                         <li className="flex items-center gap-2">
                                             <Check className="h-4 w-4 text-gov-interactive shrink-0" />
-                                            <span>{t("landing.planDeptFeat3")}</span>
+                                            <span>
+                                                {t("landing.planDeptFeat3")}
+                                            </span>
                                         </li>
                                         <li className="flex items-center gap-2">
                                             <Check className="h-4 w-4 text-gov-interactive shrink-0" />
-                                            <span>{t("landing.planDeptFeat4")}</span>
+                                            <span>
+                                                {t("landing.planDeptFeat4")}
+                                            </span>
                                         </li>
                                         <li className="flex items-center gap-2">
                                             <Check className="h-4 w-4 text-gov-interactive shrink-0" />
-                                            <span>{t("landing.planDeptFeat5")}</span>
+                                            <span>
+                                                {t("landing.planDeptFeat5")}
+                                            </span>
                                         </li>
                                     </ul>
                                 </div>
@@ -672,7 +714,7 @@ export default function Welcome() {
                                             {t("landing.planEntBadge")}
                                         </span>
                                     </div>
-                                    <p className="mt-2 text-xs text-gov-muted min-h-[36px]">
+                                    <p className="mt-2 text-xs text-gov-muted min-h-9">
                                         {t("landing.planEntDesc")}
                                     </p>
 
@@ -685,30 +727,40 @@ export default function Welcome() {
                                         </span>
                                     </div>
 
-                                    <div className="mt-2 text-[11px] font-medium text-gov-muted min-h-[18px]">
+                                    <div className="mt-2 text-[11px] font-medium text-gov-muted min-h-4.5">
                                         {t("landing.planEntSub")}
                                     </div>
 
                                     <ul className="mt-6 space-y-3 text-xs text-gov-muted border-t border-gov-border pt-6">
                                         <li className="flex items-center gap-2">
                                             <Check className="h-4 w-4 text-gov-interactive shrink-0" />
-                                            <span>{t("landing.planEntFeat1")}</span>
+                                            <span>
+                                                {t("landing.planEntFeat1")}
+                                            </span>
                                         </li>
                                         <li className="flex items-center gap-2">
                                             <Check className="h-4 w-4 text-gov-interactive shrink-0" />
-                                            <span>{t("landing.planEntFeat2")}</span>
+                                            <span>
+                                                {t("landing.planEntFeat2")}
+                                            </span>
                                         </li>
                                         <li className="flex items-center gap-2">
                                             <Check className="h-4 w-4 text-gov-interactive shrink-0" />
-                                            <span>{t("landing.planEntFeat3")}</span>
+                                            <span>
+                                                {t("landing.planEntFeat3")}
+                                            </span>
                                         </li>
                                         <li className="flex items-center gap-2">
                                             <Check className="h-4 w-4 text-gov-interactive shrink-0" />
-                                            <span>{t("landing.planEntFeat4")}</span>
+                                            <span>
+                                                {t("landing.planEntFeat4")}
+                                            </span>
                                         </li>
                                         <li className="flex items-center gap-2">
                                             <Check className="h-4 w-4 text-gov-interactive shrink-0" />
-                                            <span>{t("landing.planEntFeat5")}</span>
+                                            <span>
+                                                {t("landing.planEntFeat5")}
+                                            </span>
                                         </li>
                                     </ul>
                                 </div>
@@ -768,7 +820,7 @@ export default function Welcome() {
                                 <div className="flex size-10 items-center justify-center rounded-lg bg-gov-surface-hover text-gov-interactive">
                                     <Building2 className="size-5" />
                                 </div>
-                                <h3 className="mt-4 font-semibold text-base text-gov-text min-h-[48px] flex items-center">
+                                <h3 className="mt-4 font-semibold text-base text-gov-text min-h-12 flex items-center">
                                     {t("landing.secWorksCouncilTitle")}
                                 </h3>
                                 <p className="mt-2 text-xs text-gov-muted leading-relaxed">
@@ -781,7 +833,7 @@ export default function Welcome() {
                                 <div className="flex size-10 items-center justify-center rounded-lg bg-gov-surface-hover text-gov-interactive">
                                     <Server className="size-5" />
                                 </div>
-                                <h3 className="mt-4 font-semibold text-base text-gov-text min-h-[48px] flex items-center">
+                                <h3 className="mt-4 font-semibold text-base text-gov-text min-h-12 flex items-center">
                                     {t("landing.secSovereignTitle")}
                                 </h3>
                                 <p className="mt-2 text-xs text-gov-muted leading-relaxed">
@@ -794,7 +846,7 @@ export default function Welcome() {
                                 <div className="flex size-10 items-center justify-center rounded-lg bg-gov-surface-hover text-gov-interactive">
                                     <KeyRound className="size-5" />
                                 </div>
-                                <h3 className="mt-4 font-semibold text-base text-gov-text min-h-[48px] flex items-center">
+                                <h3 className="mt-4 font-semibold text-base text-gov-text min-h-12 flex items-center">
                                     {t("landing.secSsoTitle")}
                                 </h3>
                                 <p className="mt-2 text-xs text-gov-muted leading-relaxed">
@@ -807,7 +859,7 @@ export default function Welcome() {
                                 <div className="flex size-10 items-center justify-center rounded-lg bg-gov-surface-hover text-gov-interactive">
                                     <Zap className="size-5" />
                                 </div>
-                                <h3 className="mt-4 font-semibold text-base text-gov-text min-h-[48px] flex items-center">
+                                <h3 className="mt-4 font-semibold text-base text-gov-text min-h-12 flex items-center">
                                     {t("landing.secQueueTitle")}
                                 </h3>
                                 <p className="mt-2 text-xs text-gov-muted leading-relaxed">
@@ -849,25 +901,37 @@ export default function Welcome() {
                                     <thead className="border-b border-gov-border bg-gov-surface-hover text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
                                         <tr>
                                             <th className="h-9 px-4">
-                                                {t("landing.telemetryThOrderId")}
+                                                {t(
+                                                    "landing.telemetryThOrderId",
+                                                )}
                                             </th>
                                             <th className="h-9 px-4">
-                                                {t("landing.telemetryThProject")}
+                                                {t(
+                                                    "landing.telemetryThProject",
+                                                )}
                                             </th>
                                             <th className="h-9 px-4">
-                                                {t("landing.telemetryThProvider")}
+                                                {t(
+                                                    "landing.telemetryThProvider",
+                                                )}
                                             </th>
                                             <th className="h-9 px-4 text-right">
                                                 {t("landing.telemetryThBudget")}
                                             </th>
                                             <th className="h-9 px-4 text-right">
-                                                {t("landing.telemetryThApproved")}
+                                                {t(
+                                                    "landing.telemetryThApproved",
+                                                )}
                                             </th>
                                             <th className="h-9 px-4 text-right">
-                                                {t("landing.telemetryThBurnPace")}
+                                                {t(
+                                                    "landing.telemetryThBurnPace",
+                                                )}
                                             </th>
                                             <th className="h-9 px-4">
-                                                {t("landing.telemetryThProjected")}
+                                                {t(
+                                                    "landing.telemetryThProjected",
+                                                )}
                                             </th>
                                             <th className="h-9 px-4 text-right">
                                                 {t("landing.telemetryThStatus")}
@@ -899,7 +963,9 @@ export default function Welcome() {
                                             </td>
                                             <td className="h-11 px-4 text-right">
                                                 <span className="rounded-sm border border-gov-warning-border bg-gov-warning-bg px-2 py-0.5 font-semibold text-[10px] uppercase text-gov-warning-text">
-                                                    {t("landing.telemetryStatusReorder")}
+                                                    {t(
+                                                        "landing.telemetryStatusReorder",
+                                                    )}
                                                 </span>
                                             </td>
                                         </tr>
@@ -927,7 +993,9 @@ export default function Welcome() {
                                             </td>
                                             <td className="h-11 px-4 text-right">
                                                 <span className="rounded-sm border border-gov-success-border bg-gov-success-bg px-2 py-0.5 font-semibold text-[10px] uppercase text-gov-success-text">
-                                                    {t("landing.telemetryStatusNominal")}
+                                                    {t(
+                                                        "landing.telemetryStatusNominal",
+                                                    )}
                                                 </span>
                                             </td>
                                         </tr>
@@ -987,9 +1055,7 @@ export default function Welcome() {
                     </div>
 
                     <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-gov-border pt-6 text-[11px] text-gov-muted sm:flex-row">
-                        <div>
-                            {t("landing.footerCopy")}
-                        </div>
+                        <div>{t("landing.footerCopy")}</div>
                         <div className="flex gap-6">
                             <span>{t("landing.footerTag1")}</span>
                             <span>{t("landing.footerTag2")}</span>

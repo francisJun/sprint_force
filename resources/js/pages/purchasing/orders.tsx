@@ -43,7 +43,7 @@ interface Props {
 }
 
 export default function PurchasingOrdersIndex({ user, orders }: Props) {
-    const { t } = useTranslation();
+    const { t, isGerman } = useTranslation();
     const [search, setSearch] = useState("");
     const [statusFilter, setStatusFilter] = useState<
         "all" | "alert" | "nominal"
@@ -192,20 +192,20 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                     <table className="w-full text-left text-xs">
                         <thead className="border-b border-gov-border bg-gov-surface-hover text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
                             <tr>
-                                <th className="h-9 px-4 whitespace-nowrap">Order Code</th>
-                                <th className="h-9 px-4">Project & Vendor</th>
+                                <th className="h-9 px-4 whitespace-nowrap">{isGerman ? "Bestellcode" : "Order Code"}</th>
+                                <th className="h-9 px-4">{isGerman ? "Projekt & Dienstleister" : "Project & Vendor"}</th>
                                 <th className="h-9 px-4 text-right whitespace-nowrap">
-                                    Budget (PD)
+                                    {isGerman ? "Budget (PT)" : "Budget (PD)"}
                                 </th>
                                 <th className="h-9 px-4 text-right whitespace-nowrap">
-                                    Burn Rate
+                                    {isGerman ? "Brennrate" : "Burn Rate"}
                                 </th>
-                                <th className="h-9 px-4 whitespace-nowrap">Forecast End</th>
+                                <th className="h-9 px-4 whitespace-nowrap">{isGerman ? "Prognose Ende" : "Forecast End"}</th>
                                 <th className="h-9 px-4 text-center whitespace-nowrap">
-                                    Status
+                                    {isGerman ? "Status" : "Status"}
                                 </th>
                                 <th className="h-9 px-4 text-center whitespace-nowrap">
-                                    Action
+                                    {isGerman ? "Aktion" : "Action"}
                                 </th>
                             </tr>
                         </thead>
@@ -216,8 +216,9 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                                         colSpan={7}
                                         className="h-24 text-center text-gov-muted text-xs"
                                     >
-                                        No purchase orders match the search or
-                                        filter criteria.
+                                        {isGerman
+                                            ? "Keine Rahmenbestellungen entsprechen den Such- oder Filterkriterien."
+                                            : "No purchase orders match the search or filter criteria."}
                                     </td>
                                 </tr>
                             ) : (
@@ -240,14 +241,14 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                                         </td>
                                         <td className="h-12 px-4 text-right tabular-nums whitespace-nowrap">
                                             <div className="font-mono font-medium text-gov-text">
-                                                {o.used_person_days.toFixed(1)} / {o.total_person_days.toFixed(1)} PD
+                                                {o.used_person_days.toFixed(1)} / {o.total_person_days.toFixed(1)} {t("common.pd")}
                                             </div>
                                             <div className="text-[11px] text-gov-muted font-mono">
-                                                {o.remaining_person_days.toFixed(1)} PD available
+                                                {o.remaining_person_days.toFixed(1)} {isGerman ? "PT verfügbar" : "PD available"}
                                             </div>
                                         </td>
                                         <td className="h-12 px-4 text-right font-mono text-gov-muted tabular-nums whitespace-nowrap">
-                                            {o.average_weekly_burn_pd.toFixed(2)} PD/wk
+                                            {o.average_weekly_burn_pd.toFixed(2)} {isGerman ? "PT/Woche" : "PD/wk"}
                                         </td>
                                         <td className="h-12 px-4 font-mono text-gov-text tabular-nums whitespace-nowrap">
                                             {o.forecasted_end_date}
@@ -261,8 +262,8 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                                                 }`}
                                             >
                                                 {o.needs_reorder_alert
-                                                    ? `Re-Order (${o.days_until_reorder_deadline}d)`
-                                                    : "Runway Nominal"}
+                                                    ? `${isGerman ? "Nachbestellung" : "Re-Order"} (${o.days_until_reorder_deadline}d)`
+                                                    : (isGerman ? "Reichweite nominal" : "Runway Nominal")}
                                             </span>
                                         </td>
                                         <td className="h-12 px-4 text-center whitespace-nowrap">
@@ -273,7 +274,7 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                                                 }}
                                                 className="rounded-md border border-gov-border bg-gov-surface px-2.5 py-1 text-[11px] font-medium text-gov-text hover:bg-gov-surface-hover hover:border-gov-interactive hover:text-gov-interactive transition-colors cursor-pointer"
                                             >
-                                                Inspect
+                                                {isGerman ? "Prüfen" : "Inspect"}
                                             </button>
                                         </td>
                                     </tr>
@@ -305,7 +306,7 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                             <div className="flex items-center gap-2">
                                 <FileText className="h-4 w-4 text-gov-accent" />
                                 <DialogTitle className="text-base font-semibold text-gov-text">
-                                    Framework Specification & Burndown:{" "}
+                                    {isGerman ? "Rahmenspezifikation & Burndown:" : "Framework Specification & Burndown:"}{" "}
                                     {selectedOrder?.order_number}
                                 </DialogTitle>
                             </div>
@@ -317,12 +318,12 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                                 }`}
                             >
                                 {selectedOrder?.needs_reorder_alert
-                                    ? "Re-Order Required"
-                                    : "Active Runway"}
+                                    ? (isGerman ? "Nachbestellung erforderlich" : "Re-Order Required")
+                                    : (isGerman ? "Aktive Reichweite" : "Active Runway")}
                             </span>
                         </div>
                         <DialogDescription className="text-xs text-gov-muted">
-                            {selectedOrder?.title} · Vendor Partner:{" "}
+                            {selectedOrder?.title} · {isGerman ? "Dienstleistungspartner:" : "Vendor Partner:"}{" "}
                             {selectedOrder?.supplier_name}
                         </DialogDescription>
                     </DialogHeader>
@@ -361,11 +362,11 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                                 <div className="rounded-lg border border-gov-border bg-gov-canvas p-3 space-y-1.5 font-mono">
                                     <div className="text-[10px] uppercase font-semibold text-gov-muted">
-                                        Contract Parameters
+                                        {isGerman ? "Vertragsparameter" : "Contract Parameters"}
                                     </div>
                                     <div className="flex justify-between text-gov-text">
                                         <span className="text-gov-muted">
-                                            Supplier / Vendor:
+                                            {isGerman ? "Dienstleister:" : "Supplier / Vendor:"}
                                         </span>
                                         <span className="font-medium">
                                             {selectedOrder.supplier_name}
@@ -373,7 +374,7 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                                     </div>
                                     <div className="flex justify-between text-gov-text">
                                         <span className="text-gov-muted">
-                                            Target Completion:
+                                            {isGerman ? "Vertragsende Ziel:" : "Target Completion:"}
                                         </span>
                                         <span className="font-semibold tabular-nums">
                                             {selectedOrder.target_end_date}
@@ -381,22 +382,22 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                                     </div>
                                     <div className="flex justify-between text-gov-text">
                                         <span className="text-gov-muted">
-                                            Assigned Consultants:
+                                            {isGerman ? "Zugewiesene Berater:" : "Assigned Consultants:"}
                                         </span>
                                         <span className="font-medium">
                                             {selectedOrder.consultants_count}{" "}
-                                            Staff
+                                            {isGerman ? "Mitarbeiter" : "Staff"}
                                         </span>
                                     </div>
                                 </div>
 
                                 <div className="rounded-lg border border-gov-border bg-gov-canvas p-3 space-y-1.5 font-mono">
                                     <div className="text-[10px] uppercase font-semibold text-gov-muted">
-                                        Procurement Telemetry
+                                        {isGerman ? "Beschaffungstelemetrie" : "Procurement Telemetry"}
                                     </div>
                                     <div className="flex justify-between text-gov-text">
                                         <span className="text-gov-muted">
-                                            Forecasted Exhaustion:
+                                            {isGerman ? "Prognostizierte Erschöpfung:" : "Forecasted Exhaustion:"}
                                         </span>
                                         <span className="font-semibold tabular-nums">
                                             {selectedOrder.forecasted_end_date}
@@ -404,21 +405,21 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                                     </div>
                                     <div className="flex justify-between text-gov-text">
                                         <span className="text-gov-muted">
-                                            Absence Buffer:
+                                            {isGerman ? "Abwesenheitspuffer:" : "Absence Buffer:"}
                                         </span>
                                         <span className="font-semibold tabular-nums">
                                             {
                                                 selectedOrder.vacation_days_affecting_runway
                                             }{" "}
-                                            days
+                                            {isGerman ? "Tage" : "days"}
                                         </span>
                                     </div>
                                     <div className="flex justify-between text-gov-text">
                                         <span className="text-gov-muted">
-                                            Statutory Lead Time:
+                                            {isGerman ? "Vorlauffrist-Fenster:" : "Statutory Lead Time:"}
                                         </span>
                                         <span className="font-medium text-gov-warning-text tabular-nums">
-                                            28 Calendar Days
+                                            {isGerman ? "28 Kalendertage" : "28 Calendar Days"}
                                         </span>
                                     </div>
                                 </div>
@@ -429,7 +430,7 @@ export default function PurchasingOrdersIndex({ user, orders }: Props) {
                                     onClick={() => setSelectedOrder(null)}
                                     className="rounded-md border border-gov-border bg-gov-surface px-4 py-2 text-xs font-medium text-gov-text hover:bg-gov-surface-hover cursor-pointer"
                                 >
-                                    Close Inspection
+                                    {isGerman ? "Prüfung schließen" : "Close Inspection"}
                                 </button>
                             </div>
                         </div>

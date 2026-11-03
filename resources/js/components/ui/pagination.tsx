@@ -5,6 +5,7 @@ import {
     ChevronsLeft,
     ChevronsRight,
 } from "lucide-react";
+import { useTranslation } from "@/lib/i18n";
 
 export interface PaginationProps {
     currentPage: number;
@@ -24,12 +25,25 @@ export function Pagination({
     onPageChange,
     onPageSizeChange,
     pageSizeOptions = [10, 25, 50],
-    itemLabel = "entries",
+    itemLabel,
     className = "",
 }: PaginationProps) {
+    const { isGerman } = useTranslation();
     const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
     const startItem = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1;
     const endItem = Math.min(currentPage * pageSize, totalItems);
+
+    const localizedItemLabel = itemLabel
+        ? isGerman
+            ? itemLabel === "entries" ? "Einträge"
+            : itemLabel === "timesheet logs" ? "Buchungseinträge"
+            : itemLabel === "absences" ? "Abwesenheiten"
+            : itemLabel === "orders" ? "Bestellungen"
+            : itemLabel === "purchase orders" ? "Rahmenbestellungen"
+            : itemLabel === "invoices" ? "Rechnungen"
+            : itemLabel
+            : itemLabel
+        : isGerman ? "Einträge" : "entries";
 
     // Calculate smart window of page numbers
     const getPageNumbers = () => {
@@ -74,25 +88,25 @@ export function Pagination({
             {/* Left: Range and Item Count */}
             <div className="flex items-center gap-3 text-gov-muted">
                 <p>
-                    Showing{" "}
+                    {isGerman ? "Zeige" : "Showing"}{" "}
                     <span className="font-mono font-semibold text-gov-text tabular-nums">
                         {startItem}
                     </span>{" "}
-                    to{" "}
+                    {isGerman ? "bis" : "to"}{" "}
                     <span className="font-mono font-semibold text-gov-text tabular-nums">
                         {endItem}
                     </span>{" "}
-                    of{" "}
+                    {isGerman ? "von" : "of"}{" "}
                     <span className="font-mono font-semibold text-gov-text tabular-nums">
                         {totalItems}
                     </span>{" "}
-                    {itemLabel}
+                    {localizedItemLabel}
                 </p>
 
                 {onPageSizeChange && (
                     <div className="hidden sm:flex items-center gap-1.5 pl-3 border-l border-gov-border">
                         <span className="text-[11px] text-gov-muted">
-                            Per page:
+                            {isGerman ? "Pro Seite:" : "Per page:"}
                         </span>
                         <div className="inline-flex rounded-md border border-gov-border bg-gov-canvas p-0.5">
                             {pageSizeOptions.map((opt) => (
@@ -121,7 +135,7 @@ export function Pagination({
                     type="button"
                     onClick={() => onPageChange(1)}
                     disabled={currentPage <= 1}
-                    aria-label="Go to first page"
+                    aria-label={isGerman ? "Zur ersten Seite" : "Go to first page"}
                     className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-gov-border bg-gov-surface text-gov-text transition-colors hover:bg-gov-surface-hover disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:bg-gov-surface cursor-pointer"
                 >
                     <ChevronsLeft className="h-4 w-4" />
@@ -132,11 +146,11 @@ export function Pagination({
                     type="button"
                     onClick={() => onPageChange(currentPage - 1)}
                     disabled={currentPage <= 1}
-                    aria-label="Go to previous page"
+                    aria-label={isGerman ? "Zur vorherigen Seite" : "Go to previous page"}
                     className="inline-flex h-8 items-center justify-center gap-1 rounded-md border border-gov-border bg-gov-surface px-2.5 text-xs text-gov-text transition-colors hover:bg-gov-surface-hover disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:bg-gov-surface cursor-pointer"
                 >
                     <ChevronLeft className="h-3.5 w-3.5" />
-                    <span className="hidden sm:inline">Prev</span>
+                    <span className="hidden sm:inline">{isGerman ? "Zurück" : "Prev"}</span>
                 </button>
 
                 {/* Page Number Buttons */}
@@ -154,7 +168,7 @@ export function Pagination({
                                 key={`page-${p}`}
                                 type="button"
                                 onClick={() => onPageChange(p as number)}
-                                aria-label={`Page ${p}`}
+                                aria-label={isGerman ? `Seite ${p}` : `Page ${p}`}
                                 aria-current={
                                     currentPage === p ? "page" : undefined
                                 }
@@ -175,10 +189,10 @@ export function Pagination({
                     type="button"
                     onClick={() => onPageChange(currentPage + 1)}
                     disabled={currentPage >= totalPages}
-                    aria-label="Go to next page"
+                    aria-label={isGerman ? "Zur nächsten Seite" : "Go to next page"}
                     className="inline-flex h-8 items-center justify-center gap-1 rounded-md border border-gov-border bg-gov-surface px-2.5 text-xs text-gov-text transition-colors hover:bg-gov-surface-hover disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:bg-gov-surface cursor-pointer"
                 >
-                    <span className="hidden sm:inline">Next</span>
+                    <span className="hidden sm:inline">{isGerman ? "Weiter" : "Next"}</span>
                     <ChevronRight className="h-3.5 w-3.5" />
                 </button>
 
@@ -187,7 +201,7 @@ export function Pagination({
                     type="button"
                     onClick={() => onPageChange(totalPages)}
                     disabled={currentPage >= totalPages}
-                    aria-label="Go to last page"
+                    aria-label={isGerman ? "Zur letzten Seite" : "Go to last page"}
                     className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-gov-border bg-gov-surface text-gov-text transition-colors hover:bg-gov-surface-hover disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:bg-gov-surface cursor-pointer"
                 >
                     <ChevronsRight className="h-4 w-4" />

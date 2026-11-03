@@ -67,7 +67,7 @@ interface Props {
 }
 
 export default function PurchasingInvoicesIndex({ user, orders }: Props) {
-    const { t } = useTranslation();
+    const { t, isGerman } = useTranslation();
     const [search, setSearch] = useState('');
     const [statusFilter, setStatusFilter] = useState<'all' | 'matched' | 'discrepancy'>('all');
     const [selectedInvoice, setSelectedInvoice] = useState<InvoiceItem | null>(null);
@@ -238,7 +238,7 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
                                     : 'text-gov-muted hover:text-gov-text'
                             }`}
                         >
-                            Matched & Cleared ({allInvoices.filter((i) => i.status === 'Matched & Cleared').length})
+                            {isGerman ? 'Abgeglichen & Freigegeben' : 'Matched & Cleared'} ({allInvoices.filter((i) => i.status === 'Matched & Cleared').length})
                         </button>
                     </div>
                 </div>
@@ -248,39 +248,45 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
             <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
                 <div className="rounded-lg border border-gov-border bg-gov-surface p-4 shadow-xs">
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
-                        Total Invoiced Volume
+                        {isGerman ? 'Gesamtes Rechnungsvolumen' : 'Total Invoiced Volume'}
                     </span>
                     <div className="mt-2 text-2xl font-semibold text-gov-text font-mono tabular-nums">
                         {totalClaimed.toFixed(2)}{' '}
-                        <span className="text-sm font-normal text-gov-muted">PD</span>
+                        <span className="text-sm font-normal text-gov-muted">{t("common.pd")}</span>
                     </div>
                     <div className="mt-1 text-[11px] text-gov-muted">
-                        Submitted across {allInvoices.length} invoices
+                        {isGerman
+                            ? `Eingereicht über ${allInvoices.length} Rechnungen`
+                            : `Submitted across ${allInvoices.length} invoices`}
                     </div>
                 </div>
 
                 <div className="rounded-lg border border-gov-border bg-gov-surface p-4 shadow-xs">
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
-                        Client Verified & Approved
+                        {isGerman ? 'Vom Auftraggeber geprüft & freigegeben' : 'Client Verified & Approved'}
                     </span>
                     <div className="mt-2 text-2xl font-semibold text-gov-text font-mono tabular-nums">
                         {totalApproved.toFixed(2)}{' '}
-                        <span className="text-sm font-normal text-gov-muted">PD</span>
+                        <span className="text-sm font-normal text-gov-muted">{t("common.pd")}</span>
                     </div>
                     <div className="mt-1 text-[11px] text-gov-muted">
-                        Timesheets signed off by Project Directors
+                        {isGerman
+                            ? 'Leistungsnachweise durch Projektleitung freigegeben'
+                            : 'Timesheets signed off by Project Directors'}
                     </div>
                 </div>
 
                 <div className="rounded-lg border border-gov-border bg-gov-surface p-4 shadow-xs">
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
-                        Variance Discrepancy Rate
+                        {isGerman ? 'Abweichungsquote' : 'Variance Discrepancy Rate'}
                     </span>
                     <div className="mt-2 text-2xl font-semibold text-gov-success-text font-mono tabular-nums">
                         0.00%
                     </div>
                     <div className="mt-1 text-[11px] text-gov-muted">
-                        Zero unverified billing lines detected
+                        {isGerman
+                            ? 'Keine ungeprüften Abrechnungspositionen festgestellt'
+                            : 'Zero unverified billing lines detected'}
                     </div>
                 </div>
             </div>
@@ -291,22 +297,24 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
                     <table className="w-full text-left text-xs">
                         <thead className="border-b border-gov-border bg-gov-surface-hover text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
                             <tr>
-                                <th className="h-9 px-4">Invoice Reference</th>
-                                <th className="h-9 px-4">Vendor</th>
-                                <th className="h-9 px-4">Purchase Order</th>
-                                <th className="h-9 px-4">Invoice Date</th>
-                                <th className="h-9 px-4 text-right">Claimed PD</th>
-                                <th className="h-9 px-4 text-right">Approved Timesheets</th>
-                                <th className="h-9 px-4 text-right">Variance</th>
-                                <th className="h-9 px-4 text-right">Settlement State</th>
-                                <th className="h-9 px-4 text-center">Audit Actions</th>
+                                <th className="h-9 px-4">{isGerman ? 'Rechnungs-Referenz' : 'Invoice Reference'}</th>
+                                <th className="h-9 px-4">{isGerman ? 'Dienstleister' : 'Vendor'}</th>
+                                <th className="h-9 px-4">{isGerman ? 'Bestellung (PO)' : 'Purchase Order'}</th>
+                                <th className="h-9 px-4">{isGerman ? 'Rechnungsdatum' : 'Invoice Date'}</th>
+                                <th className="h-9 px-4 text-right">{isGerman ? 'Berechnete PT' : 'Claimed PD'}</th>
+                                <th className="h-9 px-4 text-right">{isGerman ? 'Freigegebene PT' : 'Approved Timesheets'}</th>
+                                <th className="h-9 px-4 text-right">{isGerman ? 'Abweichung' : 'Variance'}</th>
+                                <th className="h-9 px-4 text-right">{isGerman ? 'Abrechnungsstatus' : 'Settlement State'}</th>
+                                <th className="h-9 px-4 text-center">{isGerman ? 'Prüfaktionen' : 'Audit Actions'}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gov-border">
                             {invoicePagination.paginatedItems.length === 0 ? (
                                 <tr>
                                     <td colSpan={9} className="h-24 text-center text-gov-muted text-xs">
-                                        No invoices match the search or filter criteria.
+                                        {isGerman
+                                            ? 'Keine Rechnungen entsprechen den Such- oder Filterkriterien.'
+                                            : 'No invoices match the search or filter criteria.'}
                                     </td>
                                 </tr>
                             ) : (
@@ -329,17 +337,17 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
                                             {inv.date}
                                         </td>
                                         <td className="h-11 px-4 text-right font-mono text-gov-text tabular-nums font-medium">
-                                            {inv.claimed_pd.toFixed(2)} PD
+                                            {inv.claimed_pd.toFixed(2)} {t("common.pd")}
                                         </td>
                                         <td className="h-11 px-4 text-right font-mono text-gov-text tabular-nums font-medium">
-                                            {inv.approved_pd.toFixed(2)} PD
+                                            {inv.approved_pd.toFixed(2)} {t("common.pd")}
                                         </td>
                                         <td className="h-11 px-4 text-right font-mono text-gov-success-text tabular-nums font-medium">
                                             {inv.variance}
                                         </td>
                                         <td className="h-11 px-4 text-right">
                                             <span className="rounded-sm border border-gov-success-border bg-gov-success-bg px-2 py-0.5 text-[10px] font-semibold uppercase text-gov-success-text">
-                                                {inv.status}
+                                                {isGerman ? 'Abgeglichen & Freigegeben' : inv.status}
                                             </span>
                                         </td>
                                         <td className="h-11 px-4 text-center">
@@ -350,7 +358,7 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
                                                 }}
                                                 className="rounded-md border border-gov-border bg-gov-surface px-2 py-1 text-[11px] font-medium text-gov-text hover:bg-gov-surface-hover cursor-pointer"
                                             >
-                                                Inspect 3-Way Match
+                                                {isGerman ? '3-Wege-Abgleich prüfen' : 'Inspect 3-Way Match'}
                                             </button>
                                         </td>
                                     </tr>
@@ -378,11 +386,13 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
                         <div className="flex items-center gap-2">
                             <Scale className="h-4 w-4 text-gov-accent" />
                             <DialogTitle className="text-base font-semibold text-gov-text">
-                                3-Way Match Reconciliation: {selectedInvoice?.reference}
+                                {isGerman ? '3-Wege-Rechnungsabgleich:' : '3-Way Match Reconciliation:'} {selectedInvoice?.reference}
                             </DialogTitle>
                         </div>
                         <DialogDescription className="text-xs text-gov-muted">
-                            Verifying Purchase Order commitment vs. Client-Approved Timesheets vs. Vendor Billing.
+                            {isGerman
+                                ? 'Prüfung von Bestellobligation (PO) vs. freigegebenen Leistungsnachweisen vs. Lieferantenabrechnung.'
+                                : 'Verifying Purchase Order commitment vs. Client-Approved Timesheets vs. Vendor Billing.'}
                         </DialogDescription>
                     </DialogHeader>
 
@@ -394,10 +404,12 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
                                     <CheckCircle2 className="h-4 w-4 text-gov-success-text shrink-0" />
                                     <div>
                                         <div className="text-xs font-semibold text-gov-success-text uppercase tracking-wider">
-                                            3-Way Match Fully Reconciled
+                                            {isGerman ? '3-Wege-Abgleich vollständig abgestimmt' : '3-Way Match Fully Reconciled'}
                                         </div>
                                         <p className="text-xs text-gov-success-text mt-0.5">
-                                            Zero variance detected. All {selectedInvoice.claimed_pd.toFixed(2)} invoiced person-days match signed proof-of-work records.
+                                            {isGerman
+                                                ? `Keine Abweichung festgestellt. Alle ${selectedInvoice.claimed_pd.toFixed(2)} berechneten Personentage stimmen exakt mit den freigegebenen Leistungsnachweisen überein.`
+                                                : `Zero variance detected. All ${selectedInvoice.claimed_pd.toFixed(2)} invoiced person-days match signed proof-of-work records.`}
                                         </p>
                                     </div>
                                 </div>
@@ -406,26 +418,36 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
                             {/* 3 Pillars of the Match */}
                             <div className="grid grid-cols-3 gap-2 text-xs">
                                 <div className="rounded-lg border border-gov-border bg-gov-canvas p-3">
-                                    <span className="text-[10px] font-semibold uppercase text-gov-muted block">1. PO Commitment</span>
+                                    <span className="text-[10px] font-semibold uppercase text-gov-muted block">
+                                        {isGerman ? '1. Bestellobligation' : '1. PO Commitment'}
+                                    </span>
                                     <span className="mt-1 font-mono font-medium text-gov-text block">{selectedInvoice.order_number}</span>
                                     <span className="text-[10px] text-gov-muted truncate block">{selectedInvoice.order_title}</span>
                                 </div>
                                 <div className="rounded-lg border border-gov-border bg-gov-canvas p-3">
-                                    <span className="text-[10px] font-semibold uppercase text-gov-muted block">2. Invoiced Units</span>
-                                    <span className="mt-1 font-mono font-medium text-gov-text block">{selectedInvoice.claimed_pd.toFixed(2)} PD</span>
-                                    <span className="text-[10px] text-gov-muted block">Billing Claim</span>
+                                    <span className="text-[10px] font-semibold uppercase text-gov-muted block">
+                                        {isGerman ? '2. Berechnete Einheiten' : '2. Invoiced Units'}
+                                    </span>
+                                    <span className="mt-1 font-mono font-medium text-gov-text block">{selectedInvoice.claimed_pd.toFixed(2)} {t("common.pd")}</span>
+                                    <span className="text-[10px] text-gov-muted block">
+                                        {isGerman ? 'Rechnungsforderung' : 'Billing Claim'}
+                                    </span>
                                 </div>
                                 <div className="rounded-lg border border-gov-border bg-gov-canvas p-3">
-                                    <span className="text-[10px] font-semibold uppercase text-gov-muted block">3. Approved Timesheets</span>
-                                    <span className="mt-1 font-mono font-medium text-gov-text block">{selectedInvoice.approved_pd.toFixed(2)} PD</span>
-                                    <span className="text-[10px] text-gov-success-text block font-medium">Variance: {selectedInvoice.variance}</span>
+                                    <span className="text-[10px] font-semibold uppercase text-gov-muted block">
+                                        {isGerman ? '3. Freigegebene Nachweise' : '3. Approved Timesheets'}
+                                    </span>
+                                    <span className="mt-1 font-mono font-medium text-gov-text block">{selectedInvoice.approved_pd.toFixed(2)} {t("common.pd")}</span>
+                                    <span className="text-[10px] text-gov-success-text block font-medium">
+                                        {isGerman ? 'Abweichung:' : 'Variance:'} {selectedInvoice.variance}
+                                    </span>
                                 </div>
                             </div>
 
                             {/* Line Items Breakdown */}
                             <div className="space-y-2">
                                 <span className="text-xs font-semibold text-gov-text uppercase tracking-wider">
-                                    Reconciled Proof-of-Work Lines
+                                    {isGerman ? 'Abgestimmte Leistungsnachweis-Zeilen' : 'Reconciled Proof-of-Work Lines'}
                                 </span>
                                 <div className="rounded-lg border border-gov-border bg-gov-canvas divide-y divide-gov-border">
                                     {selectedInvoice.line_items.map((line, idx) => (
@@ -436,10 +458,10 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
                                             </div>
                                             <div className="text-right">
                                                 <div className="font-mono font-medium text-gov-text tabular-nums">
-                                                    {line.person_days.toFixed(2)} PD
+                                                    {line.person_days.toFixed(2)} {t("common.pd")}
                                                 </div>
                                                 <div className="text-[11px] text-gov-muted font-mono tabular-nums">
-                                                    {line.approved_hours.toFixed(1)} hrs
+                                                    {line.approved_hours.toFixed(1)} {isGerman ? 'Std.' : 'hrs'}
                                                 </div>
                                             </div>
                                         </div>
@@ -449,13 +471,13 @@ export default function PurchasingInvoicesIndex({ user, orders }: Props) {
 
                             <div className="flex justify-between items-center pt-2">
                                 <span className="font-mono text-[11px] text-gov-muted tabular-nums">
-                                    Audited on: {selectedInvoice.date}
+                                    {isGerman ? 'Geprüft am:' : 'Audited on:'} {selectedInvoice.date}
                                 </span>
                                 <button
                                     onClick={() => setSelectedInvoice(null)}
                                     className="rounded-md border border-gov-border bg-gov-surface px-4 py-2 text-xs font-medium text-gov-text hover:bg-gov-surface-hover cursor-pointer"
                                 >
-                                    Close Verification
+                                    {isGerman ? 'Prüfung schließen' : 'Close Verification'}
                                 </button>
                             </div>
                         </div>

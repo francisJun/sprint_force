@@ -562,10 +562,10 @@ export default function AdminUsersIndex({
                                 onChange={(e) => setFormData({ ...formData, role: e.target.value as any })}
                                 className="w-full h-9 rounded-lg border border-gov-border bg-gov-canvas px-3 text-xs text-gov-text focus:ring-1 focus:ring-gov-interactive cursor-pointer"
                             >
-                                <option value="super_admin">Super Admin (Platform Overseer)</option>
-                                <option value="project_lead">Project Lead (Client Auftraggeber)</option>
-                                <option value="purchasing">Procurement & Finance (Einkauf)</option>
-                                <option value="consultant">External Consultant (Dienstleister)</option>
+                                <option value="super_admin">{isGerman ? 'Super-Admin (Plattform-Aufsicht)' : 'Super Admin (Platform Overseer)'}</option>
+                                <option value="project_lead">{isGerman ? 'Projektleiter (Auftraggeber)' : 'Project Lead (Client Auftraggeber)'}</option>
+                                <option value="purchasing">{isGerman ? 'Einkauf & Finanzen' : 'Procurement & Finance'}</option>
+                                <option value="consultant">{isGerman ? 'Externer Berater (Dienstleister)' : 'External Consultant (Dienstleister)'}</option>
                             </select>
                             {formErrors.role && (
                                 <p className="text-[11px] text-red-500">{formErrors.role}</p>
@@ -694,10 +694,10 @@ export default function AdminUsersIndex({
                                 onChange={(e) => setFormData({ ...formData, role: e.target.value as any })}
                                 className="w-full h-9 rounded-lg border border-gov-border bg-gov-canvas px-3 text-xs text-gov-text focus:ring-1 focus:ring-gov-interactive cursor-pointer"
                             >
-                                <option value="super_admin">Super Admin (Platform Overseer)</option>
-                                <option value="project_lead">Project Lead (Client Auftraggeber)</option>
-                                <option value="purchasing">Procurement & Finance (Einkauf)</option>
-                                <option value="consultant">External Consultant (Dienstleister)</option>
+                                <option value="super_admin">{isGerman ? 'Super-Admin (Plattform-Aufsicht)' : 'Super Admin (Platform Overseer)'}</option>
+                                <option value="project_lead">{isGerman ? 'Projektleiter (Auftraggeber)' : 'Project Lead (Client Auftraggeber)'}</option>
+                                <option value="purchasing">{isGerman ? 'Einkauf & Finanzen' : 'Procurement & Finance'}</option>
+                                <option value="consultant">{isGerman ? 'Externer Berater (Dienstleister)' : 'External Consultant (Dienstleister)'}</option>
                             </select>
                             {formErrors.role && (
                                 <p className="text-[11px] text-red-500">{formErrors.role}</p>
@@ -873,8 +873,8 @@ export default function AdminUsersIndex({
                         <Info className="h-4 w-4 text-gov-interactive shrink-0 mt-0.5" />
                         <span>
                             {isGerman
-                                ? 'Gemäß Kriterium 3 (docs/roles-and-privacy.md) werden alle Berechtigungen strikt serverseitig in Laravel Middleware und Policys erzwungen. Das Ausblenden von UI-Elementen gilt nicht als Sicherheitsgrenze.'
-                                : 'Per Criterion 3 (docs/roles-and-privacy.md), all permissions are enforced server-side in Laravel middleware and policies. Hiding client-side buttons is never treated as an authorization boundary.'}
+                                ? 'Alle Zugriffsberechtigungen werden strikt serverseitig über Richtlinien und Autorisierungsprüfungen erzwungen. Die Benutzeroberfläche spiegelt die verifizierten Zugriffsebenen wider.'
+                                : 'All authorization checks are strictly enforced server-side via granular security policies. The client interface strictly reflects verified role privileges.'}
                         </span>
                     </div>
 

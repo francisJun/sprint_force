@@ -76,7 +76,7 @@ export function AppSidebar() {
             <SidebarContent className="p-2">
                 <SidebarGroup>
                     <SidebarGroupLabel className="text-white/50 text-[10px] font-semibold uppercase tracking-wider group-data-[collapsible=icon]:hidden">
-                        Workspace Views
+                        {isGerman ? 'Arbeitsbereiche' : 'Workspace Views'}
                     </SidebarGroupLabel>
                     <SidebarMenu className="space-y-1">
                         {/* Primary Dashboard Link */}
@@ -301,7 +301,7 @@ export function AppSidebar() {
             <SidebarFooter className="border-t border-sidebar-border p-2.5">
                 <div className="group-data-[collapsible=icon]:hidden rounded-md bg-black/25 p-2.5 text-xs text-white/80">
                     <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-white/50 font-semibold">
-                        <span>Authorization Tier</span>
+                        <span>{isGerman ? 'Berechtigungsstufe' : 'Authorization Tier'}</span>
                         <span className="h-2 w-2 rounded-full bg-emerald-400" />
                     </div>
                     <div className="mt-1 font-medium text-xs text-white capitalize">
@@ -316,12 +316,12 @@ export function AppSidebar() {
                     <form method="POST" action="/logout" className="w-full">
                         <SidebarMenuButton
                             asChild
-                            tooltip={{ children: 'Sign Out' }}
+                            tooltip={{ children: isGerman ? 'Abmelden' : 'Sign Out' }}
                             className="h-9 w-full justify-center gap-1.5 rounded-md border border-white/10 bg-white/5 text-xs text-white/80 hover:bg-white/10 hover:text-white transition-colors cursor-pointer group-data-[collapsible=icon]:p-0"
                         >
                             <button type="submit" className="w-full flex items-center justify-center gap-1.5">
                                 <LogOut className="h-3.5 w-3.5 shrink-0" />
-                                <span className="group-data-[collapsible=icon]:hidden">Sign Out</span>
+                                <span className="group-data-[collapsible=icon]:hidden">{isGerman ? 'Abmelden' : 'Sign Out'}</span>
                             </button>
                         </SidebarMenuButton>
                     </form>

@@ -137,16 +137,16 @@ export default function SuperAdminDashboard({
                     </div>
                     <div className="mt-2 flex flex-wrap gap-1.5 text-[10px]">
                         <span className="rounded-sm bg-amber-500/10 px-1.5 py-0.5 font-medium text-amber-600 dark:text-amber-400">
-                            {stats.role_counts.super_admin} Admin
+                            {stats.role_counts.super_admin} {isGerman ? 'Admin' : 'Admin'}
                         </span>
                         <span className="rounded-sm bg-blue-500/10 px-1.5 py-0.5 font-medium text-blue-600 dark:text-blue-400">
-                            {stats.role_counts.project_lead} Lead
+                            {stats.role_counts.project_lead} {isGerman ? 'Leitung' : 'Lead'}
                         </span>
                         <span className="rounded-sm bg-emerald-500/10 px-1.5 py-0.5 font-medium text-emerald-600 dark:text-emerald-400">
-                            {stats.role_counts.purchasing} Purchasing
+                            {stats.role_counts.purchasing} {isGerman ? 'Einkauf' : 'Purchasing'}
                         </span>
                         <span className="rounded-sm bg-purple-500/10 px-1.5 py-0.5 font-medium text-purple-600 dark:text-purple-400">
-                            {stats.role_counts.consultant} Consultant
+                            {stats.role_counts.consultant} {isGerman ? 'Berater' : 'Consultant'}
                         </span>
                     </div>
                 </div>
@@ -188,7 +188,7 @@ export default function SuperAdminDashboard({
                     <div className="mt-2 text-2xl font-bold text-gov-text">
                         {stats.total_booked_hours.toLocaleString()}{" "}
                         <span className="text-xs font-normal text-gov-muted">
-                            hrs
+                            {isGerman ? 'Std.' : 'hrs'}
                         </span>
                     </div>
                     <p className="mt-2 text-[11px] text-gov-muted">
