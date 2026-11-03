@@ -82,12 +82,12 @@ export function Pagination({
 
     return (
         <div
-            className={`flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-t border-gov-border bg-gov-surface px-4 py-3 text-xs ${className}`}
+            className={`flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-t border-gov-border bg-gov-surface px-3 sm:px-4 py-3 text-xs ${className}`}
             aria-label="Table Pagination"
         >
             {/* Left: Range and Item Count */}
-            <div className="flex items-center gap-3 text-gov-muted">
-                <p>
+            <div className="flex flex-wrap items-center justify-between sm:justify-start gap-2 text-gov-muted">
+                <p className="text-xs">
                     {isGerman ? "Zeige" : "Showing"}{" "}
                     <span className="font-mono font-semibold text-gov-text tabular-nums">
                         {startItem}
@@ -129,14 +129,14 @@ export function Pagination({
             </div>
 
             {/* Right: Page Navigation Controls */}
-            <div className="flex items-center gap-1 self-end sm:self-auto">
+            <div className="flex flex-wrap items-center justify-center sm:justify-end gap-1 w-full sm:w-auto">
                 {/* First Page */}
                 <button
                     type="button"
                     onClick={() => onPageChange(1)}
                     disabled={currentPage <= 1}
                     aria-label={isGerman ? "Zur ersten Seite" : "Go to first page"}
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-gov-border bg-gov-surface text-gov-text transition-colors hover:bg-gov-surface-hover disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:bg-gov-surface cursor-pointer"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-gov-border bg-gov-surface text-gov-text transition-colors hover:bg-gov-surface-hover disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:bg-gov-surface cursor-pointer shrink-0"
                 >
                     <ChevronsLeft className="h-4 w-4" />
                 </button>
@@ -147,7 +147,7 @@ export function Pagination({
                     onClick={() => onPageChange(currentPage - 1)}
                     disabled={currentPage <= 1}
                     aria-label={isGerman ? "Zur vorherigen Seite" : "Go to previous page"}
-                    className="inline-flex h-8 items-center justify-center gap-1 rounded-md border border-gov-border bg-gov-surface px-2.5 text-xs text-gov-text transition-colors hover:bg-gov-surface-hover disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:bg-gov-surface cursor-pointer"
+                    className="inline-flex h-8 items-center justify-center gap-1 rounded-md border border-gov-border bg-gov-surface px-2 sm:px-2.5 text-xs text-gov-text transition-colors hover:bg-gov-surface-hover disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:bg-gov-surface cursor-pointer shrink-0"
                 >
                     <ChevronLeft className="h-3.5 w-3.5" />
                     <span className="hidden sm:inline">{isGerman ? "Zurück" : "Prev"}</span>
@@ -159,7 +159,7 @@ export function Pagination({
                         p === "..." ? (
                             <span
                                 key={`ellipsis-${idx}`}
-                                className="inline-flex h-8 w-8 items-center justify-center text-gov-muted font-mono"
+                                className="hidden sm:inline-flex h-8 w-8 items-center justify-center text-gov-muted font-mono"
                             >
                                 …
                             </span>
@@ -172,10 +172,12 @@ export function Pagination({
                                 aria-current={
                                     currentPage === p ? "page" : undefined
                                 }
-                                className={`inline-flex h-8 min-w-8 px-2 items-center justify-center rounded-md font-mono text-xs tabular-nums transition-colors cursor-pointer ${
+                                className={`h-8 min-w-8 px-2 items-center justify-center rounded-md font-mono text-xs tabular-nums transition-colors cursor-pointer shrink-0 ${
                                     currentPage === p
-                                        ? "border border-gov-interactive bg-gov-interactive font-semibold text-white shadow-xs"
-                                        : "border border-gov-border bg-gov-surface text-gov-text hover:bg-gov-surface-hover"
+                                        ? "inline-flex border border-gov-interactive bg-gov-interactive font-semibold text-white shadow-xs"
+                                        : Math.abs((p as number) - currentPage) <= 1
+                                        ? "inline-flex border border-gov-border bg-gov-surface text-gov-text hover:bg-gov-surface-hover"
+                                        : "hidden sm:inline-flex border border-gov-border bg-gov-surface text-gov-text hover:bg-gov-surface-hover"
                                 }`}
                             >
                                 {p}
@@ -190,7 +192,7 @@ export function Pagination({
                     onClick={() => onPageChange(currentPage + 1)}
                     disabled={currentPage >= totalPages}
                     aria-label={isGerman ? "Zur nächsten Seite" : "Go to next page"}
-                    className="inline-flex h-8 items-center justify-center gap-1 rounded-md border border-gov-border bg-gov-surface px-2.5 text-xs text-gov-text transition-colors hover:bg-gov-surface-hover disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:bg-gov-surface cursor-pointer"
+                    className="inline-flex h-8 items-center justify-center gap-1 rounded-md border border-gov-border bg-gov-surface px-2 sm:px-2.5 text-xs text-gov-text transition-colors hover:bg-gov-surface-hover disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:bg-gov-surface cursor-pointer shrink-0"
                 >
                     <span className="hidden sm:inline">{isGerman ? "Weiter" : "Next"}</span>
                     <ChevronRight className="h-3.5 w-3.5" />
@@ -202,7 +204,7 @@ export function Pagination({
                     onClick={() => onPageChange(totalPages)}
                     disabled={currentPage >= totalPages}
                     aria-label={isGerman ? "Zur letzten Seite" : "Go to last page"}
-                    className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-gov-border bg-gov-surface text-gov-text transition-colors hover:bg-gov-surface-hover disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:bg-gov-surface cursor-pointer"
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-gov-border bg-gov-surface text-gov-text transition-colors hover:bg-gov-surface-hover disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:bg-gov-surface cursor-pointer shrink-0"
                 >
                     <ChevronsRight className="h-4 w-4" />
                 </button>

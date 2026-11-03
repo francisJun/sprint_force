@@ -145,22 +145,22 @@ export function OrderBurndownChart({
     return (
         <div className="space-y-4">
             {/* Quick Runway Summary Banner */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 rounded-lg border border-gov-border bg-gov-canvas p-3 font-mono text-xs">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5 rounded-lg border border-gov-border bg-gov-canvas p-2.5 sm:p-3 font-mono text-xs">
                 <div>
-                    <span className="text-[10px] text-gov-muted uppercase block">{t("burndown.initialBudget")}</span>
-                    <span className="font-semibold text-gov-text tabular-nums">{totalPersonDays.toFixed(1)} {t("common.pd")}</span>
+                    <span className="text-[10px] text-gov-muted uppercase block truncate">{t("burndown.initialBudget")}</span>
+                    <span className="font-semibold text-gov-text tabular-nums text-xs sm:text-sm">{totalPersonDays.toFixed(1)} {t("common.pd")}</span>
                 </div>
                 <div>
-                    <span className="text-[10px] text-gov-muted uppercase block">{t("common.remaining")}</span>
-                    <span className="font-semibold text-gov-interactive tabular-nums">{remainingPersonDays.toFixed(1)} {t("common.pd")}</span>
+                    <span className="text-[10px] text-gov-muted uppercase block truncate">{t("common.remaining")}</span>
+                    <span className="font-semibold text-gov-interactive tabular-nums text-xs sm:text-sm">{remainingPersonDays.toFixed(1)} {t("common.pd")}</span>
                 </div>
                 <div>
-                    <span className="text-[10px] text-gov-muted uppercase block">{t("burndown.weeklyBurn")}</span>
-                    <span className="font-semibold text-gov-text tabular-nums">{weeklyBurnRate.toFixed(1)} {isGerman ? 'PT/Woche' : 'PD/wk'}</span>
+                    <span className="text-[10px] text-gov-muted uppercase block truncate">{t("burndown.weeklyBurn")}</span>
+                    <span className="font-semibold text-gov-text tabular-nums text-xs sm:text-sm">{weeklyBurnRate.toFixed(1)} {isGerman ? 'PT/Woche' : 'PD/wk'}</span>
                 </div>
                 <div>
-                    <span className="text-[10px] text-gov-muted uppercase block">{t("burndown.exhaustionExpected")}</span>
-                    <span className={`font-semibold tabular-nums ${needsReorderAlert ? 'text-gov-warning-text' : 'text-gov-text'}`}>
+                    <span className="text-[10px] text-gov-muted uppercase block truncate">{t("burndown.exhaustionExpected")}</span>
+                    <span className={`font-semibold tabular-nums text-xs sm:text-sm truncate block ${needsReorderAlert ? 'text-gov-warning-text' : 'text-gov-text'}`}>
                         {forecastedEndDate}
                     </span>
                 </div>
@@ -446,9 +446,9 @@ export function OrderBurndownChart({
                     {/* Interactive Floating Tooltip */}
                     {activePoint && hoveredIndex !== null && (
                         <div
-                            className="absolute pointer-events-none rounded-md border border-gov-border bg-gov-surface p-2.5 shadow-md text-xs font-mono z-10 space-y-1 transition-all"
+                            className="absolute pointer-events-none rounded-md border border-gov-border bg-gov-surface p-2.5 shadow-md text-xs font-mono z-10 space-y-1 transition-all max-w-[calc(100%-1rem)]"
                             style={{
-                                left: `${Math.min(80, Math.max(10, (hoveredIndex / (dataPoints.length - 1)) * 100))}%`,
+                                left: `${Math.min(75, Math.max(25, (hoveredIndex / (dataPoints.length - 1)) * 100))}%`,
                                 top: '8px',
                                 transform: 'translateX(-50%)',
                             }}

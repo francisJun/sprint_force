@@ -146,14 +146,14 @@ export function ChatbotDrawer() {
           ];
 
     return (
-        <div className="fixed bottom-6 right-6 z-50 font-sans">
+        <div className="fixed bottom-3 right-3 sm:bottom-6 sm:right-6 z-50 font-sans">
             {!isOpen ? (
                 <button
                     onClick={() => setIsOpen(true)}
-                    className="flex items-center gap-2.5 rounded-full bg-gov-interactive px-5 py-3 text-white shadow-2xl transition-all hover:bg-gov-interactive-hover hover:scale-105 cursor-pointer ring-2 ring-gov-interactive/30"
+                    className="flex items-center gap-2 sm:gap-2.5 rounded-full bg-gov-interactive px-3.5 py-2.5 sm:px-5 sm:py-3 text-white shadow-2xl transition-all hover:bg-gov-interactive-hover hover:scale-105 cursor-pointer ring-2 ring-gov-interactive/30"
                 >
                     <Bot className="h-4 w-4" />
-                    <span className="font-semibold text-sm tracking-tight">
+                    <span className="font-semibold text-xs sm:text-sm tracking-tight">
                         {isGerman ? "HourRadar KI fragen" : "Ask HourRadar AI"}
                     </span>
                 </button>
@@ -161,27 +161,27 @@ export function ChatbotDrawer() {
                 <div
                     className={`flex flex-col overflow-hidden rounded-2xl border border-gov-border bg-gov-surface shadow-2xl transition-all duration-300 ease-in-out ${
                         isMaximized
-                            ? "w-[calc(100vw-2rem)] sm:w-185 md:w-210 h-205 max-h-[92vh]"
-                            : "w-[calc(100vw-2rem)] sm:w-130 md:w-150 h-165 max-h-[85vh]"
+                            ? "w-[calc(100vw-1.5rem)] sm:w-185 md:w-210 h-[88vh] sm:h-205 max-h-[92dvh]"
+                            : "w-[calc(100vw-1.5rem)] sm:w-130 md:w-150 h-[75vh] sm:h-165 max-h-[88dvh]"
                     }`}
                 >
                     {/* Header */}
-                    <div className="flex items-center justify-between border-b border-gov-border bg-gov-canvas px-4 py-3.5">
-                        <div className="flex items-center gap-2.5">
-                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gov-interactive text-white shadow-xs">
+                    <div className="flex items-center justify-between border-b border-gov-border bg-gov-canvas px-3 sm:px-4 py-3 sm:py-3.5">
+                        <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+                            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gov-interactive text-white shadow-xs shrink-0">
                                 <Bot className="h-4 w-4" />
                             </div>
-                            <div>
+                            <div className="min-w-0">
                                 <div className="flex items-center gap-2">
-                                    <h3 className="font-semibold text-sm text-gov-text leading-tight">
+                                    <h3 className="font-semibold text-xs sm:text-sm text-gov-text leading-tight truncate">
                                         HourRadar AI Advisor
                                     </h3>
-                                    <span className="flex items-center gap-1 rounded-sm bg-gov-success-bg border border-gov-success-border px-1.5 py-0.2 text-[9px] font-semibold text-gov-success-text uppercase tracking-wider">
+                                    <span className="flex items-center gap-1 rounded-sm bg-gov-success-bg border border-gov-success-border px-1.5 py-0.2 text-[9px] font-semibold text-gov-success-text uppercase tracking-wider shrink-0">
                                         <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
                                         Online
                                     </span>
                                 </div>
-                                <p className="text-[10px] text-gov-muted mt-0.5">
+                                <p className="text-[10px] text-gov-muted mt-0.5 truncate max-w-[160px] xs:max-w-xs sm:max-w-none">
                                     {isGerman
                                         ? "Rechtskonformität, Budgetreichweite & Rechnungsprüfung"
                                         : "Labor compliance, budget runway & invoice audit intelligence"}
@@ -189,7 +189,7 @@ export function ChatbotDrawer() {
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1 shrink-0">
                             <button
                                 onClick={() => setIsMaximized((prev) => !prev)}
                                 title={
@@ -216,7 +216,7 @@ export function ChatbotDrawer() {
                     </div>
 
                     {/* Chat Messages Log */}
-                    <div className="flex-1 space-y-4 overflow-y-auto p-4 md:p-5 text-xs">
+                    <div className="flex-1 space-y-4 overflow-y-auto p-3 sm:p-4 md:p-5 text-xs">
                         {messages.map((m, idx) => (
                             <div
                                 key={idx}
@@ -232,7 +232,7 @@ export function ChatbotDrawer() {
                                     </div>
                                 )}
                                 <div
-                                    className={`max-w-[85%] rounded-2xl px-4 py-3 leading-relaxed whitespace-pre-wrap wrap-break-word ${
+                                    className={`max-w-[90%] sm:max-w-[85%] rounded-2xl px-3.5 sm:px-4 py-2.5 sm:py-3 leading-relaxed whitespace-pre-wrap wrap-break-word ${
                                         m.sender === "user"
                                             ? "bg-gov-interactive text-white shadow-xs font-normal"
                                             : "bg-gov-canvas border border-gov-border text-gov-text shadow-xs"

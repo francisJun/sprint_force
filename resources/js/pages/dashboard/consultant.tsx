@@ -101,13 +101,13 @@ export default function ConsultantDashboard({
         .reduce((acc, curr) => acc + curr.hours, 0);
 
     return (
-        <div className="w-full space-y-8 bg-gov-canvas pb-16 font-sans">
+        <div className="w-full space-y-6 sm:space-y-8 bg-gov-canvas pb-16 font-sans">
             {/* Top Workspace Bar */}
             <div className="border-b border-gov-border pb-5">
                 <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
                     <div>
                         <div className="flex items-center gap-2.5">
-                            <h1 className="font-semibold text-2xl tracking-tight text-gov-text">
+                            <h1 className="font-semibold text-xl sm:text-2xl tracking-tight text-gov-text">
                                 {t("consultant.title")}
                             </h1>
                         </div>
@@ -125,7 +125,7 @@ export default function ConsultantDashboard({
                     </div>
 
                     <div className="flex items-center gap-3">
-                        <div className="rounded-lg border border-gov-border bg-gov-surface px-3 py-2 text-right">
+                        <div className="w-full sm:w-auto rounded-lg border border-gov-border bg-gov-surface px-3 py-2 text-left sm:text-right">
                             <span className="text-[10px] font-semibold uppercase tracking-wider text-gov-muted">
                                 {t("consultant.approvedWorkingTime")}
                             </span>
@@ -139,13 +139,13 @@ export default function ConsultantDashboard({
             </div>
 
             {/* Main Operational Grid */}
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 lg:gap-8 lg:grid-cols-3">
                 {/* Left Column: Recording Inputs & Absence Management */}
-                <div className="space-y-8 lg:col-span-1">
+                <div className="space-y-6 sm:space-y-8 lg:col-span-1">
                     {/* Time Recording Form */}
                     <div
                         id="booking-form"
-                        className="rounded-lg border border-gov-border bg-gov-surface p-6 shadow-xs"
+                        className="rounded-lg border border-gov-border bg-gov-surface p-4 sm:p-6 shadow-xs"
                     >
                         <div className="flex items-center gap-2 border-b border-gov-border pb-3">
                             <Clock className="h-4 w-4 text-gov-interactive" />
@@ -189,7 +189,7 @@ export default function ConsultantDashboard({
                                 )}
                             </div>
 
-                            <div className="grid grid-cols-2 gap-3">
+                            <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-3">
                                 <div className="space-y-1.5">
                                     <label className="block font-medium text-xs text-gov-text">
                                         {t("consultant.bookingDate")}
@@ -293,7 +293,7 @@ export default function ConsultantDashboard({
                     {/* Absence & Planned Leave Management */}
                     <div
                         id="vacation-manager"
-                        className="rounded-lg border border-gov-border bg-gov-surface p-6 shadow-xs"
+                        className="rounded-lg border border-gov-border bg-gov-surface p-4 sm:p-6 shadow-xs"
                     >
                         <div className="flex items-center gap-2 border-b border-gov-border pb-3">
                             <Calendar className="h-4 w-4 text-gov-interactive" />
@@ -309,7 +309,7 @@ export default function ConsultantDashboard({
                             onSubmit={submitVacation}
                             className="mt-4 space-y-3 text-xs"
                         >
-                            <div className="grid grid-cols-2 gap-2">
+                            <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-2">
                                 <div className="space-y-1">
                                     <label className="text-[11px] text-gov-muted">
                                         {t("consultant.startDate")}
@@ -386,7 +386,7 @@ export default function ConsultantDashboard({
 
                 {/* Right Column: Historical Booking Ledger */}
                 <div id="ledger" className="space-y-6 lg:col-span-2">
-                    <div className="rounded-lg border border-gov-border bg-gov-surface p-6 shadow-xs">
+                    <div className="rounded-lg border border-gov-border bg-gov-surface p-4 sm:p-6 shadow-xs">
                         <div className="flex items-center justify-between border-b border-gov-border pb-4">
                             <div>
                                 <h2 className="font-semibold text-base text-gov-text">
@@ -406,20 +406,20 @@ export default function ConsultantDashboard({
                                 <table className="w-full text-left text-xs">
                                     <thead className="border-b border-gov-border bg-gov-surface-hover text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
                                         <tr>
-                                            <th className="h-9 px-4">{t("consultant.thDate")}</th>
-                                            <th className="h-9 px-4">
+                                            <th className="h-9 px-3 sm:px-4">{t("consultant.thDate")}</th>
+                                            <th className="h-9 px-3 sm:px-4">
                                                 {t("consultant.thOrder")}
                                             </th>
-                                            <th className="h-9 px-4 text-right">
+                                            <th className="h-9 px-3 sm:px-4 text-right">
                                                 {t("consultant.thHours")}
                                             </th>
-                                            <th className="h-9 px-4 text-right">
+                                            <th className="h-9 px-3 sm:px-4 text-right">
                                                 {t("consultant.thPd")}
                                             </th>
-                                            <th className="h-9 px-4">
+                                            <th className="h-9 px-3 sm:px-4">
                                                 {t("consultant.thProof")}
                                             </th>
-                                            <th className="h-9 px-4 text-right">
+                                            <th className="h-9 px-3 sm:px-4 text-right">
                                                 {t("consultant.thStatus")}
                                             </th>
                                         </tr>
@@ -431,27 +431,27 @@ export default function ConsultantDashboard({
                                                     key={b.id}
                                                     className="transition-colors hover:bg-gov-surface-hover"
                                                 >
-                                                    <td className="h-11 px-4 font-mono font-medium text-gov-text tabular-nums whitespace-nowrap">
+                                                    <td className="h-11 px-3 sm:px-4 font-mono font-medium text-gov-text tabular-nums whitespace-nowrap">
                                                         {b.date}
                                                     </td>
-                                                    <td className="h-11 px-4 font-medium text-gov-text">
+                                                    <td className="h-11 px-3 sm:px-4 font-medium text-gov-text">
                                                         <div>
-                                                            {b.order_number}
+                                                             {b.order_number}
                                                         </div>
-                                                        <div className="text-[10px] text-gov-muted truncate max-w-32.5">
+                                                        <div className="text-[10px] text-gov-muted truncate max-w-28 sm:max-w-40">
                                                             {b.order_title}
                                                         </div>
                                                     </td>
-                                                    <td className="h-11 px-4 text-right font-mono font-semibold text-gov-text tabular-nums">
+                                                    <td className="h-11 px-3 sm:px-4 text-right font-mono font-semibold text-gov-text tabular-nums">
                                                         {b.hours.toFixed(2)}h
                                                     </td>
-                                                    <td className="h-11 px-4 text-right font-mono text-gov-muted tabular-nums">
+                                                    <td className="h-11 px-3 sm:px-4 text-right font-mono text-gov-muted tabular-nums">
                                                         {(b.hours / 8).toFixed(
                                                             2,
                                                         )}{" "}
                                                         {t("common.pd")}
                                                     </td>
-                                                    <td className="h-11 px-4 max-w-xs text-gov-muted truncate">
+                                                    <td className="h-11 px-3 sm:px-4 max-w-xs text-gov-muted truncate">
                                                         {b.description}
                                                         {b.rejection_reason && (
                                                             <span className="block font-medium text-gov-critical-text">
@@ -462,7 +462,7 @@ export default function ConsultantDashboard({
                                                             </span>
                                                         )}
                                                     </td>
-                                                    <td className="h-11 px-4 text-right whitespace-nowrap">
+                                                    <td className="h-11 px-3 sm:px-4 text-right whitespace-nowrap">
                                                         <span
                                                             className={`rounded-sm px-2 py-0.5 text-[10px] font-semibold uppercase border ${
                                                                 b.status ===

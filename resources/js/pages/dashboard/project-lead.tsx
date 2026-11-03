@@ -115,13 +115,13 @@ export default function ProjectLeadDashboard({
     });
 
     return (
-        <div className="w-full space-y-8 bg-gov-canvas pb-16 font-sans">
+        <div className="w-full space-y-6 sm:space-y-8 bg-gov-canvas pb-16 font-sans">
             {/* Top Operational Bar */}
             <div className="border-b border-gov-border pb-5">
                 <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
                     <div>
                         <div className="flex items-center gap-2.5">
-                            <h1 className="font-semibold text-2xl tracking-tight text-gov-text">
+                            <h1 className="font-semibold text-xl sm:text-2xl tracking-tight text-gov-text">
                                 {t("lead.cockpitTitle")}
                             </h1>
                             <span className="rounded-sm border border-gov-border bg-gov-surface px-2 py-0.5 font-semibold text-[10px] uppercase text-gov-muted">
@@ -145,7 +145,7 @@ export default function ProjectLeadDashboard({
             {/* Advance Procurement Radar Banner */}
             {criticalOrders.length > 0 && (
                 <div className="rounded-lg border border-gov-warning-border bg-gov-warning-bg p-4 shadow-xs">
-                    <div className="flex items-start justify-between gap-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                         <div className="flex items-start gap-3">
                             <AlertTriangle className="h-5 w-5 shrink-0 text-gov-warning-text mt-0.5" />
                             <div>
@@ -160,7 +160,7 @@ export default function ProjectLeadDashboard({
 
                         <Link
                             href="/orders"
-                            className="shrink-0 inline-flex items-center gap-1.5 rounded-lg bg-gov-warning-text px-3.5 py-1.5 font-medium text-xs text-white hover:opacity-90 transition-opacity"
+                            className="shrink-0 w-full sm:w-auto justify-center inline-flex items-center gap-1.5 rounded-lg bg-gov-warning-text px-3.5 py-1.5 font-medium text-xs text-white hover:opacity-90 transition-opacity"
                         >
                             {t("common.viewDetails")} <ArrowRight className="h-3.5 w-3.5" />
                         </Link>
@@ -174,7 +174,7 @@ export default function ProjectLeadDashboard({
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
                         {t("lead.portfolioBudget")}
                     </span>
-                    <div className="mt-2 text-2xl font-semibold text-gov-text font-mono tabular-nums">
+                    <div className="mt-2 text-xl sm:text-2xl font-semibold text-gov-text font-mono tabular-nums">
                         {totalAllocated.toFixed(2)}{" "}
                         <span className="text-sm font-normal text-gov-muted">
                             {t("common.pd")}
@@ -191,7 +191,7 @@ export default function ProjectLeadDashboard({
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
                         {t("lead.consumedToDate")}
                     </span>
-                    <div className="mt-2 text-2xl font-semibold text-gov-text font-mono tabular-nums">
+                    <div className="mt-2 text-xl sm:text-2xl font-semibold text-gov-text font-mono tabular-nums">
                         {totalConsumed.toFixed(2)}{" "}
                         <span className="text-sm font-normal text-gov-muted">
                             {t("common.pd")}
@@ -211,7 +211,7 @@ export default function ProjectLeadDashboard({
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
                         {t("common.remaining")}
                     </span>
-                    <div className="mt-2 text-2xl font-semibold text-gov-text font-mono tabular-nums">
+                    <div className="mt-2 text-xl sm:text-2xl font-semibold text-gov-text font-mono tabular-nums">
                         {(totalAllocated - totalConsumed).toFixed(2)}{" "}
                         <span className="text-sm font-normal text-gov-muted">
                             {t("common.pd")}
@@ -226,7 +226,7 @@ export default function ProjectLeadDashboard({
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
                         {t("lead.pendingApprovalsCount")}
                     </span>
-                    <div className="mt-2 text-2xl font-semibold text-gov-warning-text font-mono tabular-nums">
+                    <div className="mt-2 text-xl sm:text-2xl font-semibold text-gov-warning-text font-mono tabular-nums">
                         {pendingBookings.length}{" "}
                         <span className="text-sm font-normal text-gov-muted">
                             {t("common.lineItems")}

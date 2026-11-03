@@ -69,14 +69,16 @@ export function AppSidebarHeader({
     }
 
     return (
-        <header className="flex h-14 shrink-0 items-center justify-between border-b border-gov-border bg-gov-surface px-4 md:px-6 transition-[width,height] ease-linear">
-            <div className="flex items-center gap-3">
-                <SidebarTrigger className="-ml-1 text-gov-muted hover:text-gov-text hover:bg-gov-surface-hover" />
-                <div className="h-4 w-px bg-gov-border" />
-                <Breadcrumbs breadcrumbs={computedBreadcrumbs} />
+        <header className="flex h-14 shrink-0 items-center justify-between border-b border-gov-border bg-gov-surface px-3 sm:px-4 md:px-6 transition-[width,height] ease-linear">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0 overflow-hidden">
+                <SidebarTrigger className="-ml-1 text-gov-muted hover:text-gov-text hover:bg-gov-surface-hover shrink-0" />
+                <div className="h-4 w-px bg-gov-border shrink-0" />
+                <div className="min-w-0 truncate text-xs sm:text-sm">
+                    <Breadcrumbs breadcrumbs={computedBreadcrumbs} />
+                </div>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
                 <LanguageSwitcher variant="segmented" />
             </div>
         </header>

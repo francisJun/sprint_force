@@ -32,15 +32,15 @@ export default function Welcome() {
 
             {/* Top Navigation - Streamlined to 4 core links */}
             <header className="sticky top-0 z-40 border-b border-gov-border bg-gov-surface/95 backdrop-blur-md">
-                <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
+                <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
                     <Link
                         href="/"
-                        className="flex items-center gap-2.5 transition-opacity hover:opacity-90"
+                        className="flex items-center gap-2 sm:gap-2.5 transition-opacity hover:opacity-90 min-w-0"
                     >
-                        <div className="flex size-8 items-center justify-center rounded-md bg-gov-primary text-white shadow-xs">
+                        <div className="flex size-8 shrink-0 items-center justify-center rounded-md bg-gov-primary text-white shadow-xs">
                             <AppLogoIcon className="size-5 text-white" />
                         </div>
-                        <span className="font-semibold text-lg tracking-tight text-gov-primary dark:text-gov-text">
+                        <span className="font-semibold text-base sm:text-lg tracking-tight text-gov-primary dark:text-gov-text truncate">
                             HourRadar
                         </span>
                     </Link>
@@ -72,21 +72,22 @@ export default function Welcome() {
                         </a>
                     </nav>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 sm:gap-3 shrink-0">
                         <LanguageSwitcher variant="segmented" />
 
                         {auth?.user ? (
                             <Link
                                 href={dashboard()}
-                                className="inline-flex h-9 items-center justify-center rounded-lg bg-gov-interactive px-4 text-sm font-medium text-white transition-colors hover:bg-gov-interactive-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gov-interactive cursor-pointer"
+                                className="inline-flex h-8.5 sm:h-9 items-center justify-center rounded-lg bg-gov-interactive px-3 sm:px-4 text-xs sm:text-sm font-medium text-white transition-colors hover:bg-gov-interactive-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gov-interactive cursor-pointer"
                             >
-                                {t("common.openWorkspace")}
-                                <ArrowRight className="ml-1.5 h-4 w-4" />
+                                <span className="hidden xs:inline">{t("common.openWorkspace")}</span>
+                                <span className="xs:hidden">{t("common.dashboard")}</span>
+                                <ArrowRight className="ml-1.5 h-3.5 w-3.5 sm:h-4 sm:w-4" />
                             </Link>
                         ) : (
                             <Link
                                 href={login()}
-                                className="inline-flex h-9 items-center justify-center rounded-lg bg-gov-interactive px-4 text-sm font-medium text-white transition-colors hover:bg-gov-interactive-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gov-interactive cursor-pointer"
+                                className="inline-flex h-8.5 sm:h-9 items-center justify-center rounded-lg bg-gov-interactive px-3 sm:px-4 text-xs sm:text-sm font-medium text-white transition-colors hover:bg-gov-interactive-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gov-interactive cursor-pointer"
                             >
                                 {t("common.signIn")}
                             </Link>
@@ -98,26 +99,26 @@ export default function Welcome() {
             {/* Main Content */}
             <main>
                 {/* Hero Section */}
-                <section className="relative border-b border-gov-border bg-gov-surface px-6 py-20 lg:px-8 lg:py-24">
+                <section className="relative border-b border-gov-border bg-gov-surface px-4 sm:px-6 py-12 sm:py-20 lg:px-8 lg:py-24">
                     <div className="mx-auto max-w-5xl text-center">
                         <div className="inline-flex items-center gap-2 rounded-sm border border-gov-border bg-gov-surface-hover px-3 py-1 text-xs font-semibold uppercase tracking-wider text-gov-muted">
                             <Scale className="h-3.5 w-3.5 text-gov-interactive" />
                             {t("landing.heroBadge")}
                         </div>
 
-                        <h1 className="mt-6 text-3xl font-semibold tracking-tight text-gov-text sm:text-5xl sm:leading-tight">
+                        <h1 className="mt-6 text-2xl xs:text-3xl font-semibold tracking-tight text-gov-text sm:text-5xl sm:leading-tight">
                             {t("landing.heroTitle")}
                         </h1>
 
-                        <p className="mx-auto mt-5 max-w-3xl text-base text-gov-muted sm:text-lg leading-relaxed">
+                        <p className="mx-auto mt-4 sm:mt-5 max-w-3xl text-sm sm:text-lg leading-relaxed text-gov-muted">
                             {t("landing.heroDescription")}
                         </p>
 
-                        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+                        <div className="mt-8 flex flex-col xs:flex-row items-center justify-center gap-3 sm:gap-4">
                             {auth?.user ? (
                                 <Link
                                     href={dashboard()}
-                                    className="inline-flex h-11 items-center justify-center rounded-lg bg-gov-interactive px-6 text-sm font-medium text-white transition-colors hover:bg-gov-interactive-hover cursor-pointer shadow-xs"
+                                    className="inline-flex h-11 w-full xs:w-auto items-center justify-center rounded-lg bg-gov-interactive px-6 text-sm font-medium text-white transition-colors hover:bg-gov-interactive-hover cursor-pointer shadow-xs"
                                 >
                                     {t("landing.openDashboard")}
                                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -125,7 +126,7 @@ export default function Welcome() {
                             ) : (
                                 <Link
                                     href={login()}
-                                    className="inline-flex h-11 items-center justify-center rounded-lg bg-gov-interactive px-6 text-sm font-medium text-white transition-colors hover:bg-gov-interactive-hover cursor-pointer shadow-xs"
+                                    className="inline-flex h-11 w-full xs:w-auto items-center justify-center rounded-lg bg-gov-interactive px-6 text-sm font-medium text-white transition-colors hover:bg-gov-interactive-hover cursor-pointer shadow-xs"
                                 >
                                     {t("landing.signInCTA")}
                                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -133,14 +134,14 @@ export default function Welcome() {
                             )}
                             <a
                                 href="#audit-telemetry"
-                                className="inline-flex h-11 items-center justify-center rounded-lg border border-gov-border bg-gov-surface px-6 text-sm font-medium text-gov-text transition-colors hover:bg-gov-surface-hover cursor-pointer"
+                                className="inline-flex h-11 w-full xs:w-auto items-center justify-center rounded-lg border border-gov-border bg-gov-surface px-6 text-sm font-medium text-gov-text transition-colors hover:bg-gov-surface-hover cursor-pointer"
                             >
                                 {t("landing.inspectAudit")}
                             </a>
                         </div>
 
                         {/* Enterprise Trust Guardrails */}
-                        <div className="mt-12 grid grid-cols-2 gap-3 text-left sm:grid-cols-4 pt-8 border-t border-gov-border/60">
+                        <div className="mt-10 sm:mt-12 grid grid-cols-1 min-[420px]:grid-cols-2 gap-3 text-left sm:grid-cols-4 pt-6 sm:pt-8 border-t border-gov-border/60">
                             <div className="flex items-center gap-2 text-xs text-gov-muted">
                                 <Scale className="h-4 w-4 text-gov-interactive shrink-0" />
                                 <span>{t("landing.heroTrustArbzg")}</span>
@@ -164,19 +165,19 @@ export default function Welcome() {
                 {/* Core Operational KPI & ROI Strip */}
                 <section
                     id="kpi-strip"
-                    className="scroll-mt-20 border-b border-gov-border bg-gov-canvas py-12"
+                    className="scroll-mt-20 border-b border-gov-border bg-gov-canvas py-8 sm:py-12"
                 >
-                    <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                             {/* Metric 1 */}
-                            <div className="rounded-lg border border-gov-border bg-gov-surface p-5 shadow-xs flex flex-col justify-between h-full">
+                            <div className="rounded-lg border border-gov-border bg-gov-surface p-4 sm:p-5 shadow-xs flex flex-col justify-between h-full">
                                 <div className="flex items-center justify-between gap-2 h-5">
                                     <span className="text-xs font-semibold uppercase tracking-wider text-gov-muted truncate">
                                         {t("landing.kpiPoAllocation")}
                                     </span>
                                     <Layers className="h-4 w-4 shrink-0 text-gov-muted" />
                                 </div>
-                                <div className="my-3 text-3xl font-semibold tracking-tight text-gov-text tabular-nums flex items-baseline gap-1.5">
+                                <div className="my-2.5 sm:my-3 text-2xl sm:text-3xl font-semibold tracking-tight text-gov-text tabular-nums flex items-baseline gap-1.5">
                                     <span>140.00</span>
                                     <span className="text-sm font-normal text-gov-muted">
                                         {t("common.pd")}
@@ -193,14 +194,14 @@ export default function Welcome() {
                             </div>
 
                             {/* Metric 2: Quantified Time Savings */}
-                            <div className="rounded-lg border border-gov-border bg-gov-surface p-5 shadow-xs flex flex-col justify-between h-full">
+                            <div className="rounded-lg border border-gov-border bg-gov-surface p-4 sm:p-5 shadow-xs flex flex-col justify-between h-full">
                                 <div className="flex items-center justify-between gap-2 h-5">
                                     <span className="text-xs font-semibold uppercase tracking-wider text-gov-muted truncate">
                                         {t("landing.kpiSavingsTitle")}
                                     </span>
                                     <Clock className="h-4 w-4 shrink-0 text-gov-muted" />
                                 </div>
-                                <div className="my-3 text-3xl font-semibold tracking-tight text-gov-text tabular-nums flex items-baseline gap-1.5">
+                                <div className="my-2.5 sm:my-3 text-2xl sm:text-3xl font-semibold tracking-tight text-gov-text tabular-nums flex items-baseline gap-1.5">
                                     <span>35</span>
                                     <span className="text-sm font-normal text-gov-muted">
                                         {t("landing.kpiSavingsUnit")}
@@ -217,14 +218,14 @@ export default function Welcome() {
                             </div>
 
                             {/* Metric 3 */}
-                            <div className="rounded-lg border border-gov-border bg-gov-surface p-5 shadow-xs flex flex-col justify-between h-full">
+                            <div className="rounded-lg border border-gov-border bg-gov-surface p-4 sm:p-5 shadow-xs flex flex-col justify-between h-full">
                                 <div className="flex items-center justify-between gap-2 h-5">
                                     <span className="text-xs font-semibold uppercase tracking-wider text-gov-muted truncate">
                                         {t("landing.kpiArbzgRate")}
                                     </span>
                                     <Shield className="h-4 w-4 shrink-0 text-gov-muted" />
                                 </div>
-                                <div className="my-3 text-3xl font-semibold tracking-tight text-gov-text tabular-nums flex items-baseline">
+                                <div className="my-2.5 sm:my-3 text-2xl sm:text-3xl font-semibold tracking-tight text-gov-text tabular-nums flex items-baseline">
                                     <span>100.0%</span>
                                 </div>
                                 <div className="flex items-center justify-between gap-2 text-xs pt-3 border-t border-gov-border/40 h-6">
@@ -238,14 +239,14 @@ export default function Welcome() {
                             </div>
 
                             {/* Metric 4 */}
-                            <div className="rounded-lg border border-gov-border bg-gov-surface p-5 shadow-xs flex flex-col justify-between h-full">
+                            <div className="rounded-lg border border-gov-border bg-gov-surface p-4 sm:p-5 shadow-xs flex flex-col justify-between h-full">
                                 <div className="flex items-center justify-between gap-2 h-5">
                                     <span className="text-xs font-semibold uppercase tracking-wider text-gov-muted truncate">
                                         {t("landing.kpiLeadTime")}
                                     </span>
                                     <AlertTriangle className="h-4 w-4 shrink-0 text-gov-muted" />
                                 </div>
-                                <div className="my-3 text-3xl font-semibold tracking-tight text-gov-text tabular-nums flex items-baseline gap-1.5">
+                                <div className="my-2.5 sm:my-3 text-2xl sm:text-3xl font-semibold tracking-tight text-gov-text tabular-nums flex items-baseline gap-1.5">
                                     <span>28</span>
                                     <span className="text-sm font-normal text-gov-muted">
                                         {t("common.days")}
@@ -267,9 +268,9 @@ export default function Welcome() {
                 {/* Bilateral Delivery: Two Sides of the Same Hour */}
                 <section
                     id="two-sides"
-                    className="scroll-mt-20 border-b border-gov-border bg-gov-surface py-16 lg:py-20"
+                    className="scroll-mt-20 border-b border-gov-border bg-gov-surface py-12 sm:py-16 lg:py-20"
                 >
-                    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="max-w-3xl">
                             <span className="text-xs font-semibold uppercase tracking-wider text-gov-interactive">
                                 {t("landing.twoSidesBadge")}
@@ -282,9 +283,9 @@ export default function Welcome() {
                             </p>
                         </div>
 
-                        <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2">
+                        <div className="mt-10 grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
                             {/* Service Provider Column */}
-                            <div className="rounded-lg border border-gov-border bg-gov-canvas p-6 shadow-xs">
+                            <div className="rounded-lg border border-gov-border bg-gov-canvas p-5 sm:p-6 shadow-xs">
                                 <div className="flex items-center gap-2.5 border-b border-gov-border pb-4">
                                     <Users className="h-5 w-5 text-gov-primary dark:text-gov-interactive" />
                                     <div>
@@ -335,7 +336,7 @@ export default function Welcome() {
                             </div>
 
                             {/* Client Company Column */}
-                            <div className="rounded-lg border border-gov-border bg-gov-canvas p-6 shadow-xs">
+                            <div className="rounded-lg border border-gov-border bg-gov-canvas p-5 sm:p-6 shadow-xs">
                                 <div className="flex items-center gap-2.5 border-b border-gov-border pb-4">
                                     <Shield className="h-5 w-5 text-gov-primary dark:text-gov-interactive" />
                                     <div>
@@ -403,9 +404,9 @@ export default function Welcome() {
                 {/* Core Capabilities - Asymmetrical Bento Grid */}
                 <section
                     id="capabilities"
-                    className="scroll-mt-20 border-b border-gov-border bg-gov-canvas py-16 lg:py-20"
+                    className="scroll-mt-20 border-b border-gov-border bg-gov-canvas py-12 sm:py-16 lg:py-20"
                 >
-                    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="max-w-3xl">
                             <span className="text-xs font-semibold uppercase tracking-wider text-gov-interactive">
                                 {t("landing.capBadge")}
@@ -421,7 +422,7 @@ export default function Welcome() {
                         {/* Bento Grid */}
                         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
                             {/* Card 1: Large Span (2 Cols) */}
-                            <div className="rounded-lg border border-gov-border bg-gov-surface p-6 shadow-xs md:col-span-2">
+                            <div className="rounded-lg border border-gov-border bg-gov-surface p-5 sm:p-6 shadow-xs md:col-span-2">
                                 <div className="flex items-center gap-2">
                                     <Calendar className="h-5 w-5 text-gov-interactive" />
                                     <h3 className="font-semibold text-lg text-gov-text">
@@ -483,7 +484,7 @@ export default function Welcome() {
                             </div>
 
                             {/* Card 2: ArbZG Compliance */}
-                            <div className="rounded-lg border border-gov-border bg-gov-surface p-6 shadow-xs">
+                            <div className="rounded-lg border border-gov-border bg-gov-surface p-5 sm:p-6 shadow-xs">
                                 <div className="flex items-center gap-2">
                                     <Scale className="h-5 w-5 text-gov-interactive" />
                                     <h3 className="font-semibold text-base text-gov-text">
@@ -499,7 +500,7 @@ export default function Welcome() {
                             </div>
 
                             {/* Card 3: 4-Week Re-Order Radar */}
-                            <div className="rounded-lg border border-gov-border bg-gov-surface p-6 shadow-xs">
+                            <div className="rounded-lg border border-gov-border bg-gov-surface p-5 sm:p-6 shadow-xs">
                                 <div className="flex items-center gap-2">
                                     <AlertTriangle className="h-5 w-5 text-gov-warning-text" />
                                     <h3 className="font-semibold text-base text-gov-text">
@@ -515,7 +516,7 @@ export default function Welcome() {
                             </div>
 
                             {/* Card 4: Wide Span (2 Cols) */}
-                            <div className="rounded-lg border border-gov-border bg-gov-surface p-6 shadow-xs md:col-span-2">
+                            <div className="rounded-lg border border-gov-border bg-gov-surface p-5 sm:p-6 shadow-xs md:col-span-2">
                                 <div className="flex items-center gap-2">
                                     <FileCheck2 className="h-5 w-5 text-gov-interactive" />
                                     <h3 className="font-semibold text-base text-gov-text">
@@ -544,9 +545,9 @@ export default function Welcome() {
                 {/* Enterprise Delivery & Order-Based Pricing Section */}
                 <section
                     id="pricing"
-                    className="scroll-mt-20 border-b border-gov-border bg-gov-surface py-16 lg:py-20"
+                    className="scroll-mt-20 border-b border-gov-border bg-gov-surface py-12 sm:py-16 lg:py-20"
                 >
-                    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="max-w-3xl">
                             <span className="text-xs font-semibold uppercase tracking-wider text-gov-interactive">
                                 {t("landing.pricingBadge")}
@@ -560,9 +561,9 @@ export default function Welcome() {
                         </div>
 
                         {/* Pricing Cards Grid */}
-                        <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
+                        <div className="mt-10 sm:mt-12 grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-3">
                             {/* Tier 1: Starter */}
-                            <div className="flex flex-col justify-between rounded-xl border border-gov-border bg-gov-canvas p-6 shadow-xs transition-shadow hover:shadow-md">
+                            <div className="flex flex-col justify-between rounded-xl border border-gov-border bg-gov-canvas p-5 sm:p-6 shadow-xs transition-shadow hover:shadow-md">
                                 <div>
                                     <div className="flex items-center justify-between">
                                         <h3 className="font-semibold text-base text-gov-text">
@@ -577,7 +578,7 @@ export default function Welcome() {
                                     </p>
 
                                     <div className="mt-6 flex items-baseline gap-1">
-                                        <span className="text-3xl font-bold tracking-tight text-gov-text">
+                                        <span className="text-2xl sm:text-3xl font-bold tracking-tight text-gov-text">
                                             {t("landing.planStarterPrice")}
                                         </span>
                                         <span className="text-xs text-gov-muted">
@@ -628,7 +629,7 @@ export default function Welcome() {
                             </div>
 
                             {/* Tier 2: Department (Highlighted) */}
-                            <div className="relative flex flex-col justify-between rounded-xl border-2 border-gov-interactive bg-gov-surface p-6 shadow-md">
+                            <div className="relative flex flex-col justify-between rounded-xl border-2 border-gov-interactive bg-gov-surface p-5 sm:p-6 shadow-md">
                                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gov-interactive px-3 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white shadow-xs">
                                     {t("landing.planDeptBadge")}
                                 </div>
@@ -647,7 +648,7 @@ export default function Welcome() {
                                     </p>
 
                                     <div className="mt-6 flex items-baseline gap-1">
-                                        <span className="text-3xl font-bold tracking-tight text-gov-text">
+                                        <span className="text-2xl sm:text-3xl font-bold tracking-tight text-gov-text">
                                             {t("landing.planDeptPrice")}
                                         </span>
                                         <span className="text-xs text-gov-muted">
@@ -696,7 +697,7 @@ export default function Welcome() {
                                 <div className="mt-8 pt-4">
                                     <Link
                                         href={login()}
-                                        className="inline-flex w-full h-10 items-center justify-center rounded-lg bg-gov-interactive text-xs font-semibold text-white transition-colors hover:bg-gov-interactive-hover shadow-xs"
+                                        className="inline-flex w-full h-10 items-center justify-center rounded-lg bg-gov-interactive text-xs font-semibold text-white transition-colors hover:bg-gov-interactive-hover shadow-xs cursor-pointer"
                                     >
                                         {t("landing.planDeptCta")}
                                     </Link>
@@ -704,7 +705,7 @@ export default function Welcome() {
                             </div>
 
                             {/* Tier 3: Enterprise Sovereign */}
-                            <div className="flex flex-col justify-between rounded-xl border border-gov-border bg-gov-canvas p-6 shadow-xs transition-shadow hover:shadow-md">
+                            <div className="flex flex-col justify-between rounded-xl border border-gov-border bg-gov-canvas p-5 sm:p-6 shadow-xs transition-shadow hover:shadow-md">
                                 <div>
                                     <div className="flex items-center justify-between">
                                         <h3 className="font-semibold text-base text-gov-text">
@@ -719,7 +720,7 @@ export default function Welcome() {
                                     </p>
 
                                     <div className="mt-6 flex items-baseline gap-1">
-                                        <span className="text-3xl font-bold tracking-tight text-gov-text">
+                                        <span className="text-2xl sm:text-3xl font-bold tracking-tight text-gov-text">
                                             {t("landing.planEntPrice")}
                                         </span>
                                         <span className="text-xs text-gov-muted">
@@ -768,7 +769,7 @@ export default function Welcome() {
                                 <div className="mt-8 pt-4">
                                     <Link
                                         href={login()}
-                                        className="inline-flex w-full h-10 items-center justify-center rounded-lg border border-gov-border bg-gov-surface text-xs font-semibold text-gov-text transition-colors hover:bg-gov-surface-hover"
+                                        className="inline-flex w-full h-10 items-center justify-center rounded-lg border border-gov-border bg-gov-surface text-xs font-semibold text-gov-text transition-colors hover:bg-gov-surface-hover cursor-pointer"
                                     >
                                         {t("landing.planEntCta")}
                                     </Link>
@@ -777,7 +778,7 @@ export default function Welcome() {
                         </div>
 
                         {/* Order-Based Philosophy Callout Banner */}
-                        <div className="mt-12 rounded-xl border border-gov-border bg-gov-surface p-6 shadow-xs">
+                        <div className="mt-10 sm:mt-12 rounded-xl border border-gov-border bg-gov-surface p-5 sm:p-6 shadow-xs">
                             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
                                 <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-gov-interactive/10 text-gov-interactive">
                                     <Info className="size-5" />
@@ -798,9 +799,9 @@ export default function Welcome() {
                 {/* Enterprise Security, Deployment & Data Sovereignty Section */}
                 <section
                     id="security"
-                    className="scroll-mt-20 border-b border-gov-border bg-gov-canvas py-16 lg:py-20"
+                    className="scroll-mt-20 border-b border-gov-border bg-gov-canvas py-12 sm:py-16 lg:py-20"
                 >
-                    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="max-w-3xl">
                             <span className="text-xs font-semibold uppercase tracking-wider text-gov-interactive">
                                 {t("landing.securityBadge")}
@@ -814,9 +815,9 @@ export default function Welcome() {
                         </div>
 
                         {/* 4 Pillars Grid */}
-                        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                        <div className="mt-10 sm:mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
                             {/* Pillar 1 */}
-                            <div className="rounded-xl border border-gov-border bg-gov-surface p-6 shadow-xs flex flex-col h-full">
+                            <div className="rounded-xl border border-gov-border bg-gov-surface p-5 sm:p-6 shadow-xs flex flex-col h-full">
                                 <div className="flex size-10 items-center justify-center rounded-lg bg-gov-surface-hover text-gov-interactive">
                                     <Building2 className="size-5" />
                                 </div>
@@ -829,7 +830,7 @@ export default function Welcome() {
                             </div>
 
                             {/* Pillar 2 */}
-                            <div className="rounded-xl border border-gov-border bg-gov-surface p-6 shadow-xs flex flex-col h-full">
+                            <div className="rounded-xl border border-gov-border bg-gov-surface p-5 sm:p-6 shadow-xs flex flex-col h-full">
                                 <div className="flex size-10 items-center justify-center rounded-lg bg-gov-surface-hover text-gov-interactive">
                                     <Server className="size-5" />
                                 </div>
@@ -842,7 +843,7 @@ export default function Welcome() {
                             </div>
 
                             {/* Pillar 3 */}
-                            <div className="rounded-xl border border-gov-border bg-gov-surface p-6 shadow-xs flex flex-col h-full">
+                            <div className="rounded-xl border border-gov-border bg-gov-surface p-5 sm:p-6 shadow-xs flex flex-col h-full">
                                 <div className="flex size-10 items-center justify-center rounded-lg bg-gov-surface-hover text-gov-interactive">
                                     <KeyRound className="size-5" />
                                 </div>
@@ -855,7 +856,7 @@ export default function Welcome() {
                             </div>
 
                             {/* Pillar 4 */}
-                            <div className="rounded-xl border border-gov-border bg-gov-surface p-6 shadow-xs flex flex-col h-full">
+                            <div className="rounded-xl border border-gov-border bg-gov-surface p-5 sm:p-6 shadow-xs flex flex-col h-full">
                                 <div className="flex size-10 items-center justify-center rounded-lg bg-gov-surface-hover text-gov-interactive">
                                     <Zap className="size-5" />
                                 </div>
@@ -873,9 +874,9 @@ export default function Welcome() {
                 {/* Operational Telemetry Audit Section */}
                 <section
                     id="audit-telemetry"
-                    className="scroll-mt-20 border-b border-gov-border bg-gov-surface py-16 lg:py-20"
+                    className="scroll-mt-20 border-b border-gov-border bg-gov-surface py-12 sm:py-16 lg:py-20"
                 >
-                    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
                             <div>
                                 <span className="text-xs font-semibold uppercase tracking-wider text-gov-interactive">
@@ -888,7 +889,7 @@ export default function Welcome() {
                                     {t("landing.telemetrySubtitle")}
                                 </p>
                             </div>
-                            <span className="rounded-sm border border-gov-border bg-gov-surface-hover px-3 py-1 font-mono text-xs text-gov-muted">
+                            <span className="rounded-sm border border-gov-border bg-gov-surface-hover px-3 py-1 font-mono text-xs text-gov-muted self-start sm:self-auto">
                                 {t("landing.telemetryAuditStamp")}{" "}
                                 {new Date().toISOString().split("T")[0]}
                             </span>
@@ -900,68 +901,68 @@ export default function Welcome() {
                                 <table className="w-full text-left text-xs">
                                     <thead className="border-b border-gov-border bg-gov-surface-hover text-[11px] font-semibold uppercase tracking-wider text-gov-muted">
                                         <tr>
-                                            <th className="h-9 px-4">
+                                            <th className="h-9 px-4 whitespace-nowrap">
                                                 {t(
                                                     "landing.telemetryThOrderId",
                                                 )}
                                             </th>
-                                            <th className="h-9 px-4">
+                                            <th className="h-9 px-4 whitespace-nowrap">
                                                 {t(
                                                     "landing.telemetryThProject",
                                                 )}
                                             </th>
-                                            <th className="h-9 px-4">
+                                            <th className="h-9 px-4 whitespace-nowrap">
                                                 {t(
                                                     "landing.telemetryThProvider",
                                                 )}
                                             </th>
-                                            <th className="h-9 px-4 text-right">
+                                            <th className="h-9 px-4 text-right whitespace-nowrap">
                                                 {t("landing.telemetryThBudget")}
                                             </th>
-                                            <th className="h-9 px-4 text-right">
+                                            <th className="h-9 px-4 text-right whitespace-nowrap">
                                                 {t(
                                                     "landing.telemetryThApproved",
                                                 )}
                                             </th>
-                                            <th className="h-9 px-4 text-right">
+                                            <th className="h-9 px-4 text-right whitespace-nowrap">
                                                 {t(
                                                     "landing.telemetryThBurnPace",
                                                 )}
                                             </th>
-                                            <th className="h-9 px-4">
+                                            <th className="h-9 px-4 whitespace-nowrap">
                                                 {t(
                                                     "landing.telemetryThProjected",
                                                 )}
                                             </th>
-                                            <th className="h-9 px-4 text-right">
+                                            <th className="h-9 px-4 text-right whitespace-nowrap">
                                                 {t("landing.telemetryThStatus")}
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-gov-border">
                                         <tr className="transition-colors hover:bg-gov-surface-hover">
-                                            <td className="h-11 px-4 font-mono font-medium text-gov-text">
+                                            <td className="h-11 px-4 font-mono font-medium text-gov-text whitespace-nowrap">
                                                 PO-4500012345
                                             </td>
-                                            <td className="h-11 px-4 font-medium text-gov-text">
+                                            <td className="h-11 px-4 font-medium text-gov-text whitespace-nowrap">
                                                 {t("landing.telemetryProject1")}
                                             </td>
-                                            <td className="h-11 px-4 text-gov-muted">
+                                            <td className="h-11 px-4 text-gov-muted whitespace-nowrap">
                                                 Acme Consulting GmbH
                                             </td>
-                                            <td className="h-11 px-4 text-right font-mono font-medium text-gov-text tabular-nums">
+                                            <td className="h-11 px-4 text-right font-mono font-medium text-gov-text tabular-nums whitespace-nowrap">
                                                 140.00
                                             </td>
-                                            <td className="h-11 px-4 text-right font-mono font-medium text-gov-text tabular-nums">
+                                            <td className="h-11 px-4 text-right font-mono font-medium text-gov-text tabular-nums whitespace-nowrap">
                                                 84.00
                                             </td>
-                                            <td className="h-11 px-4 text-right font-mono text-gov-muted tabular-nums">
+                                            <td className="h-11 px-4 text-right font-mono text-gov-muted tabular-nums whitespace-nowrap">
                                                 6.0 {t("common.pd")}/wk
                                             </td>
-                                            <td className="h-11 px-4 font-mono text-gov-text tabular-nums">
+                                            <td className="h-11 px-4 font-mono text-gov-text tabular-nums whitespace-nowrap">
                                                 2026-12-18 (W51)
                                             </td>
-                                            <td className="h-11 px-4 text-right">
+                                            <td className="h-11 px-4 text-right whitespace-nowrap">
                                                 <span className="rounded-sm border border-gov-warning-border bg-gov-warning-bg px-2 py-0.5 font-semibold text-[10px] uppercase text-gov-warning-text">
                                                     {t(
                                                         "landing.telemetryStatusReorder",
@@ -970,28 +971,28 @@ export default function Welcome() {
                                             </td>
                                         </tr>
                                         <tr className="transition-colors hover:bg-gov-surface-hover">
-                                            <td className="h-11 px-4 font-mono font-medium text-gov-text">
+                                            <td className="h-11 px-4 font-mono font-medium text-gov-text whitespace-nowrap">
                                                 PO-4500012890
                                             </td>
-                                            <td className="h-11 px-4 font-medium text-gov-text">
+                                            <td className="h-11 px-4 font-medium text-gov-text whitespace-nowrap">
                                                 {t("landing.telemetryProject2")}
                                             </td>
-                                            <td className="h-11 px-4 text-gov-muted">
+                                            <td className="h-11 px-4 text-gov-muted whitespace-nowrap">
                                                 Systec Solutions AG
                                             </td>
-                                            <td className="h-11 px-4 text-right font-mono font-medium text-gov-text tabular-nums">
+                                            <td className="h-11 px-4 text-right font-mono font-medium text-gov-text tabular-nums whitespace-nowrap">
                                                 90.00
                                             </td>
-                                            <td className="h-11 px-4 text-right font-mono font-medium text-gov-text tabular-nums">
+                                            <td className="h-11 px-4 text-right font-mono font-medium text-gov-text tabular-nums whitespace-nowrap">
                                                 22.50
                                             </td>
-                                            <td className="h-11 px-4 text-right font-mono text-gov-muted tabular-nums">
+                                            <td className="h-11 px-4 text-right font-mono text-gov-muted tabular-nums whitespace-nowrap">
                                                 4.5 {t("common.pd")}/wk
                                             </td>
-                                            <td className="h-11 px-4 font-mono text-gov-text tabular-nums">
+                                            <td className="h-11 px-4 font-mono text-gov-text tabular-nums whitespace-nowrap">
                                                 2027-03-05 (W09)
                                             </td>
-                                            <td className="h-11 px-4 text-right">
+                                            <td className="h-11 px-4 text-right whitespace-nowrap">
                                                 <span className="rounded-sm border border-gov-success-border bg-gov-success-bg px-2 py-0.5 font-semibold text-[10px] uppercase text-gov-success-text">
                                                     {t(
                                                         "landing.telemetryStatusNominal",
@@ -1008,9 +1009,9 @@ export default function Welcome() {
             </main>
 
             {/* Enterprise Institutional Footer */}
-            <footer className="border-t border-gov-border bg-gov-canvas py-12 text-xs text-gov-muted">
-                <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+            <footer className="border-t border-gov-border bg-gov-canvas py-10 sm:py-12 text-xs text-gov-muted">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
                         <div className="space-y-3">
                             <span className="font-semibold text-sm tracking-tight text-gov-text">
                                 HourRadar
@@ -1054,9 +1055,9 @@ export default function Welcome() {
                         </div>
                     </div>
 
-                    <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-gov-border pt-6 text-[11px] text-gov-muted sm:flex-row">
+                    <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-gov-border pt-6 text-[11px] text-gov-muted sm:flex-row text-center sm:text-left">
                         <div>{t("landing.footerCopy")}</div>
-                        <div className="flex gap-6">
+                        <div className="flex flex-wrap justify-center sm:justify-start gap-4 sm:gap-6">
                             <span>{t("landing.footerTag1")}</span>
                             <span>{t("landing.footerTag2")}</span>
                             <span>{t("landing.footerTag3")}</span>

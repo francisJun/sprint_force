@@ -46,27 +46,51 @@ composer install
 npm install
 ```
 
+> [!TIP]
+> **Windows PowerShell Users (`Script Execution Policy` Error):**  
+> If PowerShell blocks running `npm` or npm scripts with an error such as:  
+> `File ...\npm.ps1 cannot be loaded because running scripts is disabled on this system` (or `PSSecurityException`),  
+> allow script execution for your current terminal session by running:
+> ```powershell
+> Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned -Force
+> ```
+> *(Alternatively, execute commands in Windows Command Prompt (`cmd.exe`) or Git Bash, which do not enforce PowerShell script execution policies).*
+
 ### Step 3: Configure Environment
 
 ```bash
-# Copy example environment configuration
+# Copy example environment configuration (macOS/Linux/PowerShell)
 cp .env.example .env
 
 # Generate unique application encryption key
 php artisan key:generate
 ```
 
+*(Windows Command Prompt (`cmd.exe`) users can use `copy .env.example .env`).*
+
 > **Safe Defaults:** `.env.example` comes pre-configured with safe local defaults: SQLite database, mock AI mode enabled (`AI_MOCK=true`, `AI_PROVIDER=mock`), and local cache/session drivers. No paid third-party API keys or accounts are required.
 
 ### Step 4: Initialize SQLite Database & Seed Demo Data
 
-```bash
-# Create SQLite database file to avoid interactive terminal prompts
-touch database/database.sqlite
+Laravel automatically creates the SQLite database file if it does not exist yet. Run migrations and seeders directly:
 
+```bash
 # Run all schema migrations and seed demo users, suppliers, orders, and bookings
 php artisan migrate:fresh --seed
 ```
+
+*(When prompted `The SQLite database does not exist: database/database.sqlite. Would you like to create it?`, press **Enter** / type `yes`).*
+
+> [!NOTE]
+> **Pre-creating `database/database.sqlite` (Optional / Non-interactive):**  
+> If you prefer to pre-create the SQLite file to bypass any terminal prompt, you can use any of the following:
+> - **Cross-Platform / Platform-Independent (PHP):**
+>   ```bash
+>   php -r "file_exists('database/database.sqlite') || touch('database/database.sqlite');"
+>   ```
+> - **macOS / Linux / Git Bash:** `touch database/database.sqlite`
+> - **Windows PowerShell:** `New-Item -ItemType File -Path database\database.sqlite -Force`
+> - **Windows CMD:** `type nul > database\database.sqlite`
 
 This automatically seeds the 4 role-based demo accounts, vendor partners, active purchase orders, vacation calendars, and initial time bookings. Data survives restarts.
 
@@ -108,16 +132,16 @@ Open your browser at: **[http://localhost:8000](http://localhost:8000)**
 
 ---
 
-### Option C: With Laravel Herd (macOS)
+### Option C: With Laravel Herd (macOS & Windows)
 
-If you use Laravel Herd:
+If you use [Laravel Herd](https://herd.laravel.com) (available on macOS and Windows):
 
 ```bash
 # Start frontend asset compilation
 npm run dev
 ```
 
-Herd automatically links the directory. Open your browser at: **[http://hourradar.test](http://hourradar.test)** (or `http://sprint-force.test`).
+Herd automatically manages PHP, local web server routing, and links the directory. Open your browser at: **[http://hourradar.test](http://hourradar.test)** (or `http://sprint-force.test`).
 
 ---
 
