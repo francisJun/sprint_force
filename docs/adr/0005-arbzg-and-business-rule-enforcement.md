@@ -9,11 +9,13 @@
 In external consulting delivery, companies face severe legal, financial, and compliance liabilities under German statutory labor law—specifically the German Working Time Act (*Arbeitszeitgesetz*, ArbZG)—as well as contractually binding purchase order budget limits. Violations of ArbZG can result in regulatory fines of up to €30,000 per infraction (ArbZG § 22) and create severe co-employment liability risks under the German Temporary Employment Act (*Arbeitnehmerüberlassungsgesetz*, AÜG).
 
 To ensure rock-solid compliance, business rules must satisfy three architectural principles:
+
 1. **Domain-Driven Encapsulation**: Rules must reside in dedicated domain rule classes within the domain boundary (`app/Domain/`), not scattered across UI components, blade templates, or HTTP transport controllers.
 2. **Server-Side Enforcement**: All validation must execute authoritatively on the server, returning unambiguous, human-readable domain feedback.
 3. **Comprehensive Automated Verification**: Every business rule must have dedicated automated unit tests verifying accepted, rejected, and boundary edge conditions.
 
 The core statutory and operational constraints include:
+
 - **Order Free Budget**: Bookings cannot exceed the remaining free person-days ($PD = \text{hours} / 8.0$) of a purchase order.
 - **Interval Collision**: A single consultant cannot be double-booked across overlapping time windows on the same calendar day.
 - **ArbZG § 3 (Daily Ceiling & 8h Notice)**: Absolute statutory prohibition of working more than 10.0 hours per calendar day; statutory notice and tracking of compensatory rest required within 6 months when exceeding 8.0 hours.
