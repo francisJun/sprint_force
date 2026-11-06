@@ -54,4 +54,3 @@ Working code (targeting up to 10 technical points).
 - **Testing**: Pest PHP (`php artisan test`)
 - **API Docs**: Dedoc Scramble (automated OpenAPI / Swagger)
 - **AI / Chatbot**: Laravel AI SDK / Streaming SSE with local mock fallback (`AI_MOCK=true`)
-- **ADR**: [docs/adr/0001-laravel-inertia-react-stack.md](adr/0001-laravel-inertia-react-stack.md)
